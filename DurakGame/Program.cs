@@ -10,6 +10,8 @@ namespace DurakGame
     {
         static void Main(string[] args)
         {
+
+            String test = "test";
         }
     }
 }
