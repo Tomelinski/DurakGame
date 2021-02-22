@@ -10,7 +10,9 @@ namespace DurakGame
     {
         static void Main(string[] args)
         {
-            testc test
+            Console.WriteLine("Hello World!!!");
+            Console.ReadKey();
+            testc test;
         }
     }
 }
