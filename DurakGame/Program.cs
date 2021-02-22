@@ -14,7 +14,9 @@ namespace DurakGame
 
             Console.WriteLine(test);
             Console.ReadKey();
-            testc test;
+            
+
+            //Menu Test
         }
     }
 }
