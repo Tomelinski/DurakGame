@@ -10,6 +10,7 @@ namespace DurakGame
     {
         static void Main(string[] args)
         {
+            testc test
         }
     }
 }
