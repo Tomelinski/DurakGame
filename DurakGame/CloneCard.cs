@@ -4,9 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+/// <summary>
+/// CloneCard Class taken from Chapter 12 Card Lib in Textbook
+/// </summary>
+
 namespace DurakGame
 {
-   public class Cards : List<Card>, ICloneable
+   public class CLoneCards : List<Card>, ICloneable
    {
       /// <summary>
       /// Utility method for copying card instances into another Cards
