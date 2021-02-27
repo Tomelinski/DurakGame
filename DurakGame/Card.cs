@@ -31,7 +31,7 @@ namespace DurakGame
         /// </summary>
         public static bool isAceHigh = true;
 
-        private Card()
+        public Card()
         {
         }
         //  Parameter Constructor
