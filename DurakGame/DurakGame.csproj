@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="CardsLibrary\Card.cs" />
     <Compile Include="CardsLibrary\Cards.cs" />
+    <Compile Include="CardsLibrary\CloneCard.cs" />
     <Compile Include="CardsLibrary\Deck.cs" />
     <Compile Include="CardsLibrary\Rank.cs" />
     <Compile Include="CardsLibrary\Suit.cs" />
