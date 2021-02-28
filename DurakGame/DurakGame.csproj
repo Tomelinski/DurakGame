@@ -43,10 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-	  <Compile Include="DurakGame.cs" />
-	  <Compile Include="GUI.cs" />
-	  <Compile Include="Cards.cs" />
-	  <Compile Include="Program.cs" />
+    <Compile Include="CardsLibrary\Card.cs" />
+    <Compile Include="CardsLibrary\Cards.cs" />
+    <Compile Include="CardsLibrary\Deck.cs" />
+    <Compile Include="CardsLibrary\Rank.cs" />
+    <Compile Include="CardsLibrary\Suit.cs" />
+    <Compile Include="DurakGame.cs" />
+    <Compile Include="GUI.cs" />
+    <Compile Include="PlayerLibrary\Player.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
