@@ -1,4 +1,14 @@
-﻿using System;
+﻿/* Program.cs - 
+ *         
+ * Author(s): Aadithkeshev Anushayamunaithuraivan,
+ *            Menushan Karunakaran,
+ *            Calvin May,
+ *            Tom Zielinski
+ *            
+ * Date: 02/27/2021
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,7 +64,16 @@ namespace DurakGame
                 count++;
             }
 
-            Console.WriteLine("\nNumber of Cards in Hand: {0}", testPlayer.CardCount);
+/*
+            Deck testDeckTwo = new Deck();
+
+            Card outofRangeCard = testDeckTwo.GetCard(35);
+            Console.WriteLine("Card: {0}", outofRangeCard);
+
+            Card newCardTwo = testDeckTwo.DrawNextCard();
+            outofRangeCard = testDeckTwo.GetCard(34);
+            Console.WriteLine("\nCard: {0}", outofRangeCard);
+*/
 
             Console.ReadKey();
         }

@@ -1,10 +1,12 @@
 ﻿/* Card.cs - This file contains the Card class. Cards will be contained within
  *         a deck class. Each card is given a suit and a rank.
  * 
- * Author(s): Beginning C# 7 Programming with Visual Studio 2017
- *            Calvin May
+ * Author(s): Aadithkeshev Anushayamunaithuraivan,
+ *            Menushan Karunakaran,
+ *            Calvin May,
+ *            Tom Zielinski
  *            
- * Date: 1/24/2021 | Last-Modified: 02/21/2021
+ * Date: 02/25/2021
  * 
  * 
  */

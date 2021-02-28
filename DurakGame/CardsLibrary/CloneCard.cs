@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 /// CloneCard Class taken from Chapter 12 Card Lib in Textbook
 /// </summary>
 
-namespace DurakGame
+namespace CardLibrary
 {
    public class CLoneCards : List<Card>, ICloneable
    {

@@ -1,10 +1,12 @@
 ﻿/* Deck.cs - This file contains the Deck class. The Deck class is a container
  *         class which will contain a 52 standard deck of cards.
  * 
- * Author(s): Beginning C# 7 Programming with Visual Studio 2017
- *            Calvin May
+ * Author(s): Aadithkeshev Anushayamunaithuraivan,
+ *            Menushan Karunakaran,
+ *            Calvin May,
+ *            Tom Zielinski
  *            
- * Date: 1/24/2021 | Last-Modified: 02/21/2021
+ * Date: 02/25/2021
  * 
  * 
  */
@@ -28,10 +30,17 @@ namespace CardLibrary
             {
                 for (int rankVal = 1; rankVal < 14; rankVal++)
                 {
-                    cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    if (rankVal < 2 || rankVal > 5)
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                 }
             }
         }
+
+/*        public Deck(int deckSize)
+        {
+            // Different Deck sizes go here.
+        }
+*/
 
         // Paramaterized Constructor. Allows aces to be set high.
         public Deck(bool isAceHigh) : this()
@@ -56,24 +65,24 @@ namespace CardLibrary
 
         public Card GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= 51)
+            if (cardNum >= 0 && cardNum <= (cards.Count() - 1))
                 return cards[cardNum];
             else
                 throw (new System.ArgumentOutOfRangeException("cardNum", cardNum,
-                "Value must be between 0 and 51."));
+                "Value must be between 0 and " + (cards.Count()) +  "."));
         }
         public void Shuffle()
         {
             Cards newDeck = new Cards();
-            bool[] assigned = new bool[52];
+            bool[] assigned = new bool[cards.Count()];
             Random sourceGen = new Random();
-            for (int i = 0; i < 52; i++)
+            for (int i = 0; i < cards.Count(); i++)
             {
                 int sourceCard = 0;
                 bool foundCard = false;
                 while (foundCard == false)
                 {
-                    sourceCard = sourceGen.Next(52);
+                    sourceCard = sourceGen.Next(cards.Count());
                     if (assigned[sourceCard] == false)
                         foundCard = true;
                 }
