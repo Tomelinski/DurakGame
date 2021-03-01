@@ -43,7 +43,7 @@ namespace CardLibrary
         }
 
         // An override ToString method to print a card 
-        public override string ToString() => "The " + rank + " of " + suit + ". ";
+        public override string ToString() => "The " + rank + " of " + suit + " ";
 
         // This is the Clone Method, 
         //-Note that it returns a copy of a Card Object

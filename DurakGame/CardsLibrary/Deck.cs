@@ -77,7 +77,7 @@ namespace CardLibrary
 
         public Card GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= (cards.Count()))
+            if (cardNum >= 0 && cardNum <= (cards.Count() - 1))
                 return cards[cardNum];
             else
                 throw (new System.ArgumentOutOfRangeException("cardNum", cardNum,

@@ -107,19 +107,19 @@ namespace PlayerLibrary
 
         public Card PlayCard(int handIndex)
         {
-            Card chosenCard;
+            //retrieve card from player hand
+            Card chosenCard = getCard(handIndex);
 
-            chosenCard = this.playerHand[handIndex];
-
-            // NOTE //
-            // These two lines may need to be removed from here once we program
-            //-game logic. Ex/ What if a player attemtps to play an illegal card
-            //-(Defender attemtps to play a card that doesnt match the suit/rank of any
-            //-attacking cards)
+            //remove card from player hand
             playerHand.RemoveAt(handIndex);
             playerCardCount--;
 
             return chosenCard;
+        }
+
+        public Card getCard(int handIndex)
+        {
+            return this.playerHand[handIndex];
         }
 
     }

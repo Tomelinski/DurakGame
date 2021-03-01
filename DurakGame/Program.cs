@@ -15,15 +15,56 @@ using System.Text;
 using System.Threading.Tasks;
 using CardLibrary;
 using PlayerLibrary;
+using DurakGame;
 
 namespace DurakGame
 {
+
+
     class Program
     {
+        public static Card TrumpSuit { get; private set; }
 
-        static public void gameLogic()
+        static int checkInput(Player player)
         {
+            int userInput;
+            //prompt player to play a card
+            Console.Write("Play a card(use Index value):");
+            if (!int.TryParse(Console.ReadLine(), out userInput))
+                return checkInput(player);
 
+            if (player.IsAttacking)
+            {
+                DurakGame.attackCard = player.getCard(userInput - 1);
+            }
+            else
+            {
+                if (player.getCard(userInput - 1).suit != DurakGame.attackCard.suit && player.getCard(userInput - 1).suit != TrumpSuit.suit)
+                {
+                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.getCard(userInput - 1), DurakGame.attackCard.suit);
+                    return checkInput(player);
+                }
+                else if (player.getCard(userInput - 1) <= DurakGame.attackCard)
+                {
+                    Console.WriteLine("{0} is no strong enough, please play a card higher then {1}", player.getCard(userInput - 1), DurakGame.attackCard);
+                    return checkInput(player);
+                }
+                else
+                {
+                    Console.WriteLine("{0} vs {1}", player.getCard(userInput - 1), DurakGame.attackCard);
+
+                }
+
+            }
+            return userInput;
+        }
+
+        static public void gameLogic(int currentPlayer, Player player, ref Card[] playedCards)
+        {
+            int playedCard = checkInput(player);
+
+            playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
+            Console.WriteLine();
         }
 
         static void Main(string[] args)
@@ -35,11 +76,10 @@ namespace DurakGame
             Deck gameDeck = new Deck();
             gameDeck.Shuffle();
 
-            Card trumpSuit = gameDeck.DrawNextCard();
+            TrumpSuit = gameDeck.DrawNextCard();
 
             //create a new deck with a trump suit
-            gameDeck = new Deck(true, trumpSuit.suit);
-            //gameDeck.GetCard();
+            gameDeck = new Deck(true, TrumpSuit.suit);
             gameDeck.Shuffle();
 
             //fill each players hand
@@ -48,17 +88,17 @@ namespace DurakGame
                 player.FillHand(gameDeck);
             }
             int count = 1;
-            int counter = 0;
             do
             {
+                Card[] playedCards = new Card[2];
+
                 //display the trump suit
-                Console.WriteLine("Trump Suit: {0}", trumpSuit.suit);
+                Console.WriteLine("Trump Suit: {0}", TrumpSuit.suit);
 
                 //reset counter 
                 int cardCounter = 0;
                 //reset played cards after each turn
-                Card[] playedCards = new Card[2];
-                counter++;
+                
                 //display player info, cards in hand and allow player to play a card
                 foreach (Player player in players)
                 {
@@ -71,17 +111,13 @@ namespace DurakGame
                         count++;
                     }
 
-                    //prompt player to play a card
-                    Console.Write("Play a card(use Index value):");
-                    int playedCard = int.Parse(Console.ReadLine());
-                    playedCards[cardCounter] = player.PlayCard(playedCard-1);
-                    cardCounter++;
-                    Console.WriteLine();
 
                     //game logic function, soon to be converted to a class
-                    gameLogic();
+                    gameLogic(cardCounter, player, ref playedCards);
+                    cardCounter++;
                 }
 
+                
                 //display cards both players have played
                 cardCounter = 0;
                 foreach (Player player in players)
@@ -89,6 +125,7 @@ namespace DurakGame
                     Console.WriteLine("{0} played: {1}\n", player.Name, playedCards[cardCounter]);
                     cardCounter++;
                 }
+                
 
                 //after each turn fill each players hand
                 foreach (Player player in players)
