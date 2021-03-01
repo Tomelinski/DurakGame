@@ -22,6 +22,16 @@ namespace CardLibrary
        
         private Cards cards = new Cards();
 
+        public bool hasCards()
+        {
+            if (this.cards.Count() > 0)
+                return true;
+
+            return false;
+            
+        }
+
+
         // Default Constructor
         public Deck()
         {
@@ -34,6 +44,8 @@ namespace CardLibrary
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                 }
             }
+
+
         }
 
 /*        public Deck(int deckSize)
@@ -65,7 +77,7 @@ namespace CardLibrary
 
         public Card GetCard(int cardNum)
         {
-            if (cardNum >= 0 && cardNum <= (cards.Count() - 1))
+            if (cardNum >= 0 && cardNum <= (cards.Count()))
                 return cards[cardNum];
             else
                 throw (new System.ArgumentOutOfRangeException("cardNum", cardNum,
