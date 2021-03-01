@@ -23,7 +23,7 @@ namespace DurakGame
 
     class Program
     {
-        public static Card TrumpSuit { get; private set; }
+        
 
         static int checkInput(Player player)
         {
@@ -39,7 +39,7 @@ namespace DurakGame
             }
             else
             {
-                if (player.getCard(userInput - 1).suit != DurakGame.attackCard.suit && player.getCard(userInput - 1).suit != TrumpSuit.suit)
+                if (player.getCard(userInput - 1).suit != DurakGame.attackCard.suit && player.getCard(userInput - 1).suit != DurakGame.TrumpSuit.suit)
                 {
                     Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.getCard(userInput - 1), DurakGame.attackCard.suit);
                     return checkInput(player);
@@ -76,10 +76,10 @@ namespace DurakGame
             Deck gameDeck = new Deck();
             gameDeck.Shuffle();
 
-            TrumpSuit = gameDeck.DrawNextCard();
+            DurakGame.TrumpSuit = gameDeck.DrawNextCard();
 
             //create a new deck with a trump suit
-            gameDeck = new Deck(true, TrumpSuit.suit);
+            gameDeck = new Deck(true, DurakGame.TrumpSuit.suit);
             gameDeck.Shuffle();
 
             //fill each players hand
@@ -93,7 +93,7 @@ namespace DurakGame
                 Card[] playedCards = new Card[2];
 
                 //display the trump suit
-                Console.WriteLine("Trump Suit: {0}", TrumpSuit.suit);
+                Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpSuit.suit);
 
                 //reset counter 
                 int cardCounter = 0;
