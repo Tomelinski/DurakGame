@@ -11,7 +11,7 @@ namespace DurakGame
     class DurakGame
     {
         public static Card TrumpSuit { get; set; }
-        public static Card attackCard { get; set; }
+        public static Card AttackCard { get; set; }
         //public static Card defendCard;
 
     }

@@ -27,42 +27,58 @@ namespace DurakGame
 
         static int checkInput(Player player)
         {
-            int userInput;
-            //prompt player to play a card
+            
+            int userInput; // An int for holding user input
+
+            // Prompt the player to play a card
             Console.Write("Play a card(use Index value):");
             if (!int.TryParse(Console.ReadLine(), out userInput))
                 return checkInput(player);
 
+            // If the Player is Attacking.
             if (player.IsAttacking)
             {
-                DurakGame.attackCard = player.getCard(userInput - 1);
+                // Store the played Card as the Attack Card.
+                DurakGame.AttackCard = player.GetCard(userInput - 1);
             }
+            // If the Player is Defending
             else
             {
-                if (player.getCard(userInput - 1).suit != DurakGame.attackCard.suit && player.getCard(userInput - 1).suit != DurakGame.TrumpSuit.suit)
+                // Check to see if the Defending Player is playing an illegal suit
+                if (player.GetCard(userInput - 1).suit != DurakGame.AttackCard.suit && player.GetCard(userInput - 1).suit != DurakGame.TrumpSuit.suit)
                 {
-                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.getCard(userInput - 1), DurakGame.attackCard.suit);
+                    // Write an error message regarding the Cards suit
+                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.GetCard(userInput - 1), DurakGame.AttackCard.suit);
+                    // Use Recursion to prompt for input once more
                     return checkInput(player);
                 }
-                else if (player.getCard(userInput - 1) <= DurakGame.attackCard)
+                // If the Card is of the correct suit, Check if the card is equal or lower in value
+                else if (player.GetCard(userInput - 1) <= DurakGame.AttackCard)
                 {
-                    Console.WriteLine("{0} is no strong enough, please play a card higher then {1}", player.getCard(userInput - 1), DurakGame.attackCard);
+                    // Write an error message regarding the Cards rank
+                    Console.WriteLine("{0} is no strong enough, please play a card higher then {1}", player.GetCard(userInput - 1), DurakGame.AttackCard);
+                    // Use Recursion to prompt for input once more
                     return checkInput(player);
                 }
+                // If the Card is both the correct suit and higher value it is a legal play.
                 else
                 {
-                    Console.WriteLine("{0} vs {1}", player.getCard(userInput - 1), DurakGame.attackCard);
+                    // Show both the attack and defense card.
+                    Console.WriteLine("{0} vs {1}", DurakGame.AttackCard, player.GetCard(userInput - 1));
 
                 }
 
             }
+            // Return the user input
             return userInput;
         }
 
         static public void gameLogic(int currentPlayer, Player player, ref Card[] playedCards)
         {
+            // Get a card from a player, make sure the card played is valid before playing it
             int playedCard = checkInput(player);
 
+            // This card is a valid play (For attack or Defense) so play it.
             playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
             Console.WriteLine();
         }
@@ -72,17 +88,17 @@ namespace DurakGame
             // Create the Player and Deck, Shuffle the Deck to get different Cards
             Player[] players = { new Player("Calvin", true), new Player("Tom") };
 
-            //get the trump suit from a new deck
+            // Get the trump suit from a new deck
             Deck gameDeck = new Deck();
             gameDeck.Shuffle();
 
             DurakGame.TrumpSuit = gameDeck.DrawNextCard();
 
-            //create a new deck with a trump suit
+            // Create a new deck with a trump suit
             gameDeck = new Deck(true, DurakGame.TrumpSuit.suit);
             gameDeck.Shuffle();
 
-            //fill each players hand
+            // Fill each players hand
             foreach (Player player in players)
             {
                 player.FillHand(gameDeck);
@@ -92,14 +108,14 @@ namespace DurakGame
             {
                 Card[] playedCards = new Card[2];
 
-                //display the trump suit
+                // Display the trump suit
                 Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpSuit.suit);
 
-                //reset counter 
+                // Reset counter 
                 int cardCounter = 0;
                 //reset played cards after each turn
                 
-                //display player info, cards in hand and allow player to play a card
+                // Display player info, cards in hand and allow player to play a card
                 foreach (Player player in players)
                 {
                     count = 1;
@@ -112,13 +128,13 @@ namespace DurakGame
                     }
 
 
-                    //game logic function, soon to be converted to a class
+                    // Game logic function, soon to be converted to a class
                     gameLogic(cardCounter, player, ref playedCards);
                     cardCounter++;
                 }
 
                 
-                //display cards both players have played
+                // Display cards both players have played
                 cardCounter = 0;
                 foreach (Player player in players)
                 {
@@ -127,12 +143,12 @@ namespace DurakGame
                 }
                 
 
-                //after each turn fill each players hand
+                // After each turn fill each players hand
                 foreach (Player player in players)
                 {
                     player.FillHand(gameDeck);
                 }
-                //play the game until there are no cards left in the deck
+                // Play the game until there are no cards left in the deck
             } while (gameDeck.hasCards() && (players[0].CardCount != 0 || players[1].CardCount != 0));
 
             /*
