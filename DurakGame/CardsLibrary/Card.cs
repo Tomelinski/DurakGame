@@ -30,7 +30,7 @@ namespace CardLibrary
         public static bool isAceHigh = true;  // Flag that determines whether aces are higher than kings or lower
 
         // Default constructor
-        private Card()
+        public Card()
         {
 
         }
