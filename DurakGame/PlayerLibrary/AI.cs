@@ -28,6 +28,7 @@ namespace PlayerLibrary
         private int AICardCount;        // The number of cards currently in the AI hand.
         private bool AIIsAttacking;     // A boolean to demonstrate if a AI is attacking or defending
 
+        // Default Constructor
         public AI() { }
 
 
@@ -71,13 +72,21 @@ namespace PlayerLibrary
             }
         }
 
+        // Remove Card
+        public void AIRemoveCard(Card card)
+        {
+            AIHand.Remove(card);
+        }
+
+        // Draw Card
         public void AIDrawCard(Card card)
         {
             this.AIHand.Add(card);
             AICardCount++;
         }
 
-        public void AIFillHand(Deck playingDeck)
+        // Fill hand
+        public new void FillHand(Deck playingDeck)
         {
             // Loop, starting at the number of cards currently in the Hand
             // untill we've reached the number of Cards for a legal hand.
@@ -90,7 +99,7 @@ namespace PlayerLibrary
 
 
         // Attack Phase for AI using CASE/SWITCH
-        public void PlayerAILogic(Deck AIattacking)
+        public void AIAttack(Deck AIattacking)
         {
             Card attack = new Card();
 
@@ -102,9 +111,42 @@ namespace PlayerLibrary
                 cloneCards.Add(AIattacking.GetCard(i));
             }
 
-            switch()
+            switch(handBaseLine)
             {
+                case 1:
+                    //AI pick Card
+                    for(int i = 0; i < ; i++)
+                    {
 
+                    }
+                    break;
+            }
+        }
+
+
+
+        // Defending Phase for AI using CASE/SWITCH
+        public void AIDefend(Deck AIattacking)
+        {
+            Card attack = new Card();
+
+            Cards cloneCards = new Cards();
+
+            bool success = false;
+            for (int i = 0; i < handBaseLine; i++)
+            {
+                cloneCards.Add(AIattacking.GetCard(i));
+            }
+
+            switch (handBaseLine)
+            {
+                case 1:
+                    //AI pick Card
+                    for (int i = 0; i < ; i++)
+                    {
+
+                    }
+                    break;
             }
         }
     }
