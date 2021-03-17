@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("CardBox")]
+[assembly: AssemblyTitle("CH13CardLib")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("CardBox")]
+[assembly: AssemblyProduct("CH13CardLib")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d057cc8a-1d24-4346-86f0-ed275a3b35be")]
+[assembly: Guid("de1324f1-2cc4-45ab-a9db-5edbd534a0bc")]
 
 // Version information for an assembly consists of the following four values:
 //

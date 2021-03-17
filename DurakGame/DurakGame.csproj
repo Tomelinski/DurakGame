@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CardLibrary, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>CardLibrary\bin\Debug\CardLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,11 +47,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CardsLibrary\Card.cs" />
-    <Compile Include="CardsLibrary\Cards.cs" />
-    <Compile Include="CardsLibrary\Deck.cs" />
-    <Compile Include="CardsLibrary\Rank.cs" />
-    <Compile Include="CardsLibrary\Suit.cs" />
     <Compile Include="DurakGame.cs" />
     <Compile Include="GUI.cs" />
     <Compile Include="PlayerLibrary\AI.cs" />
