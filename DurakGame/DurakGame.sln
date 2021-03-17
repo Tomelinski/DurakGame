@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakGame", "DurakGame.cspr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakApp", "DurakApp\DurakApp.csproj", "{2B1B6783-5DD8-49CE-BFF5-561DB5B9461C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBox", "CardBox\CardBox.csproj", "{D057CC8A-1D24-4346-86F0-ED275A3B35BE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2B1B6783-5DD8-49CE-BFF5-561DB5B9461C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B1B6783-5DD8-49CE-BFF5-561DB5B9461C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B1B6783-5DD8-49CE-BFF5-561DB5B9461C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
