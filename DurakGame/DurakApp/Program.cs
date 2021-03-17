@@ -12,7 +12,7 @@ namespace DurakApp
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

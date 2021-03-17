@@ -21,29 +21,27 @@ namespace PlayerLibrary
     public class AI : Player
     {
         // Default Constructor
-        public AI(){ }
+        public AI() { }
 
         // Grabbing the deck to fill the hands
-        public AI(Deck playingDeck) : base(playingDeck)
+        public AI(Deck playingDeck) : base(playingDeck.ToString()) { }
 
-        // Get Cards to hand
-        public Cards GetCards() { return Hand.GetCards();}
 
         /// <summary>
         /// Chooses the lowest Card in Hand
         /// </summary>
         /// <param name="handIndex"> The number of the actual card </param>
- 
+
         public Card chooseCard(Cards handIndex)
         {
             // Initializes the cards
             Cards chosenCards = this.PlayCard(handIndex);
-            int numCard = PlayCard.Count;
-            
-            // Grabs the Lowest Card
-            Card dropCard = PlayCard[lowestCard(chooseCard)];
+            int numCard = chosenCards.Count;
 
-            playerHand.Remove(dropCard);
+            // Grabs the Lowest Card
+            Card dropCard = chosenCards[lowestCard(chosenCards)];
+
+            chosenCards.Remove(dropCard);
 
             return dropCard;
         }
@@ -55,9 +53,9 @@ namespace PlayerLibrary
         public int lowestCard(Cards lCard)
         {
             int cardIndex = 0;
-            for(int i = 0; i < lCard.Count; i++)
+            for (int i = 0; i < lCard.Count; i++)
             {
-                if(lCard[i] < (lCard[cardIndex]))
+                if (lCard[i] < (lCard[cardIndex]))
                 {
                     cardIndex = i;
                 }

@@ -17,7 +17,7 @@ using System.Text;
 
 namespace CardLibrary
 {
-    public class Deck : ICloneable // Interface with the ICloneable Interface (Now me must implement the Clone() function)
+    public class Deck : Cards, ICloneable // Interface with the ICloneable Interface (Now me must implement the Clone() function)
     {
        
         private Cards cards = new Cards();
