@@ -20,134 +20,49 @@ namespace PlayerLibrary
 {
     public class AI : Player
     {
-        private readonly static int handBaseLine = 6;   // Represents the number of cards that should be in a AI hand at the start of each round
-
-        // Private Datamembers
-        private string AIName;          // The name of the AI
-        private Cards AIHand;           // A list of cards, that is the AI hand
-        private int AICardCount;        // The number of cards currently in the AI hand.
-        private bool AIIsAttacking;     // A boolean to demonstrate if a AI is attacking or defending
-
         // Default Constructor
-        public AI() { }
+        public AI(){ }
 
+        // Grabbing the deck to fill the hands
+        public AI(Deck playingDeck) : base(playingDeck)
 
-        // to be cont'd
-        public AI(Player AiHand)
+        // Get Cards to hand
+        public Cards GetCards() { return Hand.GetCards();}
+
+        /// <summary>
+        /// Chooses the lowest Card in Hand
+        /// </summary>
+        /// <param name="handIndex"> The number of the actual card </param>
+ 
+        public Card chooseCard(Cards handIndex)
         {
+            // Initializes the cards
+            Cards chosenCards = this.PlayCard(handIndex);
+            int numCard = PlayCard.Count;
+            
+            // Grabs the Lowest Card
+            Card dropCard = PlayCard[lowestCard(chooseCard)];
 
+            playerHand.Remove(dropCard);
+
+            return dropCard;
         }
 
-        // Getters & Setters
-
-        public Cards AIHandSet  // Public Property for Getting/Setting the AI Hand
+        /// <summary>
+        /// Looks for the lowest card in the group
+        /// </summary>
+        /// <param name="lCard"> The group which is searched to find the lowest card </param>
+        public int lowestCard(Cards lCard)
         {
-            get // Accessing
+            int cardIndex = 0;
+            for(int i = 0; i < lCard.Count; i++)
             {
-                return AIHand;
+                if(lCard[i] < (lCard[cardIndex]))
+                {
+                    cardIndex = i;
+                }
             }
-            set // Mutating
-            {
-                AIHand = value;
-            }
-        }
-
-        public int AICardCountSet  // Public Property for Getting/Setting the number of cards in a AI hand
-        {
-            get // Accessing
-            {
-                return AICardCount;
-            }
-        }
-
-        public bool AIIsAttackingSet  // Public Property for Getting/Setting the attack/defense boolean
-        {
-            get // Accessing
-            {
-                return AIIsAttacking;
-            }
-            set // Mutating
-            {
-                AIIsAttacking = value;
-            }
-        }
-
-        // Remove Card
-        public void AIRemoveCard(Card card)
-        {
-            AIHand.Remove(card);
-        }
-
-        // Draw Card
-        public void AIDrawCard(Card card)
-        {
-            this.AIHand.Add(card);
-            AICardCount++;
-        }
-
-        // Fill hand
-        public new void FillHand(Deck playingDeck)
-        {
-            // Loop, starting at the number of cards currently in the Hand
-            // untill we've reached the number of Cards for a legal hand.
-            for (int i = this.AICardCount; i < handBaseLine; i++)
-            {
-                // Draw a card off the top of the deck, into the hand
-                this.DrawCard(playingDeck.DrawNextCard());
-            }
-        }
-
-
-        // Attack Phase for AI using CASE/SWITCH
-        public void AIAttack(Deck AIattacking)
-        {
-            Card attack = new Card();
-
-            Cards cloneCards = new Cards();
-
-            bool success = false;
-            for(int i = 0; i < handBaseLine; i++)
-            {
-                cloneCards.Add(AIattacking.GetCard(i));
-            }
-
-            switch(handBaseLine)
-            {
-                case 1:
-                    //AI pick Card
-                    for(int i = 0; i < ; i++)
-                    {
-
-                    }
-                    break;
-            }
-        }
-
-
-
-        // Defending Phase for AI using CASE/SWITCH
-        public void AIDefend(Deck AIattacking)
-        {
-            Card attack = new Card();
-
-            Cards cloneCards = new Cards();
-
-            bool success = false;
-            for (int i = 0; i < handBaseLine; i++)
-            {
-                cloneCards.Add(AIattacking.GetCard(i));
-            }
-
-            switch (handBaseLine)
-            {
-                case 1:
-                    //AI pick Card
-                    for (int i = 0; i < ; i++)
-                    {
-
-                    }
-                    break;
-            }
+            return cardIndex;
         }
     }
 }
