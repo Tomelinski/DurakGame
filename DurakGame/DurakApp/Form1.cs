@@ -24,7 +24,7 @@ namespace DurakApp
 
         private void DeckBox_Click(object sender, EventArgs e)
         {
-
+            this.DeckBox.SizeMode = PictureBoxSizeMode.CenterImage;
         }
     }
 }
