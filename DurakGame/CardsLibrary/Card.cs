@@ -28,7 +28,7 @@ namespace CardLibrary
         public static bool useTrumps = false; // Flag for trump usage. If true, trumps are valued higher
         public static Suit trump = Suit.Club; // Trump suit to use if useTrumps is true.
         public static bool isAceHigh = true;  // Flag that determines whether aces are higher than kings or lower
-
+        private bool isFaceUp = false;
         // Default constructor
         public Card()
         {
@@ -220,5 +220,43 @@ namespace CardLibrary
             return !(card1 > card2);
         }
 
+        /// <summary>
+        /// Checking if Card is FaceUp or FaceDown
+        /// </summary>
+        public bool faceup
+        {
+            set
+            {
+                faceup = value;
+            }
+            get
+            {
+                return faceup;
+            }
+        }
+
+        /// <summary>
+        /// Grabbing the Card Image from resources
+        /// </summary>
+  /*      public cardImage getCardImage()
+        {
+            string png;
+            getCardImage cardpng;
+
+
+            // Checking if Whatever Card is Faceup or Facedown
+            if(!faceup)
+            {
+
+            }
+            else
+            {
+                // Outputs Card image to suit then Rank
+                png = suit.ToString() + rank.ToString();
+            }
+
+            // return the image
+            return cardpng;
+        }*/
     }
 }
