@@ -35,7 +35,7 @@ namespace CardLibrary
     public class Card : ICloneable, IComparable // Interface with the ICloneable Interface (Now me must implement the Clone() function)
     {
         // Private Datamembers
-        public  Rank Rank { get; set; }           // Represents a Cards Rank
+        public  Rank Rank { get; set; }           // Represents a Cards Rank   s
         public  Suit Suit { get; set; }           // Represents a Cards Suit
         public bool FaceUp { get; set; } = false; // Indicates if the card is face up or face down
 
