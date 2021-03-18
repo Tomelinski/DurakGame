@@ -3,15 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PlayerLibrary;
 using CardLibrary;
+using PlayerLibrary;
+
 namespace DurakGame
 {
     class DurakGame
     {
-        public static Card TrumpSuit { get; set; }
+        private static Card trumpCard;
+        public static Card TrumpCard
+        {
+            get { return trumpCard; }
+            set
+            {
+                trumpCard = value;
+                Card.TrumpSuit = value.Suit;
+
+            }
+        }
         public static Card AttackCard { get; set; }
-        //public static Card defendCard;
+        public static Card defendCard { get; set; }
+
 
     }
 }

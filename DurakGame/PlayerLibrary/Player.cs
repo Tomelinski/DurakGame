@@ -25,64 +25,11 @@ namespace PlayerLibrary
         private readonly static int handBaseLine = 6;   // Represents the number of cards that should be in a players hand at the start of each round
 
         // Private Datamembers
-        private string playerName;          // The name of the player
-        private Cards playerHand;           // A list of cards, that is the players hand
-        private int playerCardCount;        // The number of cards currently in the players hand.
-        private bool playerIsAttacking;     // A boolean to demonstrate if a player is attacking or defending
+        public string PlayerName { get; set; }          // The name of the player
+        public Cards PlayerHand { get; set; }           // A list of cards, that is the players hand
+        public int PlayerCardCount { get; set; }        // The number of cards currently in the players hand.
+        public bool PlayerIsAttacking { get; set; }     // A boolean to demonstrate if a player is attacking or defending
 
-
-        // Getters & Setters
-        public static int HandBaseLine            // Public Property for the handBaseLine Class Variable
-        {
-            get // Accessing
-            {
-                return HandBaseLine;
-            }
-        }
-
-        public string Name  // Public Property for Getting/Setting the Players Name
-        {
-            get // Accessing
-            {
-                return playerName;
-            }
-            set // Mutating
-            {
-                playerName = value;
-            }
-        }
-
-        public Cards Hand  // Public Property for Getting/Setting the Players Hand
-        {
-            get // Accessing
-            {
-                return playerHand;
-            }
-            set // Mutating
-            {
-                playerHand = value;
-            }
-        }
-
-        public int CardCount  // Public Property for Getting/Setting the number of cards in a players hand
-        {
-            get // Accessing
-            {
-                return playerCardCount;
-            }
-        }
-
-        public bool IsAttacking  // Public Property for Getting/Setting the attack/defense boolean
-        {
-            get // Accessing
-            {
-                return playerIsAttacking;
-            }
-            set // Mutating
-            {
-                playerIsAttacking = value;
-            }
-        }
 
         // Constructors
         /// <summary>
@@ -91,25 +38,25 @@ namespace PlayerLibrary
         ///            set as defending (false). Player objects are given an empty hand and given a value
         ///            of 0 for the number of cards in hand.
         /// </summary>
-        /// <param name="playerName">The name of the Player.</param>
+        /// <param name="PlayerName">The name of the Player.</param>
         /// <param name="isAttacking">A true/false showing if a player is attacking or defending.</param>
-        public Player(string playerName = "Player", bool isAttacking = false)
+        public Player(string PlayerName = "Player", bool isAttacking = false)
         {
-            this.Name = playerName;
-            this.Hand = new Cards();
-            this.playerCardCount = 0;
-            this.IsAttacking = isAttacking;
+            this.PlayerName = PlayerName;
+            this.PlayerHand = new Cards();
+            this.PlayerCardCount = 0;
+            this.PlayerIsAttacking = isAttacking;
         }
 
         /// <summary>
         /// DrawCard(Card) - This method is used to add a Card object to the the Players hand.
-        ///                It will also increment the playerCardCount value by 1.
+        ///                It will also increment the PlayerCardCount value by 1.
         /// </summary>
         /// <param name="card">A Card object to be added to the players hand.</param>
         public void DrawCard(Card card)
         {
-            this.playerHand.Add(card);
-            playerCardCount++;
+            this.PlayerHand.Add(card);
+            PlayerCardCount++;
         }
 
         /// <summary>
@@ -122,7 +69,7 @@ namespace PlayerLibrary
         {
             // Loop, starting at the number of cards currently in the Hand
             // untill we've reached the number of Cards for a legal hand.
-            for (int i = this.playerCardCount; i < handBaseLine; i++)
+            for (int i = this.PlayerCardCount; i < handBaseLine; i++)
             {
                 // Draw a card off the top of the deck, into the hand
                 this.DrawCard(playingDeck.DrawNextCard());
@@ -135,21 +82,21 @@ namespace PlayerLibrary
         ///               draw from. The card is removed from the players hand and returned 
         ///               by the method.
         /// </summary>
-        /// <param name="handIndex">The Index of the playerHand to draw from</param>
+        /// <param name="handIndex">The Index of the PlayerHand to draw from</param>
         /// <returns>A Card object</returns>
         public Card PlayCard(int handIndex)
         {
-            //TODO: Exception handling for Out of Bounds index. (less than 0 and greater than playerCardCount)
+            //TODO: Exception handling for Out of Bounds index. (less than 0 and greater than PlayerCardCount)
             //This might be best done in the GetCard method below this one (aka check before playing).
 
             // Retrieve the card from the players hand
             Card chosenCard = GetCard(handIndex);
 
             // Remove the card from the players hand
-            playerHand.RemoveAt(handIndex);
-            playerCardCount--;
+            PlayerHand.RemoveAt(handIndex);
+            PlayerCardCount--;
 
-            
+
 
             return chosenCard;
         }
@@ -160,11 +107,11 @@ namespace PlayerLibrary
         ///              retrieve. The card is retrieved (Not removed) from the players hand 
         ///              and returned by the method.
         /// </summary>
-        /// <param name="handIndex">The Index of the playerHand to draw from</param>
+        /// <param name="handIndex">The Index of the PlayerHand to draw from</param>
         /// <returns>A Card object</returns>
         public Card GetCard(int handIndex)
         {
-            return this.playerHand[handIndex];
+            return this.PlayerHand[handIndex];
         }
 
     }
