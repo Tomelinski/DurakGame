@@ -36,31 +36,23 @@ namespace CardLibrary
             }
         }
 
-        // Paramaterized Constructor. Allows aces to be set high.
-        public Deck(bool isAceHigh) : this()
+        // parameterized Constructor
+        public Deck(int size)
         {
-            Card.IsAceHigh = isAceHigh;
+            // Line of code removed here
+            for (int suitVal = 0; suitVal < 4; suitVal++)
+            {
+                for (int rankVal = 1; rankVal < 14; rankVal++)
+                {
+                    if (size == 36 && (rankVal < 2 || rankVal > 5))
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    else if (size == 20 && (rankVal < 2 || rankVal > 9))
+                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                   else
+                       cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                }
+            }
         }
-
-        // Paramaterized Constructor. Allows a trump suit to be used.
-        public Deck(bool useTrumps, Suit trump) : this()
-        {
-            Card.UseTrumps = useTrumps;
-            Card.TrumpSuit = trump;
-        }
-
-        // Paramaterized Constructor. Allows aces to be set high and a trump suit to be used.
-        public Deck(bool isAceHigh, bool useTrumps, Suit trump) : this()
-        {
-            Card.IsAceHigh = isAceHigh;
-            Card.UseTrumps = useTrumps;
-            Card.TrumpSuit = trump;
-        }
-
-        //public Deck(int deckSize)
-        //{
-        //    // Different Deck sizes go here.
-        //}
 
         public bool HasCards()
         {
