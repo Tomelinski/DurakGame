@@ -40,15 +40,16 @@ namespace DurakGame
             {
                 // Store the played Card as the Attack Card.
                 DurakGame.AttackCard = player.GetCard(userInput - 1);
+
             }
             // If the Player is Defending
             else
             {
                 // Check to see if the Defending Player is playing an illegal suit
-                if (player.GetCard(userInput - 1).suit != DurakGame.AttackCard.suit && player.GetCard(userInput - 1).suit != DurakGame.TrumpSuit.suit)
+                if (player.GetCard(userInput - 1).Suit != DurakGame.AttackCard.Suit && player.GetCard(userInput - 1).Suit != DurakGame.TrumpSuit.Suit)
                 {
                     // Write an error message regarding the Cards suit
-                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.GetCard(userInput - 1), DurakGame.AttackCard.suit);
+                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.GetCard(userInput - 1), DurakGame.AttackCard.Suit);
                     // Use Recursion to prompt for input once more
                     return checkInput(player);
                 }
@@ -95,7 +96,7 @@ namespace DurakGame
             DurakGame.TrumpSuit = gameDeck.DrawNextCard();
 
             // Create a new deck with a trump suit
-            gameDeck = new Deck(true, DurakGame.TrumpSuit.suit);
+            gameDeck = new Deck(true, DurakGame.TrumpSuit.Suit);
             gameDeck.Shuffle();
 
             // Fill each players hand
@@ -109,7 +110,7 @@ namespace DurakGame
                 Card[] playedCards = new Card[2];
 
                 // Display the trump suit
-                Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpSuit.suit);
+                Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpSuit.Suit);
 
                 // Reset counter 
                 int cardCounter = 0;
@@ -123,6 +124,7 @@ namespace DurakGame
                     //display player hand
                     foreach (Card card in player.Hand)
                     {
+                        card.FaceUp = true;
                         Console.WriteLine("Card {0}: {1}", count, card.ToString());
                         count++;
                     }
@@ -149,7 +151,7 @@ namespace DurakGame
                     player.FillHand(gameDeck);
                 }
                 // Play the game until there are no cards left in the deck
-            } while (gameDeck.hasCards() && (players[0].CardCount != 0 || players[1].CardCount != 0));
+            } while (gameDeck.HasCards() && (players[0].CardCount != 0 || players[1].CardCount != 0));
 
             /*
             //////////////////////////////////////////////////////

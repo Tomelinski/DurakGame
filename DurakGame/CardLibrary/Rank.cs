@@ -1,12 +1,10 @@
 ﻿/* Rank.cs - This file contains the Rank class. It contains an enumeration
  *         to represent the different Ranks a single Card object might have.
  * 
- * Author(s): Aadithkeshev Anushayamunaithuraivan,
- *            Menushan Karunakaran,
- *            Calvin May,
- *            Tom Zielinski
+ * Author(s): Beginning C# 7 Programming with Visual Studio 2017
+ *            Calvin May
  *            
- * Date: 02/25/2021
+ * Date: 1/24/2021 | Last-Modified: 03/09/2021
  * 
  * 
  */
@@ -17,6 +15,9 @@ using System.Text;
 
 namespace CardLibrary
 {
+    /// <summary>
+    /// A Card Rank Enumeration
+    /// </summary>
     public enum Rank
     {
         Ace = 1,
@@ -31,6 +32,7 @@ namespace CardLibrary
         Ten,
         Jack,
         Queen,
-        King
+        King,
+        Joker
     }
 }

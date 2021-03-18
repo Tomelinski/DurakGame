@@ -1,12 +1,10 @@
 ﻿/* Deck.cs - This file contains the Deck class. The Deck class is a container
  *         class which will contain a 52 standard deck of cards.
  * 
- * Author(s): Aadithkeshev Anushayamunaithuraivan,
- *            Menushan Karunakaran,
- *            Calvin May,
- *            Tom Zielinski
+ * Author(s): Beginning C# 7 Programming with Visual Studio 2017
+ *            Calvin May
  *            
- * Date: 02/25/2021
+ * Date: 1/24/2021 | Last-Modified: 03/09/2021
  * 
  * 
  */
@@ -17,20 +15,13 @@ using System.Text;
 
 namespace CardLibrary
 {
-    public class Deck : Cards, ICloneable // Interface with the ICloneable Interface (Now me must implement the Clone() function)
+    public class Deck : ICloneable // Interface with the ICloneable Interface (Now me must implement the Clone() function)
     {
-       
+        // A Delegate for the LastCardDrawn Event
+        public event EventHandler LastCardDrawn;
+
+        // The list of cards in the deck
         private Cards cards = new Cards();
-
-        public bool hasCards()
-        {
-            if (this.cards.Count() > 0)
-                return true;
-
-            return false;
-            
-        }
-
 
         // Default Constructor
         public Deck()
@@ -40,61 +31,76 @@ namespace CardLibrary
             {
                 for (int rankVal = 1; rankVal < 14; rankVal++)
                 {
-                    if (rankVal < 2 || rankVal > 5)
-                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                 }
             }
-
-
         }
-
-/*        public Deck(int deckSize)
-        {
-            // Different Deck sizes go here.
-        }
-*/
 
         // Paramaterized Constructor. Allows aces to be set high.
         public Deck(bool isAceHigh) : this()
         {
-            Card.isAceHigh = isAceHigh;
+            Card.IsAceHigh = isAceHigh;
         }
 
         // Paramaterized Constructor. Allows a trump suit to be used.
         public Deck(bool useTrumps, Suit trump) : this()
         {
-            Card.useTrumps = useTrumps;
-            Card.trump = trump;
+            Card.UseTrumps = useTrumps;
+            Card.TrumpSuit = trump;
         }
 
         // Paramaterized Constructor. Allows aces to be set high and a trump suit to be used.
         public Deck(bool isAceHigh, bool useTrumps, Suit trump) : this()
         {
-            Card.isAceHigh = isAceHigh;
-            Card.useTrumps = useTrumps;
-            Card.trump = trump;
+            Card.IsAceHigh = isAceHigh;
+            Card.UseTrumps = useTrumps;
+            Card.TrumpSuit = trump;
+        }
+
+        //public Deck(int deckSize)
+        //{
+        //    // Different Deck sizes go here.
+        //}
+
+        public bool HasCards()
+        {
+            if (this.cards.Count() > 0)
+                return true;
+
+            return false;
+
         }
 
         public Card GetCard(int cardNum)
         {
+            // Check if the index being retrieved is within bounds
             if (cardNum >= 0 && cardNum <= (cards.Count() - 1))
+            {
+                // If the retrieved index is the last card, and a LastCardDraw Event has been wired
+                if ((cardNum == (cards.Count() - 1)) && (LastCardDrawn != null))
+                    // Call the Event
+                    LastCardDrawn(this, EventArgs.Empty);
+
+                // Regardless, return the card.
                 return cards[cardNum];
+            }
+            // If not,
             else
-                throw (new System.ArgumentOutOfRangeException("cardNum", cardNum,
-                "Value must be between 0 and " + (cards.Count()) +  "."));
+                // Throw a CardOutOfRangeException Exception
+                throw new CardOutOfRangeException((Cards)cards.Clone());
         }
         public void Shuffle()
         {
             Cards newDeck = new Cards();
-            bool[] assigned = new bool[cards.Count()];
+            bool[] assigned = new bool[52];
             Random sourceGen = new Random();
-            for (int i = 0; i < cards.Count(); i++)
+            for (int i = 0; i < 52; i++)
             {
                 int sourceCard = 0;
                 bool foundCard = false;
                 while (foundCard == false)
                 {
-                    sourceCard = sourceGen.Next(cards.Count());
+                    sourceCard = sourceGen.Next(52);
                     if (assigned[sourceCard] == false)
                         foundCard = true;
                 }

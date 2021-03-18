@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30621.155
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBox", "CardBox.csproj", "{D057CC8A-1D24-4346-86F0-ED275A3B35BE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {740704AE-8F98-4F70-89EE-775F22BB2052}
+	EndGlobalSection
+EndGlobal
