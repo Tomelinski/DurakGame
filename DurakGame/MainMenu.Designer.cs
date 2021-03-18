@@ -107,6 +107,7 @@ namespace DurakGame
             this.Controls.Add(this.btnInstructions);
             this.Controls.Add(this.btnPlay);
             this.Name = "frmDurakMainMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Durak Main Menu";
             this.ResumeLayout(false);
 

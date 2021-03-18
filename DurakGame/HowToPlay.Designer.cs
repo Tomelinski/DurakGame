@@ -37,6 +37,7 @@ namespace DurakGame
             // btnMenu
             // 
             this.btnMenu.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btnMenu.BackColor = System.Drawing.SystemColors.Info;
             this.btnMenu.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnMenu.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
             this.btnMenu.Location = new System.Drawing.Point(630, 380);
@@ -45,7 +46,7 @@ namespace DurakGame
             this.btnMenu.TabIndex = 4;
             this.btnMenu.Text = "&Back";
             this.toolTip1.SetToolTip(this.btnMenu, "Click to go Main Menu");
-            this.btnMenu.UseVisualStyleBackColor = true;
+            this.btnMenu.UseVisualStyleBackColor = false;
             this.btnMenu.Click += new System.EventHandler(this.btnMenu_Click);
             // 
             // frmHowToPlay
@@ -56,6 +57,7 @@ namespace DurakGame
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.btnMenu);
             this.Name = "frmHowToPlay";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "HowToPlay";
             this.ResumeLayout(false);
 

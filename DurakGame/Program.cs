@@ -16,18 +16,17 @@ using System.Threading.Tasks;
 using CardLibrary;
 using PlayerLibrary;
 using DurakGame;
+using System.Windows.Forms;
 
 namespace DurakGame
 {
 
-
     class Program
     {
-        
 
         static int checkInput(Player player)
         {
-            
+
             int userInput; // An int for holding user input
 
             // Prompt the player to play a card
@@ -83,9 +82,15 @@ namespace DurakGame
             playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
             Console.WriteLine();
         }
-
+        [STAThread]
         static void Main(string[] args)
         {
+         if(args.Length == 0)
+            {
+                Application.EnableVisualStyles();
+                Application.Run(new frmDurakMainMenu());
+            }
+            Console.WriteLine("Dont read this");
             // Create the Player and Deck, Shuffle the Deck to get different Cards
             Player[] players = { new Player("Calvin", true), new Player("Tom") };
 

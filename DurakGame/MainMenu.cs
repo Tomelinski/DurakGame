@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace DurakGame
 {
+    using System.Windows.Forms;
+
+
+    
     public partial class frmDurakMainMenu : Form
     {
         public frmDurakMainMenu()
         {
             InitializeComponent();
+
         }
 
         private void btnPlay_Click(object sender, EventArgs e)
@@ -26,7 +31,8 @@ namespace DurakGame
             frmStartMenu start = new frmStartMenu();
 
             // Show Start Form
-            start.Show();
+            start.ShowDialog();
+            this.Show();
         }
 
         private void btnQuit_Click(object sender, EventArgs e)
@@ -43,7 +49,8 @@ namespace DurakGame
             frmHowToPlay how2Play = new frmHowToPlay();
 
             // Show How to Play Form
-            how2Play.Show();
+            how2Play.ShowDialog();
+            this.Show();
 
         }
 

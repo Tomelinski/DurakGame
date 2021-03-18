@@ -177,6 +177,7 @@ namespace DurakGame
             this.Controls.Add(this.gbxDeckSize);
             this.Controls.Add(this.gbxPlayersNum);
             this.Name = "frmStartMenu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartMenu";
             this.gbxPlayersNum.ResumeLayout(false);
             this.gbxPlayersNum.PerformLayout();

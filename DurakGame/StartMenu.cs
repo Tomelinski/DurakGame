@@ -42,7 +42,11 @@ namespace DurakGame
             /// Actual game frm goes in here goes in here
             ///</summary>
 
-            // Show New Window
+            // initializes Start Form
+            // frmHowToPlay how2Play = new frmHowToPlay();
+
+            // Show How to Play Form
+            // how2Play.ShowDialog();
             this.Show();
         }
     }
