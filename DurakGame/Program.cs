@@ -86,6 +86,11 @@ namespace DurakGame
 
         static void Main(string[] args)
         {
+            // Start the Durak Game
+            DurakGame.StartGame();
+
+/*
+
             Task myTask = Task.Run(() => { frmDurakMainMenu form = new frmDurakMainMenu(); form.ShowDialog(); });
             // Create the Player and Deck, Shuffle the Deck to get different Cards
             Player[] players = { new Player("Calvin", true), new Player("Tom") };
@@ -94,14 +99,18 @@ namespace DurakGame
             Deck gameDeck = new Deck(36);
             gameDeck.Shuffle();
 
-            DurakGame.TrumpCard = gameDeck.DrawNextCard();
+            DurakGame.TrumpCard = gameDeck.DrawNextCard();*/
 
+
+
+
+            /* Moved to DurakGame.cs*/
             // Fill each players hand
-            foreach (Player player in players)
-            {
-                player.FillHand(gameDeck);
-            }
-            int count = 1;
+            //foreach (Player player in players)
+            //{
+            //    player.FillHand(gameDeck);
+            //}
+      /*      int count = 1;
             do
             {
                 Card[] playedCards = new Card[2];
@@ -149,7 +158,7 @@ namespace DurakGame
                 }
                 // Play the game until there are no cards left in the deck
             } while (gameDeck.HasCards() && (players[0].PlayerCardCount != 0 || players[1].PlayerCardCount != 0));
-
+*/
             /*
             //////////////////////////////////////////////////////
             // Display the Hand

@@ -48,8 +48,11 @@ namespace CardLibrary
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
                     else if (size == 20 && (rankVal < 2 || rankVal > 9))
                         cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
-                   else
+                    else if (size == 52)
+                    {
                        cards.Add(new Card((Suit)suitVal, (Rank)rankVal));
+                    }
+
                 }
             }
         }
