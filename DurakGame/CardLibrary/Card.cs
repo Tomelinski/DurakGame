@@ -40,7 +40,7 @@ namespace CardLibrary
         public bool FaceUp { get; set; } = false; // Indicates if the card is face up or face down
 
         // Class Data Members
-        public static bool UseTrumps { get; set; } = false;      // Flag for trump usage. If true, trumps are valued higher
+        public static bool UseTrumps { get; set; } = true;      // Flag for trump usage. If true, trumps are valued higher
         public static Suit TrumpSuit { get; set; } = Suit.Clubs; // Trump suit to use if useTrumps is true.
         public static bool IsAceHigh { get; set; } = true;       // Flag that determines whether aces are higher than kings or lower
 
@@ -73,10 +73,41 @@ namespace CardLibrary
             // Check if the Conversion worked
             if (compareCard.GetType() != null)
             {
+                const int ACE_MODIFIER = 20;
+                const int TRUMP_MODIFIER = -500;
+
+                int thisRank = (int)this.Rank;
+                int thisSuit = (int)this.Suit;
+                int compareRank = (int)compareCard.Rank;
+                int compareSuit = (int)compareCard.Suit;
+
+                if (IsAceHigh)
+                {
+                    if (this.Rank == Rank.Ace)
+                        thisRank = ACE_MODIFIER;
+
+                    if (compareCard.Rank == Rank.Ace)
+                        compareRank = ACE_MODIFIER;
+                }
+
+                if (UseTrumps)
+                {
+                    if (this.Suit == TrumpSuit)
+                        thisSuit *= TRUMP_MODIFIER;
+
+                    if (compareCard.Suit == TrumpSuit)
+                        compareSuit *= TRUMP_MODIFIER;
+                }
+
+
+
+
                 // Compare the Card based on Rank and suit
-                int thisSort = (int)this.Rank * 10 + (int)this.Suit;
-                int compareCardSort = (int)compareCard.Rank * 10 + (int)compareCard.Suit;
+                int thisSort = (thisRank * 10) + thisSuit;
+                int compareCardSort = (compareRank * 10) + compareSuit;
+
                 return (thisSort.CompareTo(compareCardSort));
+                
             }
             else
             {

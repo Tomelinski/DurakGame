@@ -196,6 +196,7 @@ namespace DurakGame
         {
             int playerIndex = 0;    // Default to first Player if anything goes wrong
             Cards lowestCards = new Cards();
+            Card lowestCard;
 
             foreach (Player player in Players)
             {
