@@ -23,15 +23,37 @@ namespace DurakGame
         }
 
         public static Card AttackCard { get; set; }
-        public static Card defendCard { get; set; }
+        public static Card DefendCard { get; set; }
+        public static Cards PlayedCards;
         public static Deck GameDeck { get; set; }
         public static Player[] Players { get; set; }
+        private static int AttackingPlayer { get; set; }
+        private static bool RoundOver { get; set; }
 
+        public static void RotateAttacker()
+        {
+            Players[AttackingPlayer].PlayerIsAttacking = false;
+
+            if (AttackingPlayer == Players.Count() - 1)
+            {
+                AttackingPlayer = 0;
+            }
+            else
+            {
+                AttackingPlayer++;
+            }
+
+            Players[AttackingPlayer].PlayerIsAttacking = true;
+
+        }
 
         public static void StartGame()
         {
             // Reset all Game Logic and Rules for a new Game
             ResetGameVariables();
+            PlayedCards = new Cards();
+
+            
 
             // Display the trump suit
             Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpCard.Suit);
@@ -49,14 +71,12 @@ namespace DurakGame
         public static void GameRound()
         {
             int cardCount;
-            Card[] playedCards = new Card[2];
-            int cardCounter = 0;
 
             // Display player info, cards in hand and allow player to play a card
             foreach (Player player in Players)
             {
 
-                Console.WriteLine("{0}'s Hand:", player.PlayerName);
+                Console.WriteLine("{0} is {1}", player.PlayerName, (player.PlayerIsAttacking ? "Attacking" : "Defending"));
                 cardCount = 1;
 
                 //display player hand
@@ -68,27 +88,41 @@ namespace DurakGame
                 }
 
 
-
                 // Game logic function, soon to be converted to a class
-                gameLogic(cardCounter, player, ref playedCards);
-                cardCounter++;
+                gameLogic(player);
+
             }
 
 
             // Display cards both players have played
-            cardCounter = 0;
+            //cardCounter = 0;
             foreach (Player player in Players)
             {
-                Console.WriteLine("{0} played: {1}\n", player.PlayerName, playedCards[cardCounter]);
-                cardCounter++;
+                if (player.PlayerIsAttacking)
+                {
+                    Console.WriteLine("{0} attacked with: {1}\n", player.PlayerName, AttackCard);
+                }
+                else
+                {
+                    Console.WriteLine("{0} defending with: {1}\n", player.PlayerName, DefendCard);
+                }
+                //cardCounter++;
             }
 
-            FillPlayerHands(Players);
-
-            /*foreach (Player player in Players)
+            if (RoundOver == true)
             {
-                player.PlayerIsAttacking = !player.PlayerIsAttacking;
-            }*/
+                FillPlayerHands(Players);
+                RotateAttacker();
+                Resort();
+                RoundOver = false;
+            }
+
+            /*
+            foreach (Card card in PlayedCards)
+            {
+                Console.WriteLine("played: " + card);
+            }
+            */
         }
 
 
@@ -96,10 +130,9 @@ namespace DurakGame
         {
             // Create the Players
             Players = new Player[2];
-            Players[0] = new Player("Calvin", true);
+            Players[0] = new Player("Calvin");
             Players[1] = new Player("Tom");
 
-            Players[0].PlayerIsAttacking = true;
 
             // Create and shuffle a deck
             GameDeck = new Deck(36);
@@ -112,11 +145,31 @@ namespace DurakGame
             FillPlayerHands(Players);
 
             // Set the Attcking Player
-
+            AttackingPlayer = GetInitialAttacker();
+            Players[AttackingPlayer].PlayerIsAttacking = true;
+            Resort();
+            RoundOver = false;
 
         }
 
-
+        public static void Resort()
+        {
+            while (!Players[0].PlayerIsAttacking)
+            {
+                Player tempPlayer = Players[0];
+                for (int i = 0; i < Players.Count(); i++)
+                {
+                    if (i != Players.Count() - 1)
+                    {
+                        Players[i] = Players[i + 1];
+                    }
+                    else
+                    {
+                        Players[Players.Count() - 1] = tempPlayer;
+                    }
+                }
+            } 
+        }
 
         public static void FillPlayerHands(Player[] players)
         {
@@ -139,12 +192,34 @@ namespace DurakGame
             return hasCard;
         }*/
 
+        public static int GetInitialAttacker()
+        {
+            int playerIndex = 0;    // Default to first Player if anything goes wrong
+            Cards lowestCards = new Cards();
+
+            foreach (Player player in Players)
+            {
+                player.PlayerHand.Sort();
+                lowestCards.Add(player.PlayerHand[0]);
+            }
+
+            lowestCards.Sort();
+
+            foreach (Player player in Players)
+            {
+                if (lowestCards[0] == player.PlayerHand[0])
+                    playerIndex = Array.IndexOf(Players, player);
+
+            }
+
+            return playerIndex;
+
+        }
+
         static int checkInput(Player player)
         {
 
             int userInput; // An int for holding user input
-
-
             // If the Player is Attacking.
             if (player.PlayerIsAttacking)
             {
@@ -159,10 +234,7 @@ namespace DurakGame
                     Console.WriteLine("Card index is out of bounds");
                     return checkInput(player);
                 }
-
-                // Store the played Card as the Attack Card.
-                AttackCard = player.GetCard(userInput - 1);
-
+                
             }
             // If the Player is Defending
             else
@@ -212,19 +284,30 @@ namespace DurakGame
             return userInput;
         }
 
-        static public void gameLogic(int currentPlayer, Player player, ref Card[] playedCards)
+        static public void gameLogic(Player player)
         {
             // Get a card from a player, make sure the card played is valid before playing it
             int playedCard = checkInput(player);
 
             if (playedCard != 0){
+                if (player.PlayerIsAttacking)
+                {
+                    AttackCard = player.PlayCard(playedCard - 1);
+                    PlayedCards.Add(AttackCard);
+                }
+                else
+                {
+                    DefendCard = player.PlayCard(playedCard - 1);
+                    PlayedCards.Add(DefendCard);
+
+                }
                 // This card is a valid play (For attack or Defense) so play it.
-                playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
+                //playedCards[currentPlayer] = DefendCard;
                 Console.WriteLine();
             }
             else
             {
-                
+                RoundOver = true;
                 Console.WriteLine("Defending player cannot play a card.");
 
             }

@@ -71,7 +71,7 @@ namespace CardLibrary
             Card compareCard = obj as Card;
 
             // Check if the Conversion worked
-            if (compareCard != null)
+            if (compareCard.GetType() != null)
             {
                 // Compare the Card based on Rank and suit
                 int thisSort = (int)this.Rank * 10 + (int)this.Suit;
