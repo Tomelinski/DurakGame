@@ -87,15 +87,15 @@ namespace CardLibrary
         public void Shuffle()
         {
             Cards newDeck = new Cards();
-            bool[] assigned = new bool[52];
+            bool[] assigned = new bool[cards.Count];
             Random sourceGen = new Random();
-            for (int i = 0; i < 52; i++)
+            for (int i = 0; i < cards.Count; i++)
             {
                 int sourceCard = 0;
                 bool foundCard = false;
                 while (foundCard == false)
                 {
-                    sourceCard = sourceGen.Next(52);
+                    sourceCard = sourceGen.Next(cards.Count);
                     if (assigned[sourceCard] == false)
                         foundCard = true;
                 }

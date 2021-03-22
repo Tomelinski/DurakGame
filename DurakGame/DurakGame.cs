@@ -85,6 +85,10 @@ namespace DurakGame
 
             FillPlayerHands(Players);
 
+            /*foreach (Player player in Players)
+            {
+                player.PlayerIsAttacking = !player.PlayerIsAttacking;
+            }*/
         }
 
 
@@ -122,19 +126,40 @@ namespace DurakGame
             }
 ;        }
 
+        /*public static bool HasCardToPlay(Player defendingPlayer)
+        {
+            bool hasCard = false;
+            foreach (Card playerCard in defendingPlayer.PlayerHand)
+            {
+                if (playerCard > AttackCard)
+                {
+                    hasCard = true;
+                }
+            }
+            return hasCard;
+        }*/
+
         static int checkInput(Player player)
         {
 
             int userInput; // An int for holding user input
 
-            // Prompt the player to play a card
-            Console.Write("Play a card(use Index value):");
-            if (!int.TryParse(Console.ReadLine(), out userInput))
-                return checkInput(player);
 
             // If the Player is Attacking.
             if (player.PlayerIsAttacking)
             {
+                // Prompt the player to play a card
+                Console.Write("Play a card:");
+                if (!int.TryParse(Console.ReadLine(), out userInput))
+                    return checkInput(player);
+
+                //check if player input is in bounds
+                if (userInput > player.PlayerHand.Count || userInput < 0)
+                {
+                    Console.WriteLine("Card index is out of bounds");
+                    return checkInput(player);
+                }
+
                 // Store the played Card as the Attack Card.
                 AttackCard = player.GetCard(userInput - 1);
 
@@ -142,31 +167,47 @@ namespace DurakGame
             // If the Player is Defending
             else
             {
-                // Check to see if the Defending Player is playing an illegal suit
-                if (player.GetCard(userInput - 1).Suit != AttackCard.Suit && player.GetCard(userInput - 1).Suit != TrumpCard.Suit)
-                {
-                    // Write an error message regarding the Cards suit
-                    Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.GetCard(userInput - 1), AttackCard.Suit);
-                    // Use Recursion to prompt for input once more
+                // Prompt the player to play a card
+                Console.Write("Play a card(Press 0 to skip turn):");
+                if (!int.TryParse(Console.ReadLine(), out userInput))
                     return checkInput(player);
-                }
-                // If the Card is of the correct suit, Check if the card is equal or lower in value
-                else if (player.GetCard(userInput - 1) <= AttackCard)
-                {
-                    // Write an error message regarding the Cards rank
-                    Console.WriteLine("{0} is no strong enough, please play a card higher then {1}", player.GetCard(userInput - 1), AttackCard);
-                    // Use Recursion to prompt for input once more
-                    return checkInput(player);
-                }
-                // If the Card is both the correct suit and higher value it is a legal play.
-                else
-                {
-                    // Show both the attack and defense card.
-                    Console.WriteLine("{0} vs {1}", DurakGame.AttackCard, player.GetCard(userInput - 1));
 
+                //check if player input is in bounds
+                if (userInput > player.PlayerHand.Count || userInput < 0)
+                {
+                    Console.WriteLine("Card index is out of bounds");
+                    return checkInput(player);
+                }
+
+                if (userInput != 0)
+                {
+                    // Check to see if the Defending Player is playing an illegal suit
+                    if (player.GetCard(userInput - 1).Suit != AttackCard.Suit && player.GetCard(userInput - 1).Suit != TrumpCard.Suit)
+                    {
+                        // Write an error message regarding the Cards suit
+                        Console.WriteLine("{0} is not the correct suit, you must play {1} suit", player.GetCard(userInput - 1), AttackCard.Suit);
+                        // Use Recursion to prompt for input once more
+                        return checkInput(player);
+                    }
+                    // If the Card is of the correct suit, Check if the card is equal or lower in value
+                    else if (player.GetCard(userInput - 1) <= AttackCard)
+                    {
+                        // Write an error message regarding the Cards rank
+                        Console.WriteLine("{0} is no strong enough, please play a card higher then {1}", player.GetCard(userInput - 1), AttackCard);
+                        // Use Recursion to prompt for input once more
+                        return checkInput(player);
+                    }
+                    // If the Card is both the correct suit and higher value it is a legal play.
+                    else
+                    {
+                        // Show both the attack and defense card.
+                        Console.WriteLine("{0} vs {1}", DurakGame.AttackCard, player.GetCard(userInput - 1));
+
+                    }
                 }
 
             }
+
             // Return the user input
             return userInput;
         }
@@ -176,9 +217,17 @@ namespace DurakGame
             // Get a card from a player, make sure the card played is valid before playing it
             int playedCard = checkInput(player);
 
-            // This card is a valid play (For attack or Defense) so play it.
-            playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
-            Console.WriteLine();
+            if (playedCard != 0){
+                // This card is a valid play (For attack or Defense) so play it.
+                playedCards[currentPlayer] = player.PlayCard(playedCard - 1);
+                Console.WriteLine();
+            }
+            else
+            {
+                
+                Console.WriteLine("Defending player cannot play a card.");
+
+            }
         }
 
 

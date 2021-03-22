@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CardLibrary">
-      <HintPath>CardLibrary\bin\Debug\CardLibrary.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -120,6 +117,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\DurakOptionsBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="CardLibrary\CardLibrary.csproj">
+      <Project>{de1324f1-2cc4-45ab-a9db-5edbd534a0bc}</Project>
+      <Name>CardLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
