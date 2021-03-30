@@ -1,4 +1,4 @@
-﻿
+﻿-
 namespace DurakGame
 {
     partial class frmStartMenu
@@ -38,8 +38,10 @@ namespace DurakGame
             this.btnStart = new System.Windows.Forms.Button();
             this.txtPlayerName = new System.Windows.Forms.TextBox();
             this.gbxDeckSize = new System.Windows.Forms.GroupBox();
-            this.txt1 = new System.Windows.Forms.TextBox();
             this.lblPlayerName = new System.Windows.Forms.Label();
+            this.rdbDeck20 = new System.Windows.Forms.RadioButton();
+            this.rdbDeck36 = new System.Windows.Forms.RadioButton();
+            this.rdbDeck52 = new System.Windows.Forms.RadioButton();
             this.gbxPlayersNum.SuspendLayout();
             this.gbxDeckSize.SuspendLayout();
             this.SuspendLayout();
@@ -127,31 +129,21 @@ namespace DurakGame
             // gbxDeckSize
             // 
             this.gbxDeckSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbxDeckSize.BackColor = System.Drawing.SystemColors.Control;
-            this.gbxDeckSize.BackgroundImage = global::DurakGame.Properties.Resources.constuct__2_;
-            this.gbxDeckSize.Controls.Add(this.txt1);
+            this.gbxDeckSize.BackColor = System.Drawing.Color.Transparent;
+            this.gbxDeckSize.Controls.Add(this.rdbDeck52);
+            this.gbxDeckSize.Controls.Add(this.rdbDeck36);
+            this.gbxDeckSize.Controls.Add(this.rdbDeck20);
             this.gbxDeckSize.Cursor = System.Windows.Forms.Cursors.Default;
             this.gbxDeckSize.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbxDeckSize.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
             this.gbxDeckSize.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.gbxDeckSize.Location = new System.Drawing.Point(96, 309);
             this.gbxDeckSize.Name = "gbxDeckSize";
-            this.gbxDeckSize.Size = new System.Drawing.Size(420, 100);
+            this.gbxDeckSize.Size = new System.Drawing.Size(520, 100);
             this.gbxDeckSize.TabIndex = 1;
             this.gbxDeckSize.TabStop = false;
+            this.gbxDeckSize.Text = "Deck Size:";
             this.toolTip1.SetToolTip(this.gbxDeckSize, "Click a button to choose the amount of Cards you want");
-            // 
-            // txt1
-            // 
-            this.txt1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt1.BackColor = System.Drawing.SystemColors.Info;
-            this.txt1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt1.Location = new System.Drawing.Point(0, 11);
-            this.txt1.Name = "txt1";
-            this.txt1.Size = new System.Drawing.Size(155, 25);
-            this.txt1.TabIndex = 0;
-            this.txt1.Text = "Deck Size:";
-            this.txt1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lblPlayerName
             // 
@@ -165,10 +157,47 @@ namespace DurakGame
             this.lblPlayerName.Text = "Name:";
             this.lblPlayerName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // rdbDeck20
+            // 
+            this.rdbDeck20.AutoSize = true;
+            this.rdbDeck20.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.rdbDeck20.Location = new System.Drawing.Point(25, 47);
+            this.rdbDeck20.Name = "rdbDeck20";
+            this.rdbDeck20.Size = new System.Drawing.Size(56, 30);
+            this.rdbDeck20.TabIndex = 0;
+            this.rdbDeck20.TabStop = true;
+            this.rdbDeck20.Text = "20";
+            this.rdbDeck20.UseVisualStyleBackColor = true;
+            // 
+            // rdbDeck36
+            // 
+            this.rdbDeck36.AutoSize = true;
+            this.rdbDeck36.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.rdbDeck36.Location = new System.Drawing.Point(235, 47);
+            this.rdbDeck36.Name = "rdbDeck36";
+            this.rdbDeck36.Size = new System.Drawing.Size(56, 30);
+            this.rdbDeck36.TabIndex = 1;
+            this.rdbDeck36.TabStop = true;
+            this.rdbDeck36.Text = "36";
+            this.rdbDeck36.UseVisualStyleBackColor = true;
+            // 
+            // rdbDeck52
+            // 
+            this.rdbDeck52.AutoSize = true;
+            this.rdbDeck52.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.rdbDeck52.Location = new System.Drawing.Point(426, 47);
+            this.rdbDeck52.Name = "rdbDeck52";
+            this.rdbDeck52.Size = new System.Drawing.Size(56, 30);
+            this.rdbDeck52.TabIndex = 2;
+            this.rdbDeck52.TabStop = true;
+            this.rdbDeck52.Text = "52";
+            this.rdbDeck52.UseVisualStyleBackColor = true;
+            // 
             // frmStartMenu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackgroundImage = global::DurakGame.Properties.Resources.durak2;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.txtPlayerName);
@@ -176,6 +205,7 @@ namespace DurakGame
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.gbxDeckSize);
             this.Controls.Add(this.gbxPlayersNum);
+            this.MaximizeBox = false;
             this.Name = "frmStartMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartMenu";
@@ -196,9 +226,11 @@ namespace DurakGame
         private System.Windows.Forms.RadioButton rdb3Players;
         private System.Windows.Forms.RadioButton rdb2Players;
         private System.Windows.Forms.GroupBox gbxDeckSize;
-        private System.Windows.Forms.TextBox txt1;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Label lblPlayerName;
         private System.Windows.Forms.TextBox txtPlayerName;
+        private System.Windows.Forms.RadioButton rdbDeck52;
+        private System.Windows.Forms.RadioButton rdbDeck36;
+        private System.Windows.Forms.RadioButton rdbDeck20;
     }
 }

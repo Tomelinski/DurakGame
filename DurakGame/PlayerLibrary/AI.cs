@@ -28,7 +28,7 @@ namespace PlayerLibrary
 
 
         ///// <summary>
-        ///// Chooses the lowest Card in Hand
+        ///// Chooses the lowest Card in AI Hand
         ///// </summary>
         ///// <param name="handIndex"> The number of the actual card </param>
 
@@ -47,7 +47,7 @@ namespace PlayerLibrary
         //}
 
         ///// <summary>
-        ///// Looks for the lowest card in the group
+        ///// Looks for the lowest card in the given group
         ///// </summary>
         ///// <param name="lCard"> The group which is searched to find the lowest card </param>
         //public int lowestCard(Cards lCard)

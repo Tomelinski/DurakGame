@@ -57,7 +57,7 @@ namespace DurakGame
         private void btnLogs_Click(object sender, EventArgs e)
         {
             /// <summary>
-            /// Logs go in here
+            /// Logs  and statistics go in here. Under Construction
             /// </summary>
         }
     }

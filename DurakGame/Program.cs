@@ -87,11 +87,13 @@ namespace DurakGame
         static void Main(string[] args)
         {
             // Start the Durak Game
-            DurakGame.StartGame();
+         //   DurakGame.StartGame();
 
-/*
+
 
             Task myTask = Task.Run(() => { frmDurakMainMenu form = new frmDurakMainMenu(); form.ShowDialog(); });
+
+            /*
             // Create the Player and Deck, Shuffle the Deck to get different Cards
             Player[] players = { new Player("Calvin", true), new Player("Tom") };
 
@@ -110,55 +112,55 @@ namespace DurakGame
             //{
             //    player.FillHand(gameDeck);
             //}
-      /*      int count = 1;
-            do
-            {
-                Card[] playedCards = new Card[2];
+            /*      int count = 1;
+                  do
+                  {
+                      Card[] playedCards = new Card[2];
 
-                // Display the trump suit
-                Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpCard.Suit);
+                      // Display the trump suit
+                      Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpCard.Suit);
 
-                // Reset counter 
-                int cardCounter = 0;
-                //reset played cards after each turn
+                      // Reset counter 
+                      int cardCounter = 0;
+                      //reset played cards after each turn
 
-                // Display player info, cards in hand and allow player to play a card
-                foreach (Player player in players)
-                {
-                    count = 1;
-                    Console.WriteLine("{0}'s Hand:", player.PlayerName);
-                    //display player hand
-                    foreach (Card card in player.PlayerHand)
-                    {
-                        card.FaceUp = true;
-                        Console.WriteLine("Card {0}: {1}", count, card.ToString());
-                        count++;
-                    }
-
-
-                    // Game logic function, soon to be converted to a class
-                    gameLogic(cardCounter, player, ref playedCards);
-                    cardCounter++;
-                }
+                      // Display player info, cards in hand and allow player to play a card
+                      foreach (Player player in players)
+                      {
+                          count = 1;
+                          Console.WriteLine("{0}'s Hand:", player.PlayerName);
+                          //display player hand
+                          foreach (Card card in player.PlayerHand)
+                          {
+                              card.FaceUp = true;
+                              Console.WriteLine("Card {0}: {1}", count, card.ToString());
+                              count++;
+                          }
 
 
-                // Display cards both players have played
-                cardCounter = 0;
-                foreach (Player player in players)
-                {
-                    Console.WriteLine("{0} played: {1}\n", player.PlayerName, playedCards[cardCounter]);
-                    cardCounter++;
-                }
+                          // Game logic function, soon to be converted to a class
+                          gameLogic(cardCounter, player, ref playedCards);
+                          cardCounter++;
+                      }
 
 
-                // After each turn fill each players hand
-                foreach (Player player in players)
-                {
-                    player.FillHand(gameDeck);
-                }
-                // Play the game until there are no cards left in the deck
-            } while (gameDeck.HasCards() && (players[0].PlayerCardCount != 0 || players[1].PlayerCardCount != 0));
-*/
+                      // Display cards both players have played
+                      cardCounter = 0;
+                      foreach (Player player in players)
+                      {
+                          Console.WriteLine("{0} played: {1}\n", player.PlayerName, playedCards[cardCounter]);
+                          cardCounter++;
+                      }
+
+
+                      // After each turn fill each players hand
+                      foreach (Player player in players)
+                      {
+                          player.FillHand(gameDeck);
+                      }
+                      // Play the game until there are no cards left in the deck
+                  } while (gameDeck.HasCards() && (players[0].PlayerCardCount != 0 || players[1].PlayerCardCount != 0));
+      */
             /*
             //////////////////////////////////////////////////////
             // Display the Hand

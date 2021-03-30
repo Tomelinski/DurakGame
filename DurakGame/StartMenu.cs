@@ -36,10 +36,24 @@ namespace DurakGame
                 playerNum = 4;
             }
 
+            if (rdbDeck20.Checked)
+            {
+                deckSize = 20;
+            }
+            else if (rdbDeck36.Checked)
+            {
+                deckSize = 36;
+            }
+            else
+            {
+                deckSize = 52;
+            }
             // Hides the Current Form the User is on
             this.Hide();
+            frmDurak game = new frmDurak(playerNum, deckSize);
+            game.ShowDialog();
             ///<summary>
-            /// Actual game frm goes in here goes in here
+            /// Actual game frm goes in here goes in here. Under Construction. *********Need to  discuss this *********
             ///</summary>
 
             // initializes Start Form

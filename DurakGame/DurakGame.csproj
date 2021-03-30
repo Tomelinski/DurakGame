@@ -45,7 +45,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logs.cs" />
     <Compile Include="DurakGame.cs" />
+    <Compile Include="frmDurak.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDurak.Designer.cs">
+      <DependentUpon>frmDurak.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI.cs" />
     <Compile Include="HowToPlay.cs">
       <SubType>Form</SubType>
@@ -80,6 +87,9 @@
     <None Include="Resources\durak2" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="frmDurak.resx">
+      <DependentUpon>frmDurak.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HowToPlay.resx">
       <DependentUpon>HowToPlay.cs</DependentUpon>
     </EmbeddedResource>
