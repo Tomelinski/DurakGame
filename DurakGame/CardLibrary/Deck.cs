@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CardLibrary
 {
@@ -22,6 +23,7 @@ namespace CardLibrary
 
         // The list of cards in the deck
         private Cards cards = new Cards();
+        private Card trumpCard = new Card();
 
         // Default Constructor
         public Deck()
@@ -128,6 +130,23 @@ namespace CardLibrary
         {
             // Set the Cards Attribute
             cards = newCards;
+        }
+
+
+
+
+
+
+        public Card getTrumpCard()
+        {
+            return trumpCard;
+        }
+
+         public void setTrumpCard(Deck deck)
+        {
+            Card trumpCard;
+            trumpCard = deck.DrawNextCard();
+            this.trumpCard = trumpCard;
         }
     }
 }

@@ -17,11 +17,19 @@ namespace DurakGame
             InitializeComponent();
         }
 
+        public string PlayerName
+        {
+            get
+            {
+                return txtPlayerName.Text;
+            }
+        }
         private void btnStart_Click(object sender, EventArgs e)
         {
             int playerNum;
             int deckSize;
-            
+
+
             // Radio Button Selection
             if(rdb2Players.Checked)
             {
@@ -57,10 +65,10 @@ namespace DurakGame
             ///</summary>
 
             // initializes Start Form
-            // frmHowToPlay how2Play = new frmHowToPlay();
+            frmHowToPlay how2Play = new frmHowToPlay();
 
             // Show How to Play Form
-            // how2Play.ShowDialog();
+            how2Play.ShowDialog();
             this.Show();
         }
     }

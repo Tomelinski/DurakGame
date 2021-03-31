@@ -1,4 +1,4 @@
-﻿-
+﻿
 namespace DurakGame
 {
     partial class frmStartMenu

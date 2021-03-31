@@ -7,33 +7,32 @@ using System.IO;
 
 namespace DurakGame
 {
-    public  class Logs
+    public class Logs
     {
         // Where file gets placed to
-        public string location = "gamelog.txt";
+        public string STATS_PATH= "Log/gamestats.json";
+        public string LOG_PATH = "Log/gamelog.txt";
 
 
+
+
+        /* NEED TO WORK ON THIS */
         // Recording Log
-        public void GameLogs(string logs)
+        public static void WriteGameStat(string logs)
         {
-            StreamWriter record = File.AppendText(location);
 
-            record.WriteLine(logs);
-            record.Close();
         }
 
         // Clears previous logs
         public void ClearLogs(string clear)
         {
-            StreamWriter record = new StreamWriter(location);
-            record.WriteLine(clear);
-            record.Close();
+
         }
 
         // Grab Logs
         public void RecordLogs(Logs recordLogs)
         {
-            recordLogs.GameLogs("\nRound: ");
+
         }
     }
 }
