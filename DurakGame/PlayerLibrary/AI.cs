@@ -52,11 +52,22 @@ namespace PlayerLibrary
             {
                 for (int i = 1; i < this.PlayerCardCount + 1; i++)
                 {
-
                     if (PlayerHand[i - 1].Suit != DurakGame.DurakGame.TrumpCard.Suit)
                     {
                         cardIndex = i;
                         break;
+                    }
+                }
+
+                if (cardIndex == 0)
+                {
+                    for (int i = 1; i < this.PlayerCardCount + 1; i++)
+                    {
+                        if (PlayerHand[i - 1].Suit == DurakGame.DurakGame.TrumpCard.Suit)
+                        {
+                            cardIndex = i;
+                            break;
+                        }
                     }
                 }
 
@@ -75,12 +86,12 @@ namespace PlayerLibrary
                     }
                 }
 
-                if (cardIndex == -1)
+                if (cardIndex == 0)
                 {
-                    for (int i = 0; i < this.PlayerCardCount; i++)
+                    for (int i = 1; i < this.PlayerCardCount; i++)
                     {
 
-                        if (PlayerHand[i - 1].Suit != DurakGame.DurakGame.TrumpCard.Suit && PlayerHand[i - 1] >= attackingCard)
+                        if (PlayerHand[i - 1].Suit == DurakGame.DurakGame.TrumpCard.Suit && PlayerHand[i - 1] >= attackingCard)
                         {
                             cardIndex = i;
                             break;

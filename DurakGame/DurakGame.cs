@@ -316,6 +316,7 @@ namespace DurakGame
                 if (player.PlayerIsAttacking)
                 {
                     AttackCard = player.PlayCard(playedCard - 1);
+                    Console.WriteLine("Attacking card: " + AttackCard + "\n");
                     PlayedCards.Add(AttackCard);
                 }
                 else
