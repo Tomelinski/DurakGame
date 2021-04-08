@@ -91,11 +91,16 @@ namespace DurakGame
                 // Game logic function, soon to be converted to a class
                 gameLogic(player);
 
+                if (RoundOver)
+                    break;
+
             }
 
 
             // Display cards both players have played
             //cardCounter = 0;
+
+            if (!RoundOver)
             foreach (Player player in Players)
             {
                 if (player.PlayerIsAttacking)
@@ -108,14 +113,14 @@ namespace DurakGame
                 }
                 //cardCounter++;
             }
-
-            if (RoundOver == true)
+            else
             {
+
                 FillPlayerHands(Players);
                 RotateAttacker();
                 Resort();
-                RoundOver = false;
             }
+                RoundOver = false;
 
             /*
             foreach (Card card in PlayedCards)
@@ -148,6 +153,7 @@ namespace DurakGame
             AttackingPlayer = GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
             Resort();
+            
             RoundOver = false;
 
         }
@@ -157,6 +163,7 @@ namespace DurakGame
             while (!Players[0].PlayerIsAttacking)
             {
                 Player tempPlayer = Players[0];
+
                 for (int i = 0; i < Players.Count(); i++)
                 {
                     if (i != Players.Count() - 1)
@@ -165,10 +172,12 @@ namespace DurakGame
                     }
                     else
                     {
-                        Players[Players.Count() - 1] = tempPlayer;
+                        Players[i] = tempPlayer;
                     }
                 }
-            } 
+
+            }
+            AttackingPlayer = 0;
         }
 
         public static void FillPlayerHands(Player[] players)
@@ -177,7 +186,7 @@ namespace DurakGame
             {
                 player.FillHand(GameDeck);
             }
-;        }
+        }
 
         /*public static bool HasCardToPlay(Player defendingPlayer)
         {
@@ -225,7 +234,7 @@ namespace DurakGame
             if (player.PlayerIsAttacking)
             {
                 // Prompt the player to play a card
-                Console.Write("Play a card:");
+                Console.Write("Play a card(Press 0 to skip turn):");
                 if (!int.TryParse(Console.ReadLine(), out userInput))
                     return checkInput(player);
 
@@ -309,7 +318,7 @@ namespace DurakGame
             else
             {
                 RoundOver = true;
-                Console.WriteLine("Defending player cannot play a card.");
+                Console.WriteLine("\n" + player.PlayerName + " has skipped their turn.\n");
 
             }
         }

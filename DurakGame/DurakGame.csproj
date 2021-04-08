@@ -33,9 +33,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CardBox">
-      <HintPath>CardBox\bin\Debug\CardBox.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -142,6 +139,10 @@
     <None Include="Resources\DurakOptionsBG.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="CardBox\CardBox.csproj">
+      <Project>{d057cc8a-1d24-4346-86f0-ed275a3b35be}</Project>
+      <Name>CardBox</Name>
+    </ProjectReference>
     <ProjectReference Include="CardLibrary\CardLibrary.csproj">
       <Project>{de1324f1-2cc4-45ab-a9db-5edbd534a0bc}</Project>
       <Name>CardLibrary</Name>
