@@ -32,27 +32,27 @@ namespace PlayerLibrary
 
         public int GetAttackingCardIndex()
         {
-
-            return GetLowestCardIndex();
+            Object nullObj = null;
+            return GetLowestCardIndex(nullObj);
         }
 
 
         public int GetDefendingCardIndex(Card attackingCard)
         {
 
-            return GetLowestCardIndex(attackingCard);
+            return GetLowestCardIndex(attackingCard as Object);
         }
 
-        private int GetLowestCardIndex(Card attackingCard = null)
+        private int GetLowestCardIndex(Object obj)
         {
             this.PlayerHand.Sort();
             int cardIndex = -1;
-            //int cardsRemaining = DurakGame.DurakGame.GameDeck.CardsRemaining();
-            if (attackingCard != null)
+
+            if (obj == null)
             {
-                for (int i = 0 ; i < this.PlayerCardCount; i++)
+                for (int i = 0; i < this.PlayerCardCount; i++)
                 {
-                    
+
                     if (PlayerHand[i].Suit != DurakGame.DurakGame.TrumpCard.Suit)
                     {
                         cardIndex = i;
@@ -60,26 +60,26 @@ namespace PlayerLibrary
                     }
                 }
 
-                if (cardIndex != -1)
+                if (cardIndex == -1)
                 {
                     cardIndex = 0;
                 }
-
             }
             else
             {
+                Card attackingCard = obj as Card;
+
                 for (int i = 0; i < this.PlayerCardCount; i++)
                 {
 
-                    if (PlayerHand[i].Suit == attackingCard.Suit && PlayerHand[i] >= attackingCard)
+                    if (PlayerHand[i].Suit == attackingCard.Suit && PlayerHand[i].Rank >= attackingCard.Rank)
                     {
                         cardIndex = i;
                         break;
                     }
                 }
 
-
-                if (cardIndex != -1)
+                if (cardIndex == -1)
                 {
                     for (int i = 0; i < this.PlayerCardCount; i++)
                     {
@@ -90,11 +90,11 @@ namespace PlayerLibrary
                             break;
                         }
                     }
-                    if (cardIndex != -1)
+                    if (cardIndex == -1)
                         cardIndex = 0;
                 }
-            }
-            
+            }  
+       
 
             return cardIndex;
         }
