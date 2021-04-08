@@ -25,6 +25,7 @@ namespace DurakGame
         public static Card AttackCard { get; set; }
         public static Card DefendCard { get; set; }
         public static Cards PlayedCards;
+        //public static Cards AllPlayedCards;
         public static Deck GameDeck { get; set; }
         public static Player[] Players { get; set; }
         private static int AttackingPlayer { get; set; }
@@ -210,7 +211,6 @@ namespace DurakGame
         {
             int playerIndex = 0;    // Default to first Player if anything goes wrong
             Cards lowestCards = new Cards();
-            Card lowestCard;
 
             foreach (Player player in Players)
             {

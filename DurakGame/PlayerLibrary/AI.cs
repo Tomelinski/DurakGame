@@ -15,27 +15,99 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CardLibrary;  // Make use of the CardLibrary
+using DurakGame;
 
 namespace PlayerLibrary
 {
     public class AI : Player
     {
-        //// Default Constructor
-        //public AI() { }
 
-        //// Grabbing the deck to fill the hands
-        //public AI(Deck playingDeck) : base(playingDeck.ToString()) { }
+        public AI() { }
+
+        // Default Constructor
+        public AI(string AIName = "AI") : base()
+        {
+
+        }
+
+        public int GetAttackingCardIndex()
+        {
+
+            return GetLowestCardIndex();
+        }
 
 
-        ///// <summary>
-        ///// Chooses the lowest Card in AI Hand
-        ///// </summary>
-        ///// <param name="handIndex"> The number of the actual card </param>
+        public int GetDefendingCardIndex(Card attackingCard)
+        {
+
+            return GetLowestCardIndex(attackingCard);
+        }
+
+        public int GetLowestCardIndex(Card attackingCard = null)
+        {
+            this.PlayerHand.Sort();
+            int cardIndex = -1;
+            //int cardsRemaining = DurakGame.DurakGame.GameDeck.CardsRemaining();
+            if (attackingCard != null)
+            {
+                for (int i = 0 ; i < this.PlayerCardCount; i++)
+                {
+                    
+                    if (PlayerHand[i].Suit != DurakGame.DurakGame.TrumpCard.Suit)
+                    {
+                        cardIndex = i;
+                        break;
+                    }
+                }
+
+                if (cardIndex != -1)
+                {
+                    cardIndex = 0;
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < this.PlayerCardCount; i++)
+                {
+
+                    if (PlayerHand[i].Suit == attackingCard.Suit && PlayerHand[i] >= attackingCard)
+                    {
+                        cardIndex = i;
+                        break;
+                    }
+                }
+
+
+                if (cardIndex != -1)
+                {
+                    for (int i = 0; i < this.PlayerCardCount; i++)
+                    {
+
+                        if (PlayerHand[i].Suit != DurakGame.DurakGame.TrumpCard.Suit && PlayerHand[i] >= attackingCard)
+                        {
+                            cardIndex = i;
+                            break;
+                        }
+                    }
+                    if (cardIndex != -1)
+                        cardIndex = 0;
+                }
+            }
+            
+
+            return cardIndex;
+        }
+
+        /// <summary>
+        /// Chooses the lowest Card in AI Hand
+        /// </summary>
+        /// <param name="handIndex"> The number of the actual card </param>
 
         //public Card chooseCard(Cards handIndex)
         //{
         //    // Initializes the cards
-        //    Cards chosenCards = this.PlayCard(handIndex);
+        //    Card chosenCards = this.PlayCard(handIndex);
         //    int numCard = chosenCards.Count;
 
         //    // Grabs the Lowest Card
