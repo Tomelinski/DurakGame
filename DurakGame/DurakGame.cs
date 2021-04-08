@@ -55,15 +55,20 @@ namespace DurakGame
 
             
 
-            // Display the trump suit
-            Console.WriteLine("Trump Suit: {0}", DurakGame.TrumpCard.Suit);
+            
 
 
             do
             {
+                // Display the trump suit
+                Console.WriteLine("Trump Suit: {0}\nCards Left: {1}\n", TrumpCard.Suit, GameDeck.CardsRemaining());
+
                 GameRound();
+
                 // Play the game until there are no cards left in the deck
             } while (GameDeck.HasCards());
+
+            DetermineDurak();
 
         }
 
@@ -76,7 +81,7 @@ namespace DurakGame
             foreach (Player player in Players)
             {
 
-                Console.WriteLine("{0} is {1}", player.PlayerName, (player.PlayerIsAttacking ? "Attacking" : "Defending"));
+                Console.WriteLine("{0} is {1}\n", player.PlayerName, (player.PlayerIsAttacking ? "Attacking" : "Defending"));
                 cardCount = 1;
 
                 //display player hand
@@ -140,7 +145,7 @@ namespace DurakGame
 
 
             // Create and shuffle a deck
-            GameDeck = new Deck(36);
+            GameDeck = new Deck(20);
             GameDeck.Shuffle();
 
             // Set the trump card
@@ -320,7 +325,32 @@ namespace DurakGame
                 RoundOver = true;
                 Console.WriteLine("\n" + player.PlayerName + " has skipped their turn.\n");
 
+                // Check if the skipping player was the defender
+                if (!player.PlayerIsAttacking)
+                {
+                    foreach (Card card in PlayedCards)
+                    {
+                        player.DrawCard(card);
+
+                    }
+                }
+
+                PlayedCards = new Cards();
+
             }
+        }
+
+        static public void DetermineDurak()
+        {
+            if (Players[0].PlayerHand.Count > Players[1].PlayerHand.Count)
+                Console.WriteLine("Player: {0} is the Durak!", Players[0].PlayerName);
+     
+            else
+                Console.WriteLine("Player: {0} is the Durak!", Players[1].PlayerName);
+
+
+            Console.ReadKey();
+            
         }
 
 

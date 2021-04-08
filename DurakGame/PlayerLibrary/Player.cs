@@ -72,7 +72,8 @@ namespace PlayerLibrary
             for (int i = this.PlayerCardCount; i < handBaseLine; i++)
             {
                 // Draw a card off the top of the deck, into the hand
-                this.DrawCard(playingDeck.DrawNextCard());
+                if (playingDeck.HasCards())
+                    this.DrawCard(playingDeck.DrawNextCard());
             }
         }
 
