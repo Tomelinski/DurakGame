@@ -25,7 +25,7 @@ namespace PlayerLibrary
         public AI() { }
 
         // Default Constructor
-        public AI(string AIName = "AI") : base()
+        public AI(string AIName = "AI") : base(AIName)
         {
 
         }
@@ -43,7 +43,7 @@ namespace PlayerLibrary
             return GetLowestCardIndex(attackingCard);
         }
 
-        public int GetLowestCardIndex(Card attackingCard = null)
+        private int GetLowestCardIndex(Card attackingCard = null)
         {
             this.PlayerHand.Sort();
             int cardIndex = -1;
