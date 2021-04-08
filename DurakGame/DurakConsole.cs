@@ -8,7 +8,7 @@ using PlayerLibrary;
 
 namespace DurakGame
 {
-    class DurakGame
+    class DurakConsole
     {
         private static Card trumpCard;
         public static Card TrumpCard
@@ -282,7 +282,7 @@ namespace DurakGame
                         else
                         {
                             // Show both the attack and defense card.
-                            Console.WriteLine("{0} vs {1}", DurakGame.AttackCard, player.GetCard(userInput - 1));
+                            Console.WriteLine("{0} vs {1}", DurakConsole.AttackCard, player.GetCard(userInput - 1));
 
                         }
                     }

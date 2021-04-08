@@ -26,11 +26,7 @@ namespace DurakGame
         static void Main(string[] args)
         {
             // Start the Durak Game
-            DurakGame.StartGame();
-
-
-
-            //Task myTask = Task.Run(() => { frmDurakMainMenu form = new frmDurakMainMenu(); form.ShowDialog(); });
+            DurakConsole.StartGame();
 
            
 

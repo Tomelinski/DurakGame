@@ -50,7 +50,7 @@ namespace PlayerLibrary
             {
                 for (int i = 1; i < this.PlayerCardCount + 1; i++)
                 {
-                    if (PlayerHand[i - 1].Suit != DurakGame.DurakGame.TrumpCard.Suit)
+                    if (PlayerHand[i - 1].Suit != DurakGame.DurakConsole.TrumpCard.Suit)
                     {
                         cardIndex = i;
                         break;
@@ -61,7 +61,7 @@ namespace PlayerLibrary
                 {
                     for (int i = 1; i < this.PlayerCardCount + 1; i++)
                     {
-                        if (PlayerHand[i - 1].Suit == DurakGame.DurakGame.TrumpCard.Suit)
+                        if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit)
                         {
                             cardIndex = i;
                             break;
@@ -77,7 +77,7 @@ namespace PlayerLibrary
                 for (int i = 1; i < this.PlayerCardCount + 1; i++)
                 {
 
-                    if (PlayerHand[i - 1].Suit == attackingCard.Suit && PlayerHand[i - 1].Rank >= attackingCard.Rank)
+                    if (PlayerHand[i - 1].Suit == attackingCard.Suit && PlayerHand[i - 1] > attackingCard)
                     {
                         cardIndex = i;
                         break;
@@ -89,7 +89,7 @@ namespace PlayerLibrary
                     for (int i = 1; i < this.PlayerCardCount; i++)
                     {
 
-                        if (PlayerHand[i - 1].Suit == DurakGame.DurakGame.TrumpCard.Suit && PlayerHand[i - 1] >= attackingCard)
+                        if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit && PlayerHand[i - 1] > attackingCard)
                         {
                             cardIndex = i;
                             break;

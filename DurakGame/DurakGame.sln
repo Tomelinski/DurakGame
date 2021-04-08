@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakGame", "DurakGame.csproj", "{28D6E9BE-8FB1-44F0-8FEF-4FF8D457401A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakConsole", "DurakConsole.csproj", "{28D6E9BE-8FB1-44F0-8FEF-4FF8D457401A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBox", "CardBox\CardBox.csproj", "{D057CC8A-1D24-4346-86F0-ED275A3B35BE}"
 EndProject

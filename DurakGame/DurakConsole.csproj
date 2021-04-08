@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DurakGame.cs" />
+    <Compile Include="DurakConsole.cs" />
     <Compile Include="PlayerLibrary\AI.cs" />
     <Compile Include="PlayerLibrary\Player.cs" />
     <Compile Include="Program.cs" />
