@@ -22,8 +22,6 @@ namespace PlayerLibrary
     public class AI : Player
     {
 
-        public AI() { }
-
         // Default Constructor
         public AI(string AIName = "AI") : base(AIName)
         {
