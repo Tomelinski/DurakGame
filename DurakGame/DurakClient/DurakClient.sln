@@ -5,10 +5,6 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DurakClient", "DurakClient.csproj", "{444D9DF7-3FCA-4722-B3E6-D08184218839}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardLibrary", "..\DurakGame\DurakGame\CardLibrary\CardLibrary.csproj", "{DE1324F1-2CC4-45AB-A9DB-5EDBD534A0BC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CardBox", "..\DurakGame\DurakGame\CardBox\CardBox.csproj", "{D057CC8A-1D24-4346-86F0-ED275A3B35BE}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,14 +15,6 @@ Global
 		{444D9DF7-3FCA-4722-B3E6-D08184218839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{444D9DF7-3FCA-4722-B3E6-D08184218839}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{444D9DF7-3FCA-4722-B3E6-D08184218839}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DE1324F1-2CC4-45AB-A9DB-5EDBD534A0BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DE1324F1-2CC4-45AB-A9DB-5EDBD534A0BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DE1324F1-2CC4-45AB-A9DB-5EDBD534A0BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DE1324F1-2CC4-45AB-A9DB-5EDBD534A0BC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D057CC8A-1D24-4346-86F0-ED275A3B35BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
