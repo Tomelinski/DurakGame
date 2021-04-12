@@ -55,20 +55,29 @@ namespace DurakGame
             ResetGameVariables();
             PlayedCards = new Cards();
             bool lastRound = false;
+            bool noCardsInHand = false;
 
 
             do
             {
-                if (!GameDeck.HasCards() && RoundOver)
-                {
-                    lastRound = true;
-                }
+
 
                 // Display the trump suit
                 Console.WriteLine("Trump Suit: {0}\nCards Left: {1}\n", TrumpCard.Suit, GameDeck.CardsRemaining());
 
                 GameRound();
 
+                foreach (Player player in Players)
+                {
+                    if (player.PlayerHand.Count() == 0)
+                        noCardsInHand = true;
+                }
+
+                if (!GameDeck.HasCards() && noCardsInHand && RoundOver)
+                {
+                    lastRound = true;
+                }
+                
                 // Play the game until there are no cards left in the deck
             } while (!lastRound);
 
@@ -141,9 +150,10 @@ namespace DurakGame
         {
             // Create the Players
             Players = new Player[2];
-            Players[0] = new Player("Calvin");
+            //Players[0] = new Player("Calvin");
             //Players[1] = new Player("Tom");
-            Players[1] = new AI();
+            Players[0] = new AI("AI1");
+            Players[1] = new AI("AI2");
 
 
 
