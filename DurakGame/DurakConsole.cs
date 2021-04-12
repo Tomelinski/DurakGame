@@ -30,6 +30,7 @@ namespace DurakGame
         public static Player[] Players { get; set; }
         private static int AttackingPlayer { get; set; }
         private static bool RoundOver { get; set; }
+        private static bool DefendingPlayerSkip { get; set; }
 
         public static void RotateAttacker()
         {
@@ -53,21 +54,23 @@ namespace DurakGame
             // Reset all Game Logic and Rules for a new Game
             ResetGameVariables();
             PlayedCards = new Cards();
-
-            
-
-            
+            bool lastRound = false;
 
 
             do
             {
+                if (!GameDeck.HasCards() && RoundOver)
+                {
+                    lastRound = true;
+                }
+
                 // Display the trump suit
                 Console.WriteLine("Trump Suit: {0}\nCards Left: {1}\n", TrumpCard.Suit, GameDeck.CardsRemaining());
 
                 GameRound();
 
                 // Play the game until there are no cards left in the deck
-            } while (GameDeck.HasCards());
+            } while (!lastRound);
 
             DetermineDurak();
 
@@ -76,12 +79,14 @@ namespace DurakGame
 
         public static void GameRound()
         {
+            RoundOver = false;
+            DefendingPlayerSkip = false;
             int cardCount;
 
             // Display player info, cards in hand and allow player to play a card
             foreach (Player player in Players)
             {
-
+                player.PlayerHand.Sort();
                 Console.WriteLine("{0} is {1}\n", player.PlayerName, (player.PlayerIsAttacking ? "Attacking" : "Defending"));
                 cardCount = 1;
 
@@ -123,17 +128,12 @@ namespace DurakGame
             {
 
                 FillPlayerHands(Players);
-                RotateAttacker();
-                Resort();
+                if (!DefendingPlayerSkip)
+                {
+                    RotateAttacker();
+                    Resort();
+                }
             }
-                RoundOver = false;
-
-            /*
-            foreach (Card card in PlayedCards)
-            {
-                Console.WriteLine("played: " + card);
-            }
-            */
         }
 
 
@@ -337,6 +337,7 @@ namespace DurakGame
                 // Check if the skipping player was the defender
                 if (!player.PlayerIsAttacking)
                 {
+                    DefendingPlayerSkip = true;
                     foreach (Card card in PlayedCards)
                     {
                         player.DrawCard(card);

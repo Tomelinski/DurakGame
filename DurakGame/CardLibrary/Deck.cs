@@ -71,11 +71,12 @@ namespace CardLibrary
 
         public int CardsRemaining()
         {
-            return this.cards.Count() - 1;
+            return this.cards.Count();
         }
 
         public Card GetCard(int cardNum)
         {
+            
             // Check if the index being retrieved is within bounds
             if (cardNum >= 0 && cardNum <= (cards.Count() - 1))
             {
