@@ -71,23 +71,25 @@ namespace DurakClient
             // 
             // pnlPlayerHand
             // 
-            this.pnlPlayerHand.Location = new System.Drawing.Point(140, 335);
+            this.pnlPlayerHand.BackColor = System.Drawing.Color.Transparent;
+            this.pnlPlayerHand.Location = new System.Drawing.Point(140, 324);
             this.pnlPlayerHand.Name = "pnlPlayerHand";
-            this.pnlPlayerHand.Size = new System.Drawing.Size(498, 114);
+            this.pnlPlayerHand.Size = new System.Drawing.Size(498, 125);
             this.pnlPlayerHand.TabIndex = 2;
             // 
             // pnlOponentHand
             // 
             this.pnlOponentHand.Location = new System.Drawing.Point(140, 11);
             this.pnlOponentHand.Name = "pnlOponentHand";
-            this.pnlOponentHand.Size = new System.Drawing.Size(498, 114);
+            this.pnlOponentHand.Size = new System.Drawing.Size(498, 125);
             this.pnlOponentHand.TabIndex = 3;
             // 
             // pnlPlayArea
             // 
-            this.pnlPlayArea.Location = new System.Drawing.Point(106, 145);
+            this.pnlPlayArea.BackColor = System.Drawing.Color.Transparent;
+            this.pnlPlayArea.Location = new System.Drawing.Point(106, 159);
             this.pnlPlayArea.Name = "pnlPlayArea";
-            this.pnlPlayArea.Size = new System.Drawing.Size(570, 170);
+            this.pnlPlayArea.Size = new System.Drawing.Size(570, 140);
             this.pnlPlayArea.TabIndex = 4;
             // 
             // btnSkip

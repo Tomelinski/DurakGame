@@ -38,10 +38,12 @@
             this.pbCardPictureBox.Location = new System.Drawing.Point(0, 0);
             this.pbCardPictureBox.Name = "pbCardPictureBox";
             this.pbCardPictureBox.Size = new System.Drawing.Size(76, 110);
-            this.pbCardPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbCardPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbCardPictureBox.TabIndex = 0;
             this.pbCardPictureBox.TabStop = false;
-            this.pbCardPictureBox.Click += new System.EventHandler(this.pbCardPictureBox_Click);
+            this.pbCardPictureBox.Click += new System.EventHandler(this.PbCardPictureBox_Click);
+            this.pbCardPictureBox.MouseEnter += new System.EventHandler(this.PbCardPictureBox_MouseEnter);
+            this.pbCardPictureBox.MouseLeave += new System.EventHandler(this.PbCardPictureBox_MouseLeave);
             // 
             // CardBox
             // 

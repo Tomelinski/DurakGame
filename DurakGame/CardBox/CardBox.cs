@@ -195,12 +195,60 @@ namespace CardBox
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void pbCardPictureBox_Click(object sender, EventArgs e)
+        private void PbCardPictureBox_Click(object sender, EventArgs e)
         {
             // Check if there is a handler for clicknig the control in the client program
             if (Click != null)
                 // If there is, Call it
                 Click(this, e);
+
+            // Syntax for this functionality can also be done like this:
+            // Click?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// An event the client program can handle when the user clicks the control
+        /// This is an Event Delegate!
+        /// </summary>
+        new public event EventHandler MouseLeave;
+
+        /// <summary>
+        /// An event handler for the user clicking the picturebox control
+        /// This Functionality should change depending on the program using this
+        /// Control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PbCardPictureBox_MouseLeave(object sender, EventArgs e)
+        {
+            // Check if there is a handler for clicknig the control in the client program
+            if (MouseLeave != null)
+                // If there is, Call it
+                MouseLeave(this, e);
+
+            // Syntax for this functionality can also be done like this:
+            // Click?.Invoke(this, e);
+        }
+
+        /// <summary>
+        /// An event the client program can handle when the user clicks the control
+        /// This is an Event Delegate!
+        /// </summary>
+        new public event EventHandler MouseEnter;
+
+        /// <summary>
+        /// An event handler for the user clicking the picturebox control
+        /// This Functionality should change depending on the program using this
+        /// Control
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PbCardPictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            // Check if there is a handler for clicknig the control in the client program
+            if (MouseEnter != null)
+                // If there is, Call it
+                MouseEnter(this, e);
 
             // Syntax for this functionality can also be done like this:
             // Click?.Invoke(this, e);
