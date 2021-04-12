@@ -30,8 +30,7 @@ namespace PlayerLibrary
 
         public int GetAttackingCardIndex()
         {
-            Object nullObj = null;
-            return GetLowestCardIndex(nullObj);
+            return GetLowestCardIndex();
         }
 
 
@@ -41,30 +40,48 @@ namespace PlayerLibrary
             return GetLowestCardIndex(attackingCard as Object);
         }
 
-        private int GetLowestCardIndex(Object obj)
+        private int GetLowestCardIndex(Object obj = null)
         {
+            //sort AI hand to get lowest card order
             this.PlayerHand.Sort();
             int cardIndex = 0;
 
+            //check if attacking card exists this decides if the AI is attacking or defending
             if (obj == null)
             {
-                for (int i = 1; i < this.PlayerCardCount + 1; i++)
+                if (DurakGame.DurakConsole.PlayedCards.Count() >= 2)
                 {
-                    if (PlayerHand[i - 1].Suit != DurakGame.DurakConsole.TrumpCard.Suit)
+                    foreach (Card card in DurakGame.DurakConsole.PlayedCards)
                     {
-                        cardIndex = i;
-                        break;
+                        for (int i = 1; i < this.PlayerCardCount + 1; i++)
+                        {
+                            if (PlayerHand[i - 1].Rank == card.Rank)
+                            {
+                                cardIndex = i;
+                            }
+                        }
                     }
                 }
-
-                if (cardIndex == 0)
+                else
                 {
                     for (int i = 1; i < this.PlayerCardCount + 1; i++)
                     {
-                        if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit)
+                        if (PlayerHand[i - 1].Suit != DurakGame.DurakConsole.TrumpCard.Suit)
                         {
                             cardIndex = i;
                             break;
+                        }
+                    }
+
+                    if (cardIndex == 0)
+                    {
+                        for (int i = 1; i < this.PlayerCardCount + 1; i++)
+                        {
+                            if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit)
+                            {
+                                cardIndex = i;
+                                break;
+                            }
                         }
                     }
                 }

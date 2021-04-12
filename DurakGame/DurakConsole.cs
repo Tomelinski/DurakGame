@@ -254,6 +254,18 @@ namespace DurakGame
                         return checkInput(player);
                     }
 
+                    if (PlayedCards.Count() >= 2)
+                    {
+                        foreach (Card card in PlayedCards)
+                        {
+                            if (player.GetCard(userInput - 1).Rank != card.Rank)
+                            {
+                                Console.WriteLine("Card cannot be played");
+                                return checkInput(player);
+                            }
+                        }
+                    }
+
                 }
                 // If the Player is Defending
                 else
