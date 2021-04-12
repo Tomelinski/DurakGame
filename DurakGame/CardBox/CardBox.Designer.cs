@@ -37,7 +37,7 @@
             this.pbCardPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbCardPictureBox.Location = new System.Drawing.Point(0, 0);
             this.pbCardPictureBox.Name = "pbCardPictureBox";
-            this.pbCardPictureBox.Size = new System.Drawing.Size(500, 726);
+            this.pbCardPictureBox.Size = new System.Drawing.Size(76, 110);
             this.pbCardPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbCardPictureBox.TabIndex = 0;
             this.pbCardPictureBox.TabStop = false;
@@ -45,11 +45,13 @@
             // 
             // CardBox
             // 
+            this.AccessibleRole = System.Windows.Forms.AccessibleRole.IpAddress;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.pbCardPictureBox);
             this.Name = "CardBox";
-            this.Size = new System.Drawing.Size(500, 726);
+            this.Size = new System.Drawing.Size(76, 110);
             this.Load += new System.EventHandler(this.CardBox_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbCardPictureBox)).EndInit();
             this.ResumeLayout(false);

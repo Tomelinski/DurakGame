@@ -42,15 +42,16 @@ namespace DurakClient
 
         private void btnHowToPlay_Click(object sender, EventArgs e)
         {
-            // Hides the Current Form the User is on
-            Hide();
+            string videoLink = "https://youtu.be/hQHW_CuGG2A";
 
-            // initializes Start Form
-            frmHowToPlay how2Play = new frmHowToPlay();
-
-            // Show How to Play Form
-            how2Play.ShowDialog();
-            this.Show();
+            try
+            {
+                System.Diagnostics.Process.Start(videoLink);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error redirecting to help video. Please see this link for the video: https://youtu.be/hQHW_CuGG2A.");
+            }
 
         }
 

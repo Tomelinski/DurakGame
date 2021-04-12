@@ -64,11 +64,6 @@ namespace DurakClient
             /// Actual game frm goes in here goes in here. Under Construction. *********Need to  discuss this *********
             ///</summary>
 
-            // initializes Start Form
-            frmHowToPlay how2Play = new frmHowToPlay();
-
-            // Show How to Play Form
-            how2Play.ShowDialog();
             this.Show();
         }
     }

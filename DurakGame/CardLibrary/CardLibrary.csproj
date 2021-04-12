@@ -214,5 +214,17 @@
   <ItemGroup>
     <None Include="Resources\Two_of_Spades.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jack_of_Clubs.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jack_of_Diamonds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jack_of_Hearts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Jack_of_Spades.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

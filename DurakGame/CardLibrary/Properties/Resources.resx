@@ -172,6 +172,18 @@
   <data name="Four_of_Spades" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Four_of_Spades.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Jack_of_Clubs" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Jack_of_Clubs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Jack_of_Diamonds" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Jack_of_Diamonds.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Jack_of_Hearts" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Jack_of_Hearts.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Jack_of_Spades" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Jack_of_Spades.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="King_of_Clubs" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\King_of_Clubs.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

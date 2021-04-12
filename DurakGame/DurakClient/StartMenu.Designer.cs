@@ -38,10 +38,10 @@ namespace DurakClient
             this.btnStart = new System.Windows.Forms.Button();
             this.txtPlayerName = new System.Windows.Forms.TextBox();
             this.gbxDeckSize = new System.Windows.Forms.GroupBox();
-            this.lblPlayerName = new System.Windows.Forms.Label();
-            this.rdbDeck20 = new System.Windows.Forms.RadioButton();
-            this.rdbDeck36 = new System.Windows.Forms.RadioButton();
             this.rdbDeck52 = new System.Windows.Forms.RadioButton();
+            this.rdbDeck36 = new System.Windows.Forms.RadioButton();
+            this.rdbDeck20 = new System.Windows.Forms.RadioButton();
+            this.lblPlayerName = new System.Windows.Forms.Label();
             this.gbxPlayersNum.SuspendLayout();
             this.gbxDeckSize.SuspendLayout();
             this.SuspendLayout();
@@ -120,7 +120,7 @@ namespace DurakClient
             // 
             this.txtPlayerName.BackColor = System.Drawing.SystemColors.Window;
             this.txtPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F);
-            this.txtPlayerName.Location = new System.Drawing.Point(342, 70);
+            this.txtPlayerName.Location = new System.Drawing.Point(342, 114);
             this.txtPlayerName.Name = "txtPlayerName";
             this.txtPlayerName.Size = new System.Drawing.Size(152, 32);
             this.txtPlayerName.TabIndex = 7;
@@ -145,29 +145,17 @@ namespace DurakClient
             this.gbxDeckSize.Text = "Deck Size:";
             this.toolTip1.SetToolTip(this.gbxDeckSize, "Click a button to choose the amount of Cards you want");
             // 
-            // lblPlayerName
+            // rdbDeck52
             // 
-            this.lblPlayerName.AutoSize = true;
-            this.lblPlayerName.BackColor = System.Drawing.Color.Transparent;
-            this.lblPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.lblPlayerName.Location = new System.Drawing.Point(229, 72);
-            this.lblPlayerName.Name = "lblPlayerName";
-            this.lblPlayerName.Size = new System.Drawing.Size(82, 26);
-            this.lblPlayerName.TabIndex = 6;
-            this.lblPlayerName.Text = "Name:";
-            this.lblPlayerName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // rdbDeck20
-            // 
-            this.rdbDeck20.AutoSize = true;
-            this.rdbDeck20.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.rdbDeck20.Location = new System.Drawing.Point(25, 47);
-            this.rdbDeck20.Name = "rdbDeck20";
-            this.rdbDeck20.Size = new System.Drawing.Size(56, 30);
-            this.rdbDeck20.TabIndex = 0;
-            this.rdbDeck20.TabStop = true;
-            this.rdbDeck20.Text = "20";
-            this.rdbDeck20.UseVisualStyleBackColor = true;
+            this.rdbDeck52.AutoSize = true;
+            this.rdbDeck52.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.rdbDeck52.Location = new System.Drawing.Point(426, 47);
+            this.rdbDeck52.Name = "rdbDeck52";
+            this.rdbDeck52.Size = new System.Drawing.Size(56, 30);
+            this.rdbDeck52.TabIndex = 2;
+            this.rdbDeck52.TabStop = true;
+            this.rdbDeck52.Text = "52";
+            this.rdbDeck52.UseVisualStyleBackColor = true;
             // 
             // rdbDeck36
             // 
@@ -181,17 +169,29 @@ namespace DurakClient
             this.rdbDeck36.Text = "36";
             this.rdbDeck36.UseVisualStyleBackColor = true;
             // 
-            // rdbDeck52
+            // rdbDeck20
             // 
-            this.rdbDeck52.AutoSize = true;
-            this.rdbDeck52.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
-            this.rdbDeck52.Location = new System.Drawing.Point(426, 47);
-            this.rdbDeck52.Name = "rdbDeck52";
-            this.rdbDeck52.Size = new System.Drawing.Size(56, 30);
-            this.rdbDeck52.TabIndex = 2;
-            this.rdbDeck52.TabStop = true;
-            this.rdbDeck52.Text = "52";
-            this.rdbDeck52.UseVisualStyleBackColor = true;
+            this.rdbDeck20.AutoSize = true;
+            this.rdbDeck20.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.rdbDeck20.Location = new System.Drawing.Point(25, 47);
+            this.rdbDeck20.Name = "rdbDeck20";
+            this.rdbDeck20.Size = new System.Drawing.Size(56, 30);
+            this.rdbDeck20.TabIndex = 0;
+            this.rdbDeck20.TabStop = true;
+            this.rdbDeck20.Text = "20";
+            this.rdbDeck20.UseVisualStyleBackColor = true;
+            // 
+            // lblPlayerName
+            // 
+            this.lblPlayerName.AutoSize = true;
+            this.lblPlayerName.BackColor = System.Drawing.Color.Transparent;
+            this.lblPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Bold);
+            this.lblPlayerName.Location = new System.Drawing.Point(229, 115);
+            this.lblPlayerName.Name = "lblPlayerName";
+            this.lblPlayerName.Size = new System.Drawing.Size(82, 26);
+            this.lblPlayerName.TabIndex = 6;
+            this.lblPlayerName.Text = "Name:";
+            this.lblPlayerName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // frmStartMenu
             // 
@@ -199,13 +199,16 @@ namespace DurakClient
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnablePreventFocusChange;
             this.BackgroundImage = global::DurakClient.Properties.Resources.Durak;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.txtPlayerName);
             this.Controls.Add(this.lblPlayerName);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.gbxDeckSize);
             this.Controls.Add(this.gbxPlayersNum);
+            this.DoubleBuffered = true;
             this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "frmStartMenu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "StartMenu";

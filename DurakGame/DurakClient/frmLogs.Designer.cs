@@ -47,9 +47,13 @@ namespace DurakClient
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::DurakClient.Properties.Resources.DurakOptionsBG;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.txtLogs);
+            this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "frmGameLogs";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Logs and Statistics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmWriteLog_Closing);
             this.ResumeLayout(false);

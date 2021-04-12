@@ -23,6 +23,9 @@ using System.Text;
  * https://sourceforge.net/projects/svg-cards/ 
  *  on 03/12/2021.
  *  
+ * Jack Card images used in this program were sourced from:
+ * http://acbl.mybigcommerce.com/52-playing-cards/
+ *  
  *  Face down Card image taken from Chris Pelt on Pintrest:
  *  https://www.pinterest.ca/pin/105130972527979556/
  *  
