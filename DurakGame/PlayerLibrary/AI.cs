@@ -45,22 +45,53 @@ namespace PlayerLibrary
             //sort AI hand to get lowest card order
             this.PlayerHand.Sort();
             int cardIndex = 0;
+            List<int> playableCards = new List<int>();
 
             //check if attacking card exists this decides if the AI is attacking or defending
             if (obj == null)
             {
+                //check if there are cards that have been played
                 if (DurakGame.DurakConsole.PlayedCards.Count() >= 2)
                 {
+                    //compare each card played to the cards that are in hand
                     foreach (Card card in DurakGame.DurakConsole.PlayedCards)
                     {
-                        for (int i = 1; i < this.PlayerCardCount + 1; i++)
+                        for (int i = 1; i <= this.PlayerCardCount; i++)
                         {
                             if (PlayerHand[i - 1].Rank == card.Rank)
                             {
-                                cardIndex = i;
+                                
+                                playableCards.Add(i-1);
                             }
                         }
                     }
+
+                    if (playableCards.Count() >= 2)
+                    {
+                        for (int i = 0; i < playableCards.Count() - 1; i++)
+                        {
+                            if (i != playableCards.Count() - 1)
+                            {
+                                if (PlayerHand[playableCards[i]] < PlayerHand[playableCards[i + 1]])
+                                {
+
+                                    cardIndex = playableCards[i] + 1;
+                                }
+                                else
+                                {
+                                    cardIndex = playableCards[i + 1] + 1;
+
+                                }
+                            }
+
+                            
+                        }
+                    }
+                    else if (playableCards.Count() == 1)
+                    {
+                        cardIndex = playableCards[0] + 1;
+                    }
+
                 }
                 else
                 {

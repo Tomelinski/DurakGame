@@ -69,11 +69,11 @@ namespace DurakGame
 
                 foreach (Player player in Players)
                 {
-                    if (player.PlayerHand.Count() == 0)
+                    if (player.PlayerHand.Count() <= 0)
                         noCardsInHand = true;
                 }
 
-                if (!GameDeck.HasCards() && noCardsInHand && RoundOver)
+                if (!GameDeck.HasCards() && noCardsInHand)
                 {
                     lastRound = true;
                 }
