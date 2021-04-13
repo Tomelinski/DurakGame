@@ -1,4 +1,4 @@
-﻿namespace CardBox
+﻿namespace MyCardBox
 {
     partial class CardBox
     {

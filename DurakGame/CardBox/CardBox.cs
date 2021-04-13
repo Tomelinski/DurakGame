@@ -1,5 +1,5 @@
 ﻿/**
- *  CardBox.cs - This is the CardBox class.
+ *  MyCardBox.cs - This is the CardBox class.
  * 
   * Author(s): Aadithkeshev Anushayamunaithuraivan,
  *             Menushan Karunakaran,
@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CardLibrary;  // Use the CardLibrary Library
 
-namespace CardBox
+namespace MyCardBox
 {
     public partial class CardBox: UserControl
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CardBox;
+using MyCardBox;
 using CardLibrary;
 
 namespace DurakClient
@@ -33,8 +33,8 @@ namespace DurakClient
 
 
         // Storing the Deck and Card
-        CardBox.CardBox deckBox;
-        CardBox.CardBox trumpCard;
+        CardBox deckBox;
+        CardBox trumpCard;
         public frmDurak(int deckSize, int playerNum)
         {
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace DurakClient
                 card = deck.DrawNextCard();
                 card.FaceUp = true;
                 // Create a new CardBox control based on the card drawn
-                CardBox.CardBox cardBox = new CardBox.CardBox(card);
+                CardBox cardBox = new CardBox(card);
 
                 cardBox.Click += CardBox_Click; // Wire CardBox_Click
 
@@ -90,7 +90,7 @@ namespace DurakClient
         void CardBox_MouseEnter(object sender, EventArgs e)
         {
             // Convert sender to a CardBox
-            CardBox.CardBox cardBox = sender as CardBox.CardBox;
+            CardBox cardBox = sender as CardBox;
 
             // If the conversion worked
             if (cardBox != null)
@@ -108,7 +108,7 @@ namespace DurakClient
         void CardBox_MouseLeave(object sender, EventArgs e)
         {
             // Convert sender to a CardBox
-            CardBox.CardBox cardBox = sender as CardBox.CardBox;
+            CardBox cardBox = sender as CardBox;
             // If the conversion worked
             if (cardBox != null)
             {
@@ -125,7 +125,7 @@ namespace DurakClient
         void CardBox_Click(object sender, EventArgs e)
         {
             // Convert sender to a CardBox
-            CardBox.CardBox cardBox = sender as CardBox.CardBox;
+            CardBox cardBox = sender as CardBox;
             // If the conversion worked
             if (cardBox != null)
             {
@@ -219,7 +219,6 @@ namespace DurakClient
 
         private void FormatPlayArea(Panel panelHand)
         {
-           panelHand.RightToLeft = RightToLeft.Yes;
 
             // Determine the number of cards/controls in the panel.
             int cardCount = panelHand.Controls.Count;
@@ -232,7 +231,7 @@ namespace DurakClient
 
                 // Determine where the left-hand edge of a card/control placed 
                 // in the middle of the panel should be  
-                int startPoint = ((panelHand.Width - cardWidth) / 2);
+                int startPoint = ((panelHand.Width - cardWidth) / 6);
 
                 // An offset for the remaining cards
                 int offset = 0;
@@ -242,17 +241,17 @@ namespace DurakClient
                 {
                     // Determine what the offset should be for each card based on the 
                     // space available and the number of card/controls
-                    offset = (panelHand.Width - cardWidth - 2 * POP) / (cardCount - 1);
+                    offset = (cardWidth) + 30;
 
                     // If the offset is bigger than the card/control width, i.e. there is lots of room, 
                     // set the offset to the card width. The cards/controls will not overlap at all.
-                    if (offset > cardWidth)
-                        offset = cardWidth;
+                    if (cardCount % 2 != 0)
+                        offset = (cardWidth / 2);
 
                     // Determine width of all the cards/controls 
-                    int totalCardsWidth = (cardCount - 1) * offset + cardWidth;
+                        int totalCardsWidth = (cardCount - 1) * offset + cardWidth;
                     // Set the start point to where the left-hand edge of the "first" card should be.
-                    startPoint = (panelHand.Width - totalCardsWidth) / 2;
+                    startPoint = (totalCardsWidth);
                 }
                 // Aligning the cards: Note that I align them in reserve order from how they
                 // are stored in the controls collection. This is so that cards on the left 
