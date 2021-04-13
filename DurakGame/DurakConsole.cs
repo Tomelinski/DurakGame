@@ -22,70 +22,67 @@ namespace DurakGame
             }
         }
 
-        public static Card AttackCard { get; set; }
-        public static Card DefendCard { get; set; }
-        public static Cards PlayedCards;
-        //public static Cards AllPlayedCards;
-        public static Deck GameDeck { get; set; }
-        public static Player[] Players { get; set; }
-        private static int AttackingPlayer { get; set; }
-        private static bool RoundOver { get; set; }
-        private static bool DefendingPlayerSkip { get; set; }
+        // Durak Game Static variables
+        //-Holds Game Information
+        public static Card AttackCard { get; set; }     // Holds the Current Attack Card in the Round
+        public static Card DefendCard { get; set; }     // Holds the Current Defend Card in the Round
+        public static Cards PlayedCards { get; set; }   // A List of cards currently in play for a Round
+        public static Deck GameDeck { get; set; }       // The Deck object being used in this instance
+        public static Player[] Players { get; set; }    // An array of Players that are apart of this instance
+        private static int AttackingPlayer { get; set; }    // The index of the currnetly attacking Player in the Player array
+        private static bool RoundOver { get; set; }         // A boolean to let the program know when a round has ended.
+        private static bool DefendingPlayerSkip { get; set; }   // A boolean to let the program know that if a skipping player is a defender.
 
-        public static void RotateAttacker()
-        {
-            Players[AttackingPlayer].PlayerIsAttacking = false;
 
-            if (AttackingPlayer == Players.Count() - 1)
-            {
-                AttackingPlayer = 0;
-            }
-            else
-            {
-                AttackingPlayer++;
-            }
-
-            Players[AttackingPlayer].PlayerIsAttacking = true;
-
-        }
-
+        /// <summary>
+        /// This Method Starts the Game
+        /// </summary>
         public static void StartGame()
         {
+            // Declarations
+            bool gameOver = false;     // A boolean to track if the game is over
+            bool noCardsInHand = false; // a boolean to track if a player has played all of their cards.
+
             // Reset all Game Logic and Rules for a new Game
             ResetGameVariables();
-            PlayedCards = new Cards();
-            bool lastRound = false;
-            bool noCardsInHand = false;
 
 
+            // While
             do
             {
-
-
                 // Display the trump suit
                 Console.WriteLine("Trump Suit: {0}\nCards Left: {1}\n", TrumpCard.Suit, GameDeck.CardsRemaining());
 
+                // Start a Game round
                 GameRound();
 
+                // After each round check if any players have played all of their cards
                 foreach (Player player in Players)
                 {
                     if (player.PlayerHand.Count() <= 0)
                         noCardsInHand = true;
                 }
 
+                // If the Game Deck is out of cards and the one of the Players is out of Cards
                 if (!GameDeck.HasCards() && noCardsInHand)
                 {
-                    lastRound = true;
+                    gameOver = true;
                 }
                 
                 // Play the game until there are no cards left in the deck
-            } while (!lastRound);
+            } while (!gameOver);
 
+            // Check which Player is the Durak
             DetermineDurak();
+
+            // TODO: Allow Players the option of replaying or quiting.
 
         }
 
 
+        /// <summary>
+        /// This Method Handles each game Round
+        /// </summary>
         public static void GameRound()
         {
             RoundOver = false;
@@ -140,7 +137,7 @@ namespace DurakGame
                 if (!DefendingPlayerSkip)
                 {
                     RotateAttacker();
-                    Resort();
+                    ResortPlayers();
                 }
             }
         }
@@ -170,13 +167,17 @@ namespace DurakGame
             // Set the Attcking Player
             AttackingPlayer = GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
-            Resort();
-            
+            ResortPlayers();
+
+            // Reset the PlayedCards List
+            PlayedCards = new Cards();
+
+            // Set RoundOver as False
             RoundOver = false;
 
         }
 
-        public static void Resort()
+        public static void ResortPlayers()
         {
             while (!Players[0].PlayerIsAttacking)
             {
@@ -196,6 +197,23 @@ namespace DurakGame
 
             }
             AttackingPlayer = 0;
+        }
+
+        public static void RotateAttacker()
+        {
+            Players[AttackingPlayer].PlayerIsAttacking = false;
+
+            if (AttackingPlayer == Players.Count() - 1)
+            {
+                AttackingPlayer = 0;
+            }
+            else
+            {
+                AttackingPlayer++;
+            }
+
+            Players[AttackingPlayer].PlayerIsAttacking = true;
+
         }
 
         public static void FillPlayerHands(Player[] players)
