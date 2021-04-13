@@ -27,24 +27,34 @@ namespace PlayerLibrary
         {
 
         }
-
+        /// <summary>
+        /// Find the index of the lowest card that can be used to attack
+        /// </summary>
+        /// <returns>Lowest card value index for attacking card</returns>
         public int GetAttackingCardIndex()
         {
             return GetLowestCardIndex();
         }
 
-
+        /// <summary>
+        /// Find the index of the lowest card that can be used to defend
+        /// </summary>
+        /// <param name="attackingCard"></param>
+        /// <returns></returns>
         public int GetDefendingCardIndex(Card attackingCard)
         {
 
             return GetLowestCardIndex(attackingCard as Object);
         }
 
+        //find the lowest card, attacking or defending
         private int GetLowestCardIndex(Object obj = null)
         {
             //sort AI hand to get lowest card order
             this.PlayerHand.Sort();
+            //return 0 to skip turn
             int cardIndex = 0;
+            //reset list
             List<int> playableCards = new List<int>();
 
             //check if attacking card exists this decides if the AI is attacking or defending
@@ -56,6 +66,7 @@ namespace PlayerLibrary
                     //compare each card played to the cards that are in hand
                     foreach (Card card in DurakGame.DurakConsole.PlayedCards)
                     {
+                        //check each card that has been played and see what cards can be played
                         for (int i = 1; i <= this.PlayerCardCount; i++)
                         {
                             if (PlayerHand[i - 1].Rank == card.Rank)
@@ -66,15 +77,19 @@ namespace PlayerLibrary
                         }
                     }
 
+                    //if there are multiple cards that can be played
                     if (playableCards.Count() >= 2)
                     {
+                        // check to see which card is the lowest and insert the index of that card to the return variable
                         for (int i = 0; i < playableCards.Count() - 1; i++)
                         {
+                            //if the card is not the last card in the playable cards list
                             if (i != playableCards.Count() - 1)
                             {
+                                //compare current card with the next card
                                 if (PlayerHand[playableCards[i]] < PlayerHand[playableCards[i + 1]])
                                 {
-
+                                    //add one to index because game logic subtracts one
                                     cardIndex = playableCards[i] + 1;
                                 }
                                 else
@@ -87,14 +102,17 @@ namespace PlayerLibrary
                             
                         }
                     }
+                    //if there is only one playable card select that index + 1
                     else if (playableCards.Count() == 1)
                     {
                         cardIndex = playableCards[0] + 1;
                     }
 
                 }
+                //if it is the first attack round chose lowest card
                 else
                 {
+                    //find lowest card that isnt a trump card in player hand
                     for (int i = 1; i < this.PlayerCardCount + 1; i++)
                     {
                         if (PlayerHand[i - 1].Suit != DurakGame.DurakConsole.TrumpCard.Suit)
@@ -104,6 +122,7 @@ namespace PlayerLibrary
                         }
                     }
 
+                    //if no card was selected chose lowest trump card
                     if (cardIndex == 0)
                     {
                         for (int i = 1; i < this.PlayerCardCount + 1; i++)
@@ -118,10 +137,12 @@ namespace PlayerLibrary
                 }
 
             }
+            //AI is defending
             else
             {
                 Card attackingCard = obj as Card;
 
+                //find a card that matches the suit of the played card and is stronger
                 for (int i = 1; i < this.PlayerCardCount + 1; i++)
                 {
 
@@ -132,6 +153,7 @@ namespace PlayerLibrary
                     }
                 }
 
+                //if no card was selected, find a trump card that is stronger
                 if (cardIndex == 0)
                 {
                     for (int i = 1; i < this.PlayerCardCount; i++)
