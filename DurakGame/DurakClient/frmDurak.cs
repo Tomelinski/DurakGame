@@ -76,8 +76,7 @@ namespace DurakClient
         #region FORM EVENTS
         void frmDurak_Load(object sender, EventArgs e)
         {
-            ResetGameVariables(pbDeck, pbTrump, pnlOponentHand, pnlPlayerHand);
-
+            ResetGameVariables(pbDeck, pbTrump, pnlOponentHand, pnlPlayerHand, lblPlayerStatus);
         }
         #endregion
 
@@ -241,7 +240,7 @@ namespace DurakClient
         }
         #endregion
 
-        public static void ResetGameVariables(PictureBox pbDeck, PictureBox pbTrump, Panel opponentHand, Panel playerHand)
+        public static void ResetGameVariables(PictureBox pbDeck, PictureBox pbTrump, Panel opponentHand, Panel playerHand, Label playerStatus)
         {
             // Reference Form Objects
 
@@ -255,11 +254,12 @@ namespace DurakClient
 
 
             // Create and shuffle a deck
-            GameDeck = new Deck(20);
+            GameDeck = new Deck(36);
             GameDeck.Shuffle();
 
             // Set the trump card
             TrumpCard = GameDeck.DrawNextCard();
+            TrumpCard.FaceUp = true;
             //TrumpCard.FaceUp = true;
             pbDeck.Image = (new Card()).GetCardImage();
             pbTrump.Image = (TrumpCard.GetCardImage());
@@ -271,6 +271,7 @@ namespace DurakClient
             // Set the Attcking Player
             AttackingPlayer = GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
+            playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
             ResortPlayers();
 
             // Reset the PlayedCards List
@@ -300,6 +301,8 @@ namespace DurakClient
             {
                 lowestCards.Add(player.PlayerHand[0]);
             }
+
+            lowestCards.Sort();
 
             foreach (Player player in Players)
             {
@@ -349,6 +352,9 @@ namespace DurakClient
 
             Players[AttackingPlayer].PlayerIsAttacking = true;
 
+            //TODO ALTER THE PLAYER STATUS LABEL
+            //playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
+
         }
 
         public static void PopulateCardBoxControls(Panel opponentHand, Panel playerHand)
@@ -362,6 +368,7 @@ namespace DurakClient
                     // Check which player we're on
                     if (player.GetType().ToString() == "PlayerLibrary.AI")
                     {
+                        card.FaceUp = true;
                         opponentHand.Controls.Add(new CardBox(card));
 
                     }
@@ -400,6 +407,91 @@ namespace DurakClient
             else
                 RealignCards(pnlOponentHand);
 
+        }
+
+        private void PlayAreaPanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            // Store the Information
+            CardBox addedCardBox = pnlPlayArea.Controls[pnlPlayArea.Controls.Count - 1] as CardBox;
+            Card addedCard = addedCardBox.PlayingCard;
+            PlayedCards.Add(addedCard);
+
+            foreach (Player player in Players)
+            {
+                // Check Player Type, so that we know which Panel to work with
+                if (player.GetType().ToString() == "PlayerLibrary.AI")      // Player is AI
+                {
+                    foreach (CardBox cardBox in pnlPlayArea.Controls)
+                    {
+
+                        if (player.PlayerIsAttacking == true)
+                        {
+
+                        }
+                        else
+                        {
+
+                        }
+                    }
+
+                }
+                else    // Player is Human
+                {
+                    // Loop through each Cardbox in Play
+
+                        // Check if the Player is attacking
+                        if (player.PlayerIsAttacking == true)                   
+                        {
+                            foreach (CardBox cardBox in pnlPlayArea.Controls)
+                            {
+                                foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
+                                {
+                                    if (cardBox.PlayingCard.Rank != playerCardBox.PlayingCard.Rank)
+                                    {
+                                        playerCardBox.Enabled = false;
+                                    }
+                                    else
+                                        playerCardBox.Enabled = true;
+                                }
+                            }   
+                            
+                            
+                        }
+                        // Else If the Player is Defending
+                        else
+                        {
+                            foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
+                            {
+                                if ((addedCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
+                                     addedCard < playerCardBox.PlayingCard)
+                                {
+                                    playerCardBox.Enabled = true;
+                                }
+                                else
+                                    playerCardBox.Enabled = false;
+                            }
+                        
+                    }
+
+                }
+            }
+            
+
+            
+        }
+
+
+        // TODO: SWITCH THIS TO A METHOD ****************************************************************************
+        private void PlayAreaPanel_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            foreach (CardBox cardBox in pnlOponentHand.Controls)
+            {
+                cardBox.Enabled = true;
+            }
+            foreach (CardBox cardBox in pnlPlayerHand.Controls)
+            {
+                cardBox.Enabled = true;
+            }
         }
     }
 }

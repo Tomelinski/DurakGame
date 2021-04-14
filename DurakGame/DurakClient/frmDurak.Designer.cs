@@ -36,6 +36,7 @@ namespace DurakClient
             this.pnlPlayArea = new System.Windows.Forms.Panel();
             this.btnSkip = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
+            this.lblPlayerStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTrump)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +94,8 @@ namespace DurakClient
             this.pnlPlayArea.Name = "pnlPlayArea";
             this.pnlPlayArea.Size = new System.Drawing.Size(570, 140);
             this.pnlPlayArea.TabIndex = 4;
+            this.pnlPlayArea.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlAdded);
+            this.pnlPlayArea.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlRemoved);
             // 
             // btnSkip
             // 
@@ -100,7 +103,7 @@ namespace DurakClient
             this.btnSkip.Name = "btnSkip";
             this.btnSkip.Size = new System.Drawing.Size(93, 34);
             this.btnSkip.TabIndex = 5;
-            this.btnSkip.Text = "Skip Turn";
+            this.btnSkip.Text = "End Turn";
             this.btnSkip.UseVisualStyleBackColor = true;
             // 
             // btnQuit
@@ -112,6 +115,16 @@ namespace DurakClient
             this.btnQuit.Text = "Quit";
             this.btnQuit.UseVisualStyleBackColor = true;
             // 
+            // lblPlayerStatus
+            // 
+            this.lblPlayerStatus.BackColor = System.Drawing.Color.Transparent;
+            this.lblPlayerStatus.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPlayerStatus.Location = new System.Drawing.Point(140, 296);
+            this.lblPlayerStatus.Name = "lblPlayerStatus";
+            this.lblPlayerStatus.Size = new System.Drawing.Size(498, 25);
+            this.lblPlayerStatus.TabIndex = 7;
+            this.lblPlayerStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // frmDurak
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -119,6 +132,7 @@ namespace DurakClient
             this.BackgroundImage = global::DurakClient.Properties.Resources.DurakOptionsBG;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.lblPlayerStatus);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnSkip);
             this.Controls.Add(this.pnlPlayArea);
@@ -147,5 +161,6 @@ namespace DurakClient
         private System.Windows.Forms.Panel pnlPlayArea;
         private System.Windows.Forms.Button btnSkip;
         private System.Windows.Forms.Button btnQuit;
+        private System.Windows.Forms.Label lblPlayerStatus;
     }
 }
