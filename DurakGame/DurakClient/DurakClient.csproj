@@ -144,6 +144,10 @@
       <Project>{de1324f1-2cc4-45ab-a9db-5edbd534a0bc}</Project>
       <Name>CardLibrary</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DurakConsole.csproj">
+      <Project>{28d6e9be-8fb1-44f0-8fef-4ff8d457401a}</Project>
+      <Name>DurakConsole</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

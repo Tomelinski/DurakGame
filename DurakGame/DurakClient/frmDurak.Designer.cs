@@ -76,6 +76,7 @@ namespace DurakClient
             this.pnlPlayerHand.Name = "pnlPlayerHand";
             this.pnlPlayerHand.Size = new System.Drawing.Size(498, 125);
             this.pnlPlayerHand.TabIndex = 2;
+            this.pnlPlayerHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
             // 
             // pnlOponentHand
             // 
@@ -83,6 +84,7 @@ namespace DurakClient
             this.pnlOponentHand.Name = "pnlOponentHand";
             this.pnlOponentHand.Size = new System.Drawing.Size(498, 125);
             this.pnlOponentHand.TabIndex = 3;
+            this.pnlOponentHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
             // 
             // pnlPlayArea
             // 
@@ -129,6 +131,7 @@ namespace DurakClient
             this.Name = "frmDurak";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Durak";
+            this.Load += new System.EventHandler(this.frmDurak_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTrump)).EndInit();
             this.ResumeLayout(false);
