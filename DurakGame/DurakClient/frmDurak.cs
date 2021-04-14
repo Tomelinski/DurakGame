@@ -48,6 +48,7 @@ namespace DurakClient
         private static int AttackingPlayer { get; set; }    // The index of the currnetly attacking Player in the Player array
         private static bool RoundOver { get; set; }         // A boolean to let the program know when a round has ended.
         private static bool DefendingPlayerSkip { get; set; }   // A boolean to let the program know that if a skipping player is a defender.
+        private static bool aiTurn { get; set; }   // 
 
 
         // Deck Settings
@@ -128,31 +129,48 @@ namespace DurakClient
             // If the conversion worked
             if (cardBox != null)
             {
-                // Remove the Event Handler for this card
-                cardBox.Click -= CardBox_Click;
-                cardBox.MouseEnter -= CardBox_MouseEnter;
-                cardBox.MouseLeave -= CardBox_MouseLeave;
+                // Common Work
+
+                // Remove Click Event and disable the cardBox
+                //cardBox.Click -= CardBox_Click;
                 cardBox.Enabled = false;
 
-                // Remove the card from the home panel
-                pnlPlayerHand.Controls.Remove(cardBox);
-                // Add the control to the play panel
-                pnlPlayArea.Controls.Add(cardBox);
-
+                // Player Specific
                 // if the card is in the home panel...
                 if (cardBox.Parent == pnlPlayerHand)
                 {
+                    // Remove the Event Handler for this card
+                    //cardBox.MouseEnter -= CardBox_MouseEnter;
+                    //cardBox.MouseLeave -= CardBox_MouseLeave;
+                    
+                    // Remove the card from the home panel
+                    pnlPlayerHand.Controls.Remove(cardBox);
+                    
+                    // Draw the Card from the Hand
                     Players[1].DrawCard(cardBox.PlayingCard);
+
+                    aiTurn = true;
                 }
                 else
                 {
+                    // Remove the card from the home panel
+                    pnlOponentHand.Controls.Remove(cardBox);
+
+                    
+
+                    // Draw the Card from the Hand
                     Players[0].DrawCard(cardBox.PlayingCard);
                 }
-                
+
+
+                // Add the control to the play panel
+                pnlPlayArea.Controls.Add(cardBox);
+
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
                 RealignCards(pnlPlayArea);
-                
+                RealignCards(pnlOponentHand);
+
             }
 
         }
@@ -189,49 +207,57 @@ namespace DurakClient
             foreach (Player player in Players)
             {
                 // Check Player Type, so that we know which Panel to work with
-                if (player.GetType().ToString() == "PlayerLibrary.AI")      // Player is AI
+                if (player.GetType().ToString() == "PlayerLibrary.AI" && aiTurn == true)      // Player is AI
                 {
+                    aiTurn = false;
                     int cardIndex;
+
                     if(player.PlayerIsAttacking)
                     {
-                        cardIndex = (player as AI).GetAttackingCardIndex();
+                        cardIndex = (player as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
                     }
                     else 
                     {
-                        cardIndex = (player as AI).GetDefendingCardIndex(addedCard);
+                        cardIndex = (player as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, addedCard);
                     }
 
                     // Adjust Card Index
-                    cardIndex -= 1;
 
-                    // Write the Event
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+                    if (cardIndex != 0)
+                    {
+                        cardIndex -= 1;
 
-                    // Perform a Click
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+                        // Write the Event
+                        (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
 
-                    // Remove the Event Handler for this card
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).Click -= CardBox_Click;
+                        // Perform a Click
+                        (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+                    }
 
 
+
+                    
                 }
                 else    // Player is Human
                 {
                     // Loop through each Cardbox in Play
 
-                    // Check if the Player is attacking
+                    foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
+                    {
+                        playerCardBox.Enabled = false;
+                    }
+
+                        // Check if the Player is attacking
                     if (player.PlayerIsAttacking == true)
                     {
-                        foreach (CardBox cardBox in pnlPlayArea.Controls)
+                        foreach (Card card in PlayedCards)
                         {
                             foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
                             {
-                                if (cardBox.PlayingCard.Rank != playerCardBox.PlayingCard.Rank)
+                                if (card.Rank == (playerCardBox.PlayingCard as Card).Rank)
                                 {
-                                    playerCardBox.Enabled = false;
-                                }
-                                else
                                     playerCardBox.Enabled = true;
+                                }
                             }
                         }
 
@@ -388,6 +414,7 @@ namespace DurakClient
             //Players[1] = new Player("Tom");
             Players[0] = new AI("AI1");
             Players[1] = new Player("AI2");
+            aiTurn = true;
 
 
             // Create and shuffle a deck
@@ -406,7 +433,7 @@ namespace DurakClient
             FillPlayerHands(Players);
             PopulateCardBoxControls(opponentHand, playerHand);
             // Set the Attcking Player
-            AttackingPlayer = GetInitialAttacker();
+            AttackingPlayer = 1; //GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
             playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
             ResortPlayers();
@@ -504,7 +531,8 @@ namespace DurakClient
                     if (player.GetType().ToString() == "PlayerLibrary.AI")
                     {
                         card.FaceUp = true;
-                        opponentHand.Controls.Add(new CardBox(card));
+                        CardBox cardBox = new CardBox(card);
+                        opponentHand.Controls.Add(cardBox);
 
                     }
                     else
