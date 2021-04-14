@@ -114,6 +114,24 @@ namespace PlayerLibrary
             return chosenCard;
         }
 
+        public Card PlayCard(Card cardToPlay)
+        {
+            int index = 0;
+            
+
+            for (int i =0; i < PlayerHand.Count; i++)
+            {
+                
+                if (cardToPlay == PlayerHand[i])
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return PlayCard(index);
+        }
+
         /// <summary>
         /// GetCard(int) - This method is used to retrieve a card from the Players hand.
         ///              An integer is passed to the method to indicate the index to

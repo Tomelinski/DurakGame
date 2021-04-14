@@ -147,7 +147,7 @@ namespace DurakClient
                     pnlPlayerHand.Controls.Remove(cardBox);
                     
                     // Draw the Card from the Hand
-                    Players[1].DrawCard(cardBox.PlayingCard);
+                    Players[1].PlayCard(cardBox.PlayingCard);
 
                     aiTurn = true;
                 }
@@ -156,10 +156,8 @@ namespace DurakClient
                     // Remove the card from the home panel
                     pnlOponentHand.Controls.Remove(cardBox);
 
-                    
-
                     // Draw the Card from the Hand
-                    Players[0].DrawCard(cardBox.PlayingCard);
+                    Players[0].PlayCard(cardBox.PlayingCard);
                 }
 
 
@@ -210,7 +208,7 @@ namespace DurakClient
                 if (player.GetType().ToString() == "PlayerLibrary.AI" && aiTurn == true)      // Player is AI
                 {
                     aiTurn = false;
-                    int cardIndex;
+                    int cardIndex = 0;
 
                     if(player.PlayerIsAttacking)
                     {
@@ -238,7 +236,7 @@ namespace DurakClient
 
                     
                 }
-                else    // Player is Human
+                else if(player.GetType().ToString() == "PlayerLibrary.Player")    // Player is Human
                 {
                     // Loop through each Cardbox in Play
 
