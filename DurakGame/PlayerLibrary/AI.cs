@@ -71,8 +71,12 @@ namespace PlayerLibrary
                         {
                             if (PlayerHand[i - 1].Rank == card.Rank)
                             {
-                                
-                                playableCardsIndex.Add(i-1);
+                                //never play the ace of trump suit, unless its the last card
+                                if(!(PlayerHand[i - 1].Rank == Rank.Ace && PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit))
+                                    playableCardsIndex.Add(i-1);
+                                //if its the alst cand in hand, play the ace of trumps
+                                else if (PlayerHand.Count() == 1)
+                                    playableCardsIndex.Add(i-1);
                             }
                         }
                     }
@@ -91,7 +95,7 @@ namespace PlayerLibrary
                              if (!DurakGame.DurakConsole.GameDeck.HasCards())
                              {
                                  //compare current card with the next card
-                                 if (PlayerHand[cardIndex].Rank > PlayerHand[playableCardsIndex[i]].Rank)
+                                 if (!PlayerHand[cardIndex].isStronger(PlayerHand[playableCardsIndex[i]]))
                                  {
                                      //add one to index because game logic subtracts one
                                      cardIndex = playableCardsIndex[i];
@@ -100,7 +104,7 @@ namespace PlayerLibrary
                              else
                              {
                                  //compare current card with the next card
-                                 if (PlayerHand[cardIndex].Rank < PlayerHand[playableCardsIndex[i]].Rank)
+                                 if (PlayerHand[cardIndex].isStronger(PlayerHand[playableCardsIndex[i]]))
                                  {
                                      //add one to index because game logic subtracts one
                                      cardIndex = playableCardsIndex[i];
@@ -153,7 +157,7 @@ namespace PlayerLibrary
                              if (!DurakGame.DurakConsole.GameDeck.HasCards())
                              {
                                  //compare current card with the next card
-                                 if (PlayerHand[cardIndex].Rank < PlayerHand[playableCardsIndex[i]].Rank)
+                                 if (!PlayerHand[cardIndex].isStronger( PlayerHand[playableCardsIndex[i]]))
                                  {
                                      //add one to index because game logic subtracts one
                                      cardIndex = playableCardsIndex[i];
@@ -162,7 +166,7 @@ namespace PlayerLibrary
                              else
                              {
                                  //compare current card with the next card
-                                 if (PlayerHand[cardIndex].Rank > PlayerHand[playableCardsIndex[i]].Rank)
+                                 if (PlayerHand[cardIndex].isStronger(PlayerHand[playableCardsIndex[i]]))
                                  {
                                      //add one to index because game logic subtracts one
                                      cardIndex = playableCardsIndex[i];
@@ -220,11 +224,15 @@ namespace PlayerLibrary
                 //find a card that matches the suit of the played card and is stronger
                 for (int i = 1; i <= this.PlayerCardCount; i++)
                 {
-
-                    if (PlayerHand[i - 1].Suit == attackingCard.Suit && PlayerHand[i - 1] > attackingCard)
+                    //never play the ace of trump suit, unless its the last card
+                    if (!(PlayerHand[i - 1].Rank == Rank.Ace && PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit))
                     {
-                        cardIndex = i;
-                        break;
+                        //playableCardsIndex.Add(i - 1);
+                        if (PlayerHand[i - 1].Suit == attackingCard.Suit && PlayerHand[i - 1] > attackingCard)
+                        {
+                            cardIndex = i;
+                            break;
+                        }
                     }
                 }
 
@@ -233,11 +241,14 @@ namespace PlayerLibrary
                 {
                     for (int i = 1; i <= this.PlayerCardCount; i++)
                     {
-
-                        if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit && PlayerHand[i - 1] > attackingCard)
+                        //never play the ace of trump suit, unless its the last card
+                        if (!(PlayerHand[i - 1].Rank == Rank.Ace && PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit))
                         {
-                            cardIndex = i;
-                            break;
+                            if (PlayerHand[i - 1].Suit == DurakGame.DurakConsole.TrumpCard.Suit && PlayerHand[i - 1] > attackingCard)
+                            {
+                                cardIndex = i;
+                                break;
+                            }
                         }
                     }
                 }

@@ -119,6 +119,64 @@ namespace CardLibrary
             }
         }
 
+        public bool isStronger(Object obj)
+        {
+            // Check if the Argument is null
+            if (obj == null)
+            {
+                // If so, Throw an Exception
+                throw new ArgumentNullException("Error: Unable to compare a card to a null object.");
+            }
+
+            // Convert the  argument to a Card Object
+            Card compareCard = obj as Card;
+
+            // Check if the Conversion worked
+            if (compareCard.GetType() != null)
+            {
+                const int ACE_MODIFIER = 20;
+                const int TRUMP_MODIFIER = -500;
+
+                int thisRank = (int)this.Rank;
+                int thisSuit = (int)this.Suit;
+                int compareRank = (int)compareCard.Rank;
+                int compareSuit = (int)compareCard.Suit;
+
+                if (IsAceHigh)
+                {
+                    if (this.Rank == Rank.Ace)
+                        thisRank = ACE_MODIFIER;
+
+                    if (compareCard.Rank == Rank.Ace)
+                        compareRank = ACE_MODIFIER;
+                }
+
+                //if (UseTrumps)
+                //{
+                //    if (this.Suit == TrumpSuit)
+                //        thisSuit *= TRUMP_MODIFIER;
+
+                //    if (compareCard.Suit == TrumpSuit)
+                //        compareSuit *= TRUMP_MODIFIER;
+                //}
+
+
+
+
+                // Compare the Card based on Rank and suit
+                int thisSort = (thisRank * 10) + thisSuit;
+                int compareCardSort = (compareRank * 10) + compareSuit;
+
+                return (thisSort > compareCardSort);
+
+            }
+            else
+            {
+                // Throw an Exception
+                throw new ArgumentException("Error: Object being compared cannot be converted to a Card.");
+            }
+        }
+
         // An override ToString method to print a card 
         public override string ToString() 
         {
