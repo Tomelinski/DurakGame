@@ -50,8 +50,6 @@ namespace PlayerLibrary
         //find the lowest card, attacking or defending
         private int GetLowestCardIndex(Object obj = null)
         {
-            //sort AI hand to get lowest card order
-            this.PlayerHand.Sort();
             //return 0 to skip turn
             int cardIndex = 0;
             //reset list

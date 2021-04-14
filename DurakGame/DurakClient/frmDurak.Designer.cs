@@ -34,7 +34,7 @@ namespace DurakClient
             this.pnlPlayerHand = new System.Windows.Forms.Panel();
             this.pnlOponentHand = new System.Windows.Forms.Panel();
             this.pnlPlayArea = new System.Windows.Forms.Panel();
-            this.btnSkip = new System.Windows.Forms.Button();
+            this.btnEndTurn = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.lblPlayerStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).BeginInit();
@@ -97,14 +97,15 @@ namespace DurakClient
             this.pnlPlayArea.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlAdded);
             this.pnlPlayArea.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlRemoved);
             // 
-            // btnSkip
+            // btnEndTurn
             // 
-            this.btnSkip.Location = new System.Drawing.Point(679, 335);
-            this.btnSkip.Name = "btnSkip";
-            this.btnSkip.Size = new System.Drawing.Size(93, 34);
-            this.btnSkip.TabIndex = 5;
-            this.btnSkip.Text = "End Turn";
-            this.btnSkip.UseVisualStyleBackColor = true;
+            this.btnEndTurn.Location = new System.Drawing.Point(679, 335);
+            this.btnEndTurn.Name = "btnEndTurn";
+            this.btnEndTurn.Size = new System.Drawing.Size(93, 34);
+            this.btnEndTurn.TabIndex = 5;
+            this.btnEndTurn.Text = "End Turn";
+            this.btnEndTurn.UseVisualStyleBackColor = true;
+            this.btnEndTurn.Click += new System.EventHandler(this.btnEndTurn_Click);
             // 
             // btnQuit
             // 
@@ -134,7 +135,7 @@ namespace DurakClient
             this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.lblPlayerStatus);
             this.Controls.Add(this.btnQuit);
-            this.Controls.Add(this.btnSkip);
+            this.Controls.Add(this.btnEndTurn);
             this.Controls.Add(this.pnlPlayArea);
             this.Controls.Add(this.pnlOponentHand);
             this.Controls.Add(this.pnlPlayerHand);
@@ -159,7 +160,7 @@ namespace DurakClient
         private System.Windows.Forms.Panel pnlPlayerHand;
         private System.Windows.Forms.Panel pnlOponentHand;
         private System.Windows.Forms.Panel pnlPlayArea;
-        private System.Windows.Forms.Button btnSkip;
+        private System.Windows.Forms.Button btnEndTurn;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Label lblPlayerStatus;
     }

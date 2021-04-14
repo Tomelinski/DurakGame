@@ -28,8 +28,20 @@ namespace PlayerLibrary
         public string PlayerName { get; set; }          // The name of the player
         public Cards PlayerHand { get; set; }           // A list of cards, that is the players hand
         public int PlayerCardCount { get; set; }        // The number of cards currently in the players hand.
-        public bool PlayerIsAttacking { get; set; }     // A boolean to demonstrate if a player is attacking or defending
+        private bool playerIsAttacking;
+        public bool PlayerIsAttacking 
+        {
+            get { return playerIsAttacking; }
+            set
+            {
+                playerIsAttacking = value;
+                PlayerStatusChanged?.Invoke(this, new EventArgs());
+            }
 
+        }
+
+        // A Delegate for the LastCardDrawn Event
+        public event EventHandler PlayerStatusChanged;
 
         // Constructors
         /// <summary>
