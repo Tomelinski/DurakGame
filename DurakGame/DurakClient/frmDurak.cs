@@ -128,22 +128,25 @@ namespace DurakClient
             // If the conversion worked
             if (cardBox != null)
             {
+                // Remove the Event Handler for this card
+                cardBox.Click -= CardBox_Click;
+                cardBox.MouseEnter -= CardBox_MouseEnter;
+                cardBox.MouseLeave -= CardBox_MouseLeave;
+                cardBox.Enabled = false;
+
+                // Remove the card from the home panel
+                pnlPlayerHand.Controls.Remove(cardBox);
+                // Add the control to the play panel
+                pnlPlayArea.Controls.Add(cardBox);
+
                 // if the card is in the home panel...
                 if (cardBox.Parent == pnlPlayerHand)
                 {
-
-                    // Remove the Event Handler for this card
-                    cardBox.Click -= CardBox_Click;
-                    cardBox.MouseEnter -= CardBox_MouseEnter;
-                    cardBox.MouseLeave -= CardBox_MouseLeave;
-                    cardBox.Enabled = false;
-
-                    // Remove the card from the home panel
-                    pnlPlayerHand.Controls.Remove(cardBox);
-                    // Add the control to the play panel
-                    pnlPlayArea.Controls.Add(cardBox);
-
                     Players[1].DrawCard(cardBox.PlayingCard);
+                }
+                else
+                {
+                    Players[0].DrawCard(cardBox.PlayingCard);
                 }
                 
                 // Realign the cards 
@@ -204,7 +207,8 @@ namespace DurakClient
                     // Write the Event
                     (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
 
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).PbCardPictureBox_Click(this, new EventArgs());
+                    // Perform a Click
+                    (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
 
                     // Remove the Event Handler for this card
                     (pnlOponentHand.Controls[cardIndex] as CardBox).Click -= CardBox_Click;
@@ -272,12 +276,12 @@ namespace DurakClient
 
         private void btnEndTurn_Click(object sender, EventArgs e)
         {
-            Button sButton = sender as Button;
+            /*Button sButton = sender as Button;
             Player[0].
             RotateAttacker();
             ResortPlayers();
 
-            lblPlayerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
+            lblPlayerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";*/
         }
 
 

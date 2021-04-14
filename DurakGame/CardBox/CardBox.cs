@@ -286,6 +286,14 @@ namespace MyCardBox
             return playingCard.ToString();
         }
 
+        public void PerformClick()
+        {
+            // Check if there is a handler for clicknig the control in the client program
+            if (Click != null)
+                // If there is, Call it
+                Click(this, new EventArgs());
+        }
+
         #endregion
 
     }
