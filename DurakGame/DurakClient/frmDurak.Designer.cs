@@ -78,6 +78,7 @@ namespace DurakClient
             this.pnlPlayerHand.Size = new System.Drawing.Size(498, 125);
             this.pnlPlayerHand.TabIndex = 2;
             this.pnlPlayerHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
+            this.pnlPlayerHand.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.pnlPlayerHand_ControlRemoved);
             // 
             // pnlOponentHand
             // 
