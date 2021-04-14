@@ -335,11 +335,11 @@ namespace DurakGame
                 
                 if (player.PlayerIsAttacking)
                 {
-                    userInput = (player as AI).GetAttackingCardIndex();
+                    userInput = (player as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
                 }
                 else
                 {
-                    userInput = (player as AI).GetDefendingCardIndex(AttackCard);
+                    userInput = (player as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, AttackCard);
                     
                 }
             }
