@@ -57,9 +57,17 @@ namespace DurakClient
 
         private void btnLogs_Click(object sender, EventArgs e)
         {
-            /// <summary>
-            /// Logs  and statistics go in here. Under Construction
-            /// </summary>
+
+            /// // Hides the Current Form the User is on
+            Hide();
+
+            // initializes Start Form
+            frmGameLogs frmLog = new frmGameLogs();
+
+            // Show Start Form
+            frmLog.ShowDialog();
+
+            this.Show();
         }
     }
 }
