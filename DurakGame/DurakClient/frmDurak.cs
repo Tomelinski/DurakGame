@@ -39,6 +39,9 @@ namespace DurakClient
         static private Size regularSize = new Size(76, 110);
 
         // Durak Game Static variables
+        private static int DeckSize { get; set; }
+        private static int PlayerNum { get; set; }
+        private static string PlayerName { get; set; }
         //-Holds Game Information
         public static Card AttackCard { get; set; }     // Holds the Current Attack Card in the Round
         public static Card DefendCard { get; set; }     // Holds the Current Defend Card in the Round
@@ -80,14 +83,13 @@ namespace DurakClient
 
 
 
-        public frmDurak(int deckSize, int playerNum)
+        public frmDurak( int deckSize, int playerNum, string playerName)
         {
             InitializeComponent();
 
-            //******* TESTING ONLY *******//
-
-
-            //******* TESTING ONLY *******//
+            DeckSize = deckSize;
+            PlayerNum = playerNum;
+            PlayerName = playerName;
 
         }
 
@@ -435,6 +437,7 @@ namespace DurakClient
 
         private void GameDeck_OutOfCards(object sender, EventArgs e)
         {
+            pbDeck.Visible = false;
             Players[PlayerIndex].PlayerHandOutOfCards += Player_OutOfCards;
             Players[AiIndex].PlayerHandOutOfCards += Player_OutOfCards;
         }
@@ -553,17 +556,17 @@ namespace DurakClient
 
 
             // Create the Players
-            Players = new Player[2];
+            Players = new Player[PlayerNum];
             //Players[0] = new Player("Calvin");
             //Players[1] = new Player("Tom");
             Players[0] = new AI("AI1");
-            Players[1] = new Player("AI2");
+            Players[1] = new Player(PlayerName);
 
 
             // Create and shuffle a deck
-            GameDeck = new Deck(36);
+            GameDeck = new Deck(DeckSize);
             GameDeck.Shuffle();
-            
+
 
             // Set the trump card
             TrumpCard = GameDeck.DrawNextCard();

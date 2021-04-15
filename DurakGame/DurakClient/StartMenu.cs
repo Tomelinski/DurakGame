@@ -58,7 +58,7 @@ namespace DurakClient
             }
             // Hides the Current Form the User is on
             this.Hide();
-            frmDurak game = new frmDurak(playerNum, deckSize);
+            frmDurak game = new frmDurak(deckSize, playerNum, txtPlayerName.Text);
             game.ShowDialog();
             ///<summary>
             /// Actual game frm goes in here goes in here. Under Construction. *********Need to  discuss this *********
