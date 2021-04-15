@@ -314,13 +314,12 @@ namespace DurakClient
             {
                 foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
                 {
-                    if ((addedCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
-                         addedCard < playerCardBox.PlayingCard)
+                    if ((AttackCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
+                         AttackCard < playerCardBox.PlayingCard)
                     {
                         playerCardBox.Enabled = true;
                     }
-                    else
-                        playerCardBox.Enabled = false;
+
                 }
 
             }
