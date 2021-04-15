@@ -23,7 +23,6 @@ namespace DurakClient
             InitializeComponent();
         }
 
-
         /// <summary>
         /// Event for a Player Clicking the Find Button to search
         /// for a player stored in statistics
@@ -51,34 +50,39 @@ namespace DurakClient
                 }
             }
 
+            // By default we have not found a User
             bool PlayerFound = false;
             string foundUser = "";
 
+            // Loop through each user in the Stats File
             foreach (String user in line)
             {
                 if (user != null)
                 {
-
+                    // IF we Find a matching User
                     if (name == user.Split('-')[0])
                     {
+                        // Record the User
                         foundUser = user;
                         PlayerFound = true;
                         break;
                     }
-
                 }
-
             }
 
+            // If we Found the User
             if (PlayerFound)
             {
+                // Display their information
                 lblName.Text = foundUser.Split('-')[0].ToString();
                 lblGames.Text = foundUser.Split('-')[1].ToString();
                 lblWins.Text = foundUser.Split('-')[2].ToString();
                 lblLosses.Text = foundUser.Split('-')[3].ToString();
             }
+            // Otherwise,
             else
             {
+                // Empty all Display Text
                 lblName.Text = String.Empty;
                 lblGames.Text = String.Empty;
                 lblWins.Text = String.Empty;
