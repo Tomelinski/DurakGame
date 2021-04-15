@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using MyCardBox;
 using CardLibrary;
 using PlayerLibrary;
+using System.IO;
 
 namespace DurakClient
 {
@@ -42,6 +43,8 @@ namespace DurakClient
         private static int DeckSize { get; set; }
         private static int PlayerNum { get; set; }
         private static string PlayerName { get; set; }
+        private static string GameLog { get; set; }
+
         //-Holds Game Information
         public static Card AttackCard { get; set; }     // Holds the Current Attack Card in the Round
         public static Card DefendCard { get; set; }     // Holds the Current Defend Card in the Round
@@ -49,8 +52,6 @@ namespace DurakClient
         public static Deck GameDeck { get; set; }       // The Deck object being used in this instance
         public static Player[] Players { get; set; }    // An array of Players that are apart of this instance
         private static int AttackingPlayer { get; set; }    // The index of the currnetly attacking Player in the Player array
-        private static bool RoundOver { get; set; }         // A boolean to let the program know when a round has ended.
-        private static bool DefendingPlayerSkip { get; set; }   // A boolean to let the program know that if a skipping player is a defender.
         private static bool repop { get; set; }
         private static int PlayerIndex
         {
@@ -89,7 +90,10 @@ namespace DurakClient
 
             DeckSize = deckSize;
             PlayerNum = playerNum;
-            PlayerName = playerName;
+            if (playerName == "")
+                PlayerName = "Player 1";
+            else
+                PlayerName = playerName;
 
         }
 
@@ -206,6 +210,8 @@ namespace DurakClient
                     else
                         DefendCard = Players[PlayerIndex].PlayCard(newBox.PlayingCard);
 
+                    GameLog += "\n" + Players[PlayerIndex].PlayerName + (Players[PlayerIndex].PlayerIsAttacking ? " attacked " : " defended ") + "with " + cardBox.PlayingCard.ToString();
+
                     // Remove the card from the home panel
                     pnlPlayerHand.Controls.Remove(cardBox);
 
@@ -219,6 +225,7 @@ namespace DurakClient
                     else
                         DefendCard = Players[AiIndex].PlayCard(cardBox.PlayingCard);
 
+                    GameLog += "\n" + Players[AiIndex].PlayerName + (Players[AiIndex].PlayerIsAttacking ? " attacked " : " defended ") + "with " + cardBox.PlayingCard.ToString();
 
                     // Remove the card from the home panel
                     pnlOpponentHand.Controls.Remove(cardBox);
@@ -391,16 +398,19 @@ namespace DurakClient
             //if player skips turn while defending
             if (!Players[PlayerIndex].PlayerIsAttacking)
             {
+                GameLog += "\n" + Players[PlayerIndex].PlayerName + " Skipped while defending, Has picked up:\n";
                 //picks up all previously played cards
                 foreach (Card card in PlayedCards)
                 {
                     Players[PlayerIndex].DrawCard(card);
+                    GameLog += card.ToString() + ", ";
                 }
                 
             }
             //player skips turns while attacking
             else
             {
+                GameLog += "\n" + Players[PlayerIndex].PlayerName + " Skipped while Attacking";
                 //rotate attackers array, to allow AI to play first
                 RotateAttacker();
                 ResortPlayers();
@@ -445,11 +455,26 @@ namespace DurakClient
         private void Player_OutOfCards(object sender, EventArgs e)
         {
             DetermineDurak();
+            Save_LogFile();
             Close();
         }
 
 
+        private void Save_LogFile()
+        {
+            if (Players[PlayerIndex].PlayerHand.Count > Players[AiIndex].PlayerHand.Count)
+                GameLog += "\nPlayer " + Players[PlayerIndex].PlayerName + ": is the Durak!";
+            else
+                GameLog += "\nPlayer " + Players[AiIndex].PlayerName + ": is the Durak!";
 
+            GameLog += "\n\n=========================================================================================================\n\n";
+
+            using (StreamWriter sw = File.AppendText("../../../logs/" + DateTime.Now.ToString("M") + ".txt"))
+            {
+                sw.WriteLine(GameLog);
+            }
+
+        }
 
 
 
@@ -601,8 +626,7 @@ namespace DurakClient
 
         public static void ResetGameVariables(PictureBox pbDeck, PictureBox pbTrump, Panel opponentHand, Panel playerHand, Label playerStatus)
         {
-            // Reference Form Objects
-
+            
 
             // Create the Players
             Players = new Player[PlayerNum];
@@ -638,20 +662,37 @@ namespace DurakClient
             PlayedCards = new Cards();
 
             
-
-            // Set RoundOver as False
-            RoundOver = false;
             repop = false;
 
-            
+            GameLog = "";
+            GameLog += "\n" + DateTime.Now.ToString();
+            GameLog += "\nTrump Card:" + TrumpCard.ToString();
+
+            foreach (Player player in Players)
+            {
+                GameLog += "\n" + player.PlayerName + "'s initial hand:\n";
+                //picks up all previously played cards
+                foreach (Card card in player.PlayerHand)
+                {
+                    GameLog += card.ToString() + ", ";
+                }
+            }
+
+
         }
 
         public static void FillPlayerHands(Player[] players)
         {
             foreach (Player player in players)
             {
+                GameLog += "\n" + player.PlayerName + "'s new hand:\n";
                 player.FillHand(GameDeck);
                 player.PlayerHand.Sort();
+                foreach (Card card in player.PlayerHand)
+                {
+                    GameLog += card + ", ";
+
+                }
             }
 
         }
