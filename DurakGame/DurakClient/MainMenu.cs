@@ -101,5 +101,23 @@ namespace DurakClient
             // Reshow this form
             this.Show();
         }
+
+        private void btnDemo_Click(object sender, EventArgs e)
+        {
+            // Get the link to the video
+            string videoLink = "https://youtu.be/zwMPQAsCNX4";
+
+            // Watch for Exceptions
+            try
+            {
+                // Go to the Video
+                System.Diagnostics.Process.Start(videoLink);
+            }
+            catch (Exception)
+            {
+                // Show a Messagebox that provides the link instead
+                MessageBox.Show("Error redirecting to help video. Please see this link for the video: https://youtu.be/zwMPQAsCNX4.");
+            }
+        }
     }
 }
