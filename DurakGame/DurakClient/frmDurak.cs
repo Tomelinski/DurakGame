@@ -190,6 +190,9 @@ namespace DurakClient
                 //AttackCard = cardBox.PlayingCard;
                 PlayedCards.Add(newBox.PlayingCard);
 
+                //turn the card faceUp before it has been added to play area
+                newBox.PlayingCard.FaceUp = true;
+
                 // Add the control to the play panel
                 pnlPlayArea.Controls.Add(newBox);
 
@@ -226,9 +229,9 @@ namespace DurakClient
 
                     // Remove the card from the home panel
                     pnlOpponentHand.Controls.Remove(cardBox);
-                    cardBox.PlayingCard.FaceUp = true;
                 }
 
+                
                 //lblDebug.Text = cardBox.Parent.Name.ToString();
 
                 
@@ -302,6 +305,7 @@ namespace DurakClient
                         //picks up all previously played cards
                         foreach (Card card in PlayedCards)
                         {
+                            card.FaceUp = false;
                             Players[AiIndex].DrawCard(card);
                         }
 
@@ -801,10 +805,15 @@ namespace DurakClient
                 GameLog += "\n" + player.PlayerName + "'s new hand:\n";
                 player.FillHand(GameDeck);
                 player.PlayerHand.Sort();
+
+                bool ogFaceUp = true;
+                if (player.PlayerHand.Count > 0)
+                    ogFaceUp = player.PlayerHand[0].FaceUp;
                 foreach (Card card in player.PlayerHand)
                 {
+                    card.FaceUp = true;
                     GameLog += card + ", ";
-
+                    card.FaceUp = ogFaceUp;
                 }
             }
 
