@@ -121,7 +121,7 @@ namespace DurakClient
                 // move the card to the top edge of the panel.
                 cardBox.Top = 0;
 
-
+                lblDebug.Text = "Player: " + Players[PlayerIndex].PlayerHand.Count().ToString() + "  AI: " + Players[AiIndex].PlayerHand.Count().ToString();
             }
         }
         /// <summary>
@@ -154,13 +154,19 @@ namespace DurakClient
             {
                 // Common Work
 
-                // Remove Click Event and disable the cardBox
                 //cardBox.Click -= CardBox_Click;
                 cardBox.Enabled = false;
 
+                // Remove Click Event and disable the cardBox
+                AttackCard = cardBox.PlayingCard;
+                PlayedCards.Add(cardBox.PlayingCard);
+                // Add the control to the play panel
+                pnlPlayArea.Controls.Add(cardBox);
+
+
                 // Player Specific
                 // if the card is in the home panel...
-                if (cardBox.Parent == pnlPlayerHand)
+                if (cardBox. == pnlPlayerHand)
                 {
                     // Remove the Event Handler for this card
                     //cardBox.MouseEnter -= CardBox_MouseEnter;
@@ -172,9 +178,8 @@ namespace DurakClient
                     // Draw the Card from the Hand
                     Players[PlayerIndex].PlayCard(cardBox.PlayingCard);
 
-                    AiTurn = true;
                 }
-                else
+                else if (cardBox.Parent == pnlOponentHand)
                 {
                     // Remove the card from the home panel
                     pnlOponentHand.Controls.Remove(cardBox);
@@ -184,9 +189,8 @@ namespace DurakClient
                 }
 
 
-                // Add the control to the play panel
-                pnlPlayArea.Controls.Add(cardBox);
-
+                lblDebug.Text = cardBox.Parent.ToString();
+                
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
                 RealignCards(pnlPlayArea);
@@ -217,91 +221,76 @@ namespace DurakClient
                 RealignCards(pnlOponentHand);
 
         }
+        private void PlayerHandPanel_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            int cardIndex = 0;
 
+            if (Players[AiIndex].PlayerIsAttacking)
+            {
+                cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
+            }
+            else
+            {
+                cardIndex = (Players[AiIndex] as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, AttackCard);
+            }
+
+            // Adjust Card Index
+
+            if (cardIndex != 0)
+            {
+                cardIndex -= 1;
+
+                // Write the Event
+                (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+
+                // Perform a Click
+                (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+            }
+        }
         private void PlayAreaPanel_ControlAdded(object sender, ControlEventArgs e)
         {
             // Store the Information
             CardBox addedCardBox = pnlPlayArea.Controls[pnlPlayArea.Controls.Count - 1] as CardBox;
             Card addedCard = addedCardBox.PlayingCard;
-            PlayedCards.Add(addedCard);
 
-            // Check Player Type, so that we know which Panel to work with
-            if (Players[AiIndex].GetType().ToString() == "PlayerLibrary.AI" && AiTurn)      // Player is AI
+            // Loop through each Cardbox in Play
+
+            foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
             {
-                AiTurn = false;
-                int cardIndex = 0;
-
-                if (Players[AiIndex].PlayerIsAttacking)
-                {
-                    cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
-                }
-                else
-                {
-                    cardIndex = (Players[AiIndex] as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, addedCard);
-                }
-
-                // Adjust Card Index
-
-                if (cardIndex != 0)
-                {
-                    cardIndex -= 1;
-
-                    // Write the Event
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
-
-                    // Perform a Click
-                    (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
-                }
-
-
-
-
+                playerCardBox.Enabled = false;
             }
 
-            if (Players[PlayerIndex].GetType().ToString() == "PlayerLibrary.Player")    // Player is Human
+            // Check if the Player is attacking
+            if (Players[PlayerIndex].PlayerIsAttacking == true)
             {
-                // Loop through each Cardbox in Play
-
-                foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
-                {
-                    playerCardBox.Enabled = false;
-                }
-
-                // Check if the Player is attacking
-                if (Players[PlayerIndex].PlayerIsAttacking == true)
-                {
-                    foreach (Card card in PlayedCards)
-                    {
-                        foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
-                        {
-                            if (card.Rank == (playerCardBox.PlayingCard as Card).Rank)
-                            {
-                                playerCardBox.Enabled = true;
-                            }
-                        }
-                    }
-
-
-                }
-                // Else If the Player is Defending
-                else
+                foreach (Card card in PlayedCards)
                 {
                     foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
                     {
-                        if ((addedCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
-                             addedCard < playerCardBox.PlayingCard)
+                        if (card.Rank == (playerCardBox.PlayingCard as Card).Rank)
                         {
                             playerCardBox.Enabled = true;
                         }
-                        else
-                            playerCardBox.Enabled = false;
                     }
+                }
 
+
+            }
+            // Else If the Player is Defending
+            else
+            {
+                foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
+                {
+                    if ((addedCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
+                         addedCard < playerCardBox.PlayingCard)
+                    {
+                        playerCardBox.Enabled = true;
+                    }
+                    else
+                        playerCardBox.Enabled = false;
                 }
 
             }
-
-
 
         }
 

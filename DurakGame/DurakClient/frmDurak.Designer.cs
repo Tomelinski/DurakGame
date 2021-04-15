@@ -37,6 +37,7 @@ namespace DurakClient
             this.btnEndTurn = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.lblPlayerStatus = new System.Windows.Forms.Label();
+            this.lblDebug = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pbDeck)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbTrump)).BeginInit();
             this.SuspendLayout();
@@ -47,10 +48,10 @@ namespace DurakClient
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbDeck.BackColor = System.Drawing.Color.Transparent;
-            this.pbDeck.Location = new System.Drawing.Point(15, 18);
-            this.pbDeck.Margin = new System.Windows.Forms.Padding(13, 12, 4, 4);
+            this.pbDeck.Location = new System.Drawing.Point(11, 15);
+            this.pbDeck.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             this.pbDeck.Name = "pbDeck";
-            this.pbDeck.Size = new System.Drawing.Size(101, 135);
+            this.pbDeck.Size = new System.Drawing.Size(76, 110);
             this.pbDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbDeck.TabIndex = 0;
             this.pbDeck.TabStop = false;
@@ -62,10 +63,10 @@ namespace DurakClient
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pbTrump.BackColor = System.Drawing.Color.Transparent;
-            this.pbTrump.Location = new System.Drawing.Point(15, 60);
-            this.pbTrump.Margin = new System.Windows.Forms.Padding(13, 12, 4, 4);
+            this.pbTrump.Location = new System.Drawing.Point(11, 49);
+            this.pbTrump.Margin = new System.Windows.Forms.Padding(10, 10, 3, 3);
             this.pbTrump.Name = "pbTrump";
-            this.pbTrump.Size = new System.Drawing.Size(139, 94);
+            this.pbTrump.Size = new System.Drawing.Size(104, 76);
             this.pbTrump.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbTrump.TabIndex = 1;
             this.pbTrump.TabStop = false;
@@ -73,39 +74,36 @@ namespace DurakClient
             // pnlPlayerHand
             // 
             this.pnlPlayerHand.BackColor = System.Drawing.Color.Transparent;
-            this.pnlPlayerHand.Location = new System.Drawing.Point(187, 399);
-            this.pnlPlayerHand.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlPlayerHand.Location = new System.Drawing.Point(140, 324);
             this.pnlPlayerHand.Name = "pnlPlayerHand";
-            this.pnlPlayerHand.Size = new System.Drawing.Size(664, 154);
+            this.pnlPlayerHand.Size = new System.Drawing.Size(498, 125);
             this.pnlPlayerHand.TabIndex = 2;
             this.pnlPlayerHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
+            this.pnlPlayerHand.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.PlayerHandPanel_ControlRemoved);
             // 
             // pnlOponentHand
             // 
-            this.pnlOponentHand.Location = new System.Drawing.Point(187, 14);
-            this.pnlOponentHand.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlOponentHand.Location = new System.Drawing.Point(140, 11);
             this.pnlOponentHand.Name = "pnlOponentHand";
-            this.pnlOponentHand.Size = new System.Drawing.Size(664, 154);
+            this.pnlOponentHand.Size = new System.Drawing.Size(498, 125);
             this.pnlOponentHand.TabIndex = 3;
             this.pnlOponentHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
             // 
             // pnlPlayArea
             // 
             this.pnlPlayArea.BackColor = System.Drawing.Color.Transparent;
-            this.pnlPlayArea.Location = new System.Drawing.Point(141, 196);
-            this.pnlPlayArea.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pnlPlayArea.Location = new System.Drawing.Point(106, 159);
             this.pnlPlayArea.Name = "pnlPlayArea";
-            this.pnlPlayArea.Size = new System.Drawing.Size(760, 172);
+            this.pnlPlayArea.Size = new System.Drawing.Size(570, 140);
             this.pnlPlayArea.TabIndex = 4;
             this.pnlPlayArea.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlAdded);
             this.pnlPlayArea.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlRemoved);
             // 
             // btnEndTurn
             // 
-            this.btnEndTurn.Location = new System.Drawing.Point(905, 412);
-            this.btnEndTurn.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnEndTurn.Location = new System.Drawing.Point(679, 335);
             this.btnEndTurn.Name = "btnEndTurn";
-            this.btnEndTurn.Size = new System.Drawing.Size(124, 42);
+            this.btnEndTurn.Size = new System.Drawing.Size(93, 34);
             this.btnEndTurn.TabIndex = 5;
             this.btnEndTurn.Text = "End Turn";
             this.btnEndTurn.UseVisualStyleBackColor = true;
@@ -113,10 +111,9 @@ namespace DurakClient
             // 
             // btnQuit
             // 
-            this.btnQuit.Location = new System.Drawing.Point(905, 511);
-            this.btnQuit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnQuit.Location = new System.Drawing.Point(679, 415);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(124, 42);
+            this.btnQuit.Size = new System.Drawing.Size(93, 34);
             this.btnQuit.TabIndex = 6;
             this.btnQuit.Text = "Quit";
             this.btnQuit.UseVisualStyleBackColor = true;
@@ -126,20 +123,28 @@ namespace DurakClient
             // 
             this.lblPlayerStatus.BackColor = System.Drawing.Color.Transparent;
             this.lblPlayerStatus.Font = new System.Drawing.Font("Comic Sans MS", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPlayerStatus.Location = new System.Drawing.Point(187, 364);
-            this.lblPlayerStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPlayerStatus.Location = new System.Drawing.Point(140, 296);
             this.lblPlayerStatus.Name = "lblPlayerStatus";
-            this.lblPlayerStatus.Size = new System.Drawing.Size(664, 31);
+            this.lblPlayerStatus.Size = new System.Drawing.Size(498, 25);
             this.lblPlayerStatus.TabIndex = 7;
             this.lblPlayerStatus.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // lblDebug
+            // 
+            this.lblDebug.Location = new System.Drawing.Point(239, 140);
+            this.lblDebug.Name = "lblDebug";
+            this.lblDebug.Size = new System.Drawing.Size(295, 28);
+            this.lblDebug.TabIndex = 8;
+            this.lblDebug.Text = "label1";
+            // 
             // frmDurak
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::DurakClient.Properties.Resources.DurakOptionsBG;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1045, 567);
+            this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.lblDebug);
             this.Controls.Add(this.lblPlayerStatus);
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnEndTurn);
@@ -149,8 +154,7 @@ namespace DurakClient
             this.Controls.Add(this.pbDeck);
             this.Controls.Add(this.pbTrump);
             this.DoubleBuffered = true;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.MinimumSize = new System.Drawing.Size(1061, 605);
+            this.MinimumSize = new System.Drawing.Size(800, 499);
             this.Name = "frmDurak";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Durak";
@@ -171,5 +175,6 @@ namespace DurakClient
         private System.Windows.Forms.Button btnEndTurn;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Label lblPlayerStatus;
+        private System.Windows.Forms.Label lblDebug;
     }
 }
