@@ -100,6 +100,7 @@ namespace DurakClient
         void frmDurak_Load(object sender, EventArgs e)
         {
             ResetGameVariables(pbDeck, pbTrump, pnlOpponentHand, pnlPlayerHand, lblPlayerStatus);
+            GameDeck.LastCardDrawn += GameDeck_OutOfCards;
             PopulateCardBoxControls(pnlOpponentHand, pnlPlayerHand);
             if (Players[AiIndex].PlayerIsAttacking)
                 Ai_AttacksFirst(this, new EventArgs());
@@ -209,8 +210,7 @@ namespace DurakClient
                 }
                 else if (cardBox.Parent.Name.ToString() == "pnlOponentHand")
                 {
-                    
-
+                    //Players[AiIndex].PlayerHandOutOfCards += wesdfsdfsdf
                     // Draw the Card from the Hand
                     if (Players[AiIndex].PlayerIsAttacking)
                         AttackCard = Players[AiIndex].PlayCard(cardBox.PlayingCard);
@@ -433,6 +433,17 @@ namespace DurakClient
         }
 
 
+        private void GameDeck_OutOfCards(object sender, EventArgs e)
+        {
+            Players[PlayerIndex].PlayerHandOutOfCards += Player_OutOfCards;
+            Players[AiIndex].PlayerHandOutOfCards += Player_OutOfCards;
+        }
+
+        private void Player_OutOfCards(object sender, EventArgs e)
+        {
+            DetermineDurak();
+            Close();
+        }
 
 
 
@@ -442,6 +453,17 @@ namespace DurakClient
         #endregion
 
         #region HELPER METHODS
+
+        static public void DetermineDurak()
+        {
+
+            if (Players[PlayerIndex].PlayerHand.Count > Players[AiIndex].PlayerHand.Count)
+                MessageBox.Show("Player " + Players[PlayerIndex].PlayerName + ": is the Durak!", "You Lose!", MessageBoxButtons.OK);
+
+            else
+                MessageBox.Show("Player " + Players[AiIndex].PlayerName + ": is the Durak!", "You Win!", MessageBoxButtons.OK);
+
+        }
 
         /// <summary>
         /// Repositions the cards in a panel so that they are evenly distributed in the area available.
@@ -541,6 +563,7 @@ namespace DurakClient
             // Create and shuffle a deck
             GameDeck = new Deck(36);
             GameDeck.Shuffle();
+            
 
             // Set the trump card
             TrumpCard = GameDeck.DrawNextCard();

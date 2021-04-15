@@ -21,6 +21,9 @@ namespace PlayerLibrary
 
     public class Player
     {
+        // A Delegate for the LastCardDrawn Event
+        public event EventHandler PlayerHandOutOfCards;
+
         // Static Datamembers
         private readonly static int handBaseLine = 6;   // Represents the number of cards that should be in a players hand at the start of each round
 
@@ -108,6 +111,11 @@ namespace PlayerLibrary
             // Remove the card from the players hand
             PlayerHand.RemoveAt(handIndex);
             PlayerCardCount--;
+
+            if (PlayerCardCount == 0 && (PlayerHandOutOfCards != null))
+                // Call the Event
+                PlayerHandOutOfCards(this, EventArgs.Empty);
+
 
 
 
