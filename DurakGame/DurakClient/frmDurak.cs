@@ -100,6 +100,25 @@ namespace DurakClient
         void frmDurak_Load(object sender, EventArgs e)
         {
             ResetGameVariables(pbDeck, pbTrump, pnlOponentHand, pnlPlayerHand, lblPlayerStatus);
+            if (Players[AiIndex].PlayerIsAttacking)
+                Ai_AttacksFirst(this, new EventArgs());
+                
+        }
+
+        private void Ai_AttacksFirst(object sender, EventArgs e)
+        {
+            int cardIndex = 0;
+
+            cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
+
+            cardIndex -= 1;
+
+            // Write the Event
+            (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+
+                // Perform a Click
+            (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+          
         }
         #endregion
 
@@ -449,7 +468,7 @@ namespace DurakClient
             // Fill the players hand for the start of the match
             FillPlayerHands(Players);
             // Set the Attcking Player
-            AttackingPlayer = 1;// GetInitialAttacker();
+            AttackingPlayer = 0;// GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
             PopulateCardBoxControls(opponentHand, playerHand);
             playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
