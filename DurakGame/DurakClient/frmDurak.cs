@@ -121,7 +121,7 @@ namespace DurakClient
                 // move the card to the top edge of the panel.
                 cardBox.Top = 0;
 
-                lblDebug.Text = "Player: " + Players[PlayerIndex].PlayerHand.Count().ToString() + "  AI: " + Players[AiIndex].PlayerHand.Count().ToString();
+                
             }
         }
         /// <summary>
@@ -160,13 +160,12 @@ namespace DurakClient
                 // Remove Click Event and disable the cardBox
                 AttackCard = cardBox.PlayingCard;
                 PlayedCards.Add(cardBox.PlayingCard);
-                // Add the control to the play panel
-                pnlPlayArea.Controls.Add(cardBox);
+                
 
 
                 // Player Specific
                 // if the card is in the home panel...
-                if (cardBox. == pnlPlayerHand)
+                if (cardBox.Parent.Name.ToString() == "pnlPlayerHand")
                 {
                     // Remove the Event Handler for this card
                     //cardBox.MouseEnter -= CardBox_MouseEnter;
@@ -179,7 +178,7 @@ namespace DurakClient
                     Players[PlayerIndex].PlayCard(cardBox.PlayingCard);
 
                 }
-                else if (cardBox.Parent == pnlOponentHand)
+                else if (cardBox.Parent.Name.ToString() == "pnlOponentHand")
                 {
                     // Remove the card from the home panel
                     pnlOponentHand.Controls.Remove(cardBox);
@@ -188,8 +187,12 @@ namespace DurakClient
                     Players[AiIndex].PlayCard(cardBox.PlayingCard);
                 }
 
+                //lblDebug.Text = cardBox.Parent.Name.ToString();
 
-                lblDebug.Text = cardBox.Parent.ToString();
+                // Add the control to the play panel
+                pnlPlayArea.Controls.Add(cardBox);
+
+                
                 
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
@@ -310,12 +313,7 @@ namespace DurakClient
 
         private void btnEndTurn_Click(object sender, EventArgs e)
         {
-            /*Button sButton = sender as Button;
-            Player[0].
-            RotateAttacker();
-            ResortPlayers();
-
-            lblPlayerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";*/
+            lblDebug.Text = "Player: " + Players[PlayerIndex].PlayerHand.Count().ToString() + "  AI: " + Players[AiIndex].PlayerHand.Count().ToString();
         }
 
 
