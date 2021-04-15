@@ -232,7 +232,7 @@ namespace DurakClient
                 
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
-                RealignCards(pnlPlayArea);
+                RealignPlayArea(pnlPlayArea);
                 RealignCards(pnlOpponentHand);
 
             }
@@ -528,13 +528,62 @@ namespace DurakClient
         }
 
 
-        private void FormatPlayArea(Panel panelHand)
+        private void RealignPlayArea(Panel panelHand)
         {
-
             // Determine the number of cards/controls in the panel.
             int cardCount = panelHand.Controls.Count;
 
+            // If there are any cards in the panel
+            if (cardCount > 0)
+            {
+                // Determine how wide one card/control is.
+                int cardWidth = (panelHand.Controls[0].Width);
 
+                // Determine where the left-hand edge of a card/control placed 
+                // in the middle of the panel should be  
+                int startPoint = ((panelHand.Width - cardWidth) / 2);
+
+                // An offset for the remaining cards
+                int offset = 0;
+
+                // If there are more than one cards/controls in the panel
+                if (cardCount > 1)
+                {
+                    // Determine what the offset should be for each card based on the 
+                    // space available and the number of card/controls
+                    offset = (panelHand.Width - cardWidth - 2 * POP) / (cardCount - 1);
+
+                    // If the offset is bigger than the card/control width, i.e. there is lots of room, 
+                    // set the offset to the card width. The cards/controls will not overlap at all.
+                    if (offset > cardWidth)
+                        offset = cardWidth;
+
+                    // Determine width of all the cards/controls 
+                    int totalCardsWidth = (cardCount - 1) * offset + cardWidth;
+                    // Set the start point to where the left-hand edge of the "first" card should be.
+                    startPoint = (panelHand.Width - totalCardsWidth) / 2;
+                }
+                // Aligning the cards: Note that I align them in reserve order from how they
+                // are stored in the controls collection. This is so that cards on the left 
+                // appear underneath cards to the right. This allows the user to see the rank
+                // and suit more easily.
+
+                // Align the "first" card (which is the last control in the collection)
+                panelHand.Controls[cardCount - 1].Top = POP;
+                System.Diagnostics.Debug.Write(panelHand.Controls[cardCount - 1].Top.ToString() + "\n");
+                panelHand.Controls[cardCount - 1].Left = startPoint + (cardWidth/2);
+
+                // for each of the remaining controls, in reverse order.
+                for (int index = cardCount - 2; index >= 0; index--)
+                {
+                    // Align the current card
+                    panelHand.Controls[index].Top = POP;
+                    if (index % 2 == 0)
+                        panelHand.Controls[index].Left = panelHand.Controls[index + 1].Left + (offset / 2);
+                    else
+                        panelHand.Controls[index].Left = panelHand.Controls[index + 1].Left + offset + POP;
+                }
+            }
         }
 
         /// <summary>
