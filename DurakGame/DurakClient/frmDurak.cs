@@ -77,12 +77,6 @@ namespace DurakClient
         }
 
 
-        // Deck Settings
-        Deck deck;
-        Cards collection = new Cards();
-        Cards addCard = new Cards();
-
-
         //initialize the form when called from another form
         public frmDurak( int deckSize, int playerNum, string playerName)
         {
@@ -196,6 +190,9 @@ namespace DurakClient
                 //AttackCard = cardBox.PlayingCard;
                 PlayedCards.Add(newBox.PlayingCard);
 
+                //turn the card faceUp before it has been added to play area
+                newBox.PlayingCard.FaceUp = true;
+
                 // Add the control to the play panel
                 pnlPlayArea.Controls.Add(newBox);
 
@@ -205,11 +202,6 @@ namespace DurakClient
                 // if the card is in the home panel...
                 if (cardBox.Parent.Name.ToString() == "pnlPlayerHand")
                 {
-                    // Remove the Event Handler for this card
-                    //cardBox.MouseEnter -= CardBox_MouseEnter;
-                    //cardBox.MouseLeave -= CardBox_MouseLeave;
-
-                    
 
                     // Draw the Card from the Hand
                     if (Players[PlayerIndex].PlayerIsAttacking)
@@ -239,6 +231,7 @@ namespace DurakClient
                     pnlOpponentHand.Controls.Remove(cardBox);
                 }
 
+                
                 //lblDebug.Text = cardBox.Parent.Name.ToString();
 
                 
@@ -312,6 +305,7 @@ namespace DurakClient
                         //picks up all previously played cards
                         foreach (Card card in PlayedCards)
                         {
+                            card.FaceUp = false;
                             Players[AiIndex].DrawCard(card);
                         }
 
@@ -805,32 +799,42 @@ namespace DurakClient
         /// <param name="players"></param>
         public static void FillPlayerHands(Player[] players)
         {
+            //sort each players hands and get log info
             foreach (Player player in players)
             {
                 GameLog += "\n" + player.PlayerName + "'s new hand:\n";
                 player.FillHand(GameDeck);
                 player.PlayerHand.Sort();
+
+                bool ogFaceUp = true;
+                if (player.PlayerHand.Count > 0)
+                    ogFaceUp = player.PlayerHand[0].FaceUp;
                 foreach (Card card in player.PlayerHand)
                 {
+                    card.FaceUp = true;
                     GameLog += card + ", ";
-
+                    card.FaceUp = ogFaceUp;
                 }
             }
 
         }
 
+        //get the initial attacker for the game of durak
         public static int GetInitialAttacker()
         {
             int playerIndex = 0;    // Default to first Player if anything goes wrong
             Cards lowestCards = new Cards();
 
+            //get the lowest card in each players sorted hand
             foreach (Player player in Players)
             {
                 lowestCards.Add(player.PlayerHand[0]);
             }
 
+            //find whos card is the lowest
             lowestCards.Sort();
 
+            //get the index of the player with the lowest hand
             foreach (Player player in Players)
             {
                 if (lowestCards[0] == player.PlayerHand[0])
@@ -842,26 +846,9 @@ namespace DurakClient
 
         }
 
+        //resort the player array, [0]<-[1]<-[0]
         public static void ResortPlayers()
         {
-            /*while (!Players[0].PlayerIsAttacking)
-            {
-                Player tempPlayer = Players[0];
-
-                for (int i = 0; i < Players.Count(); i++)
-                {
-                    if (i != Players.Count() - 1)
-                    {
-                        Players[i] = Players[i + 1];
-                    }
-                    else
-                    {
-                        Players[i] = tempPlayer;
-                    }
-                }
-
-            }
-            AttackingPlayer = 0;*/
 
             Player tempPlayer = Players[0];
             Players[0] = Players[1];
@@ -869,25 +856,15 @@ namespace DurakClient
 
         }
 
+        //rotate the attack boolean in each play class
         public static void RotateAttacker()
         {
-            /*Players[AttackingPlayer].PlayerIsAttacking = false;
-
-            if (AttackingPlayer == Players.Count() - 1)
-            {
-                AttackingPlayer = 0;
-            }
-            else
-            {
-                AttackingPlayer++;
-            }
-
-            Players[AttackingPlayer].PlayerIsAttacking = true;*/
 
             Players[PlayerIndex].PlayerIsAttacking = !Players[PlayerIndex].PlayerIsAttacking;
             Players[AiIndex].PlayerIsAttacking = !Players[AiIndex].PlayerIsAttacking;
         }
 
+        //wire the player and AI controls with cards and cardboxs
         public void PopulateCardBoxControls(Panel opponentHand, Panel playerHand)
         {
             
@@ -900,7 +877,7 @@ namespace DurakClient
                     // Check which player we're on
                     if (player.GetType().ToString() == "PlayerLibrary.AI")
                     {
-                        card.FaceUp = true;
+                        //card.FaceUp = true;
                         CardBox cardBox = new CardBox(card);
                         opponentHand.Controls.Add(cardBox);
 
