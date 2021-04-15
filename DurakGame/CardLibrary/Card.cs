@@ -77,7 +77,7 @@ namespace CardLibrary
             if (compareCard.GetType() != null)
             {
                 const int ACE_MODIFIER = 20;
-                const int TRUMP_MODIFIER = -500;
+                const int TRUMP_MODIFIER = -999;
 
                 int thisRank = (int)this.Rank;
                 int thisSuit = (int)this.Suit;
@@ -96,10 +96,10 @@ namespace CardLibrary
                 if (UseTrumps)
                 {
                     if (this.Suit == TrumpSuit)
-                        thisSuit *= TRUMP_MODIFIER;
+                        thisSuit += TRUMP_MODIFIER;
 
                     if (compareCard.Suit == TrumpSuit)
-                        compareSuit *= TRUMP_MODIFIER;
+                        compareSuit += TRUMP_MODIFIER;
                 }
 
 
@@ -135,7 +135,7 @@ namespace CardLibrary
             if (compareCard.GetType() != null)
             {
                 const int ACE_MODIFIER = 20;
-                const int TRUMP_MODIFIER = -500;
+                //const int TRUMP_MODIFIER = -500;
 
                 int thisRank = (int)this.Rank;
                 int thisSuit = (int)this.Suit;

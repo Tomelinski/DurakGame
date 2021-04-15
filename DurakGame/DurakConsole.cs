@@ -92,7 +92,6 @@ namespace DurakGame
             // Display player info, cards in hand and allow player to play a card
             foreach (Player player in Players)
             {
-                player.PlayerHand.Sort();
                 Console.WriteLine("{0} is {1}\n", player.PlayerName, (player.PlayerIsAttacking ? "Attacking" : "Defending"));
                 cardCount = 1;
 
@@ -161,6 +160,9 @@ namespace DurakGame
             // Set the trump card
             TrumpCard = GameDeck.DrawNextCard();
 
+            
+            
+
             // Fill the players hand for the start of the match
             FillPlayerHands(Players);
 
@@ -221,6 +223,7 @@ namespace DurakGame
             foreach (Player player in players)
             {
                 player.FillHand(GameDeck);
+                player.PlayerHand.Sort();
             }
         }
 
@@ -231,7 +234,6 @@ namespace DurakGame
 
             foreach (Player player in Players)
             {
-                player.PlayerHand.Sort();
                 lowestCards.Add(player.PlayerHand[0]);
             }
 
