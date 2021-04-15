@@ -456,6 +456,7 @@ namespace DurakClient
         {
             DetermineDurak();
             Save_LogFile();
+            Save_Stats();
             Close();
         }
 
@@ -472,6 +473,82 @@ namespace DurakClient
             using (StreamWriter sw = File.AppendText("../../../logs/" + DateTime.Now.ToString("M") + ".txt"))
             {
                 sw.WriteLine(GameLog);
+            }
+
+        }
+
+        private void Save_Stats()
+        {
+            List<string> line = new List<string>();
+
+            using (StreamReader sr = new StreamReader("../../../stats/stats.txt"))
+            {
+                while (sr.Peek() > -1)
+                {
+                    string row = sr.ReadLine();
+                    if(row != "Name-G-W-L")
+                        line.Add(row);
+
+                }
+            }
+
+            bool PlayerFound = false;
+            string foundUser = "";
+            int games = 0;
+            int wins = 0;
+            int loses = 0;
+
+            foreach (String user in line)
+            {
+                if (user != null)
+                {
+
+                    if (Players[PlayerIndex].PlayerName == user.Split('-')[0])
+                    {
+                        foundUser = user;
+                        games = (int.Parse(user.Split('-')[1]) + 1);
+                        if (Players[PlayerIndex].PlayerHand.Count < Players[AiIndex].PlayerHand.Count)
+                        {
+
+                            wins = (int.Parse(user.Split('-')[2]) + 1);
+                            loses = (int.Parse(user.Split('-')[3]));
+                        }
+                        else
+                        {
+
+                            wins = (int.Parse(user.Split('-')[2]));
+                            loses = (int.Parse(user.Split('-')[3]) + 1);
+                        }
+
+
+                        PlayerFound = true;
+                    }
+                        //break;
+                        
+                }
+
+            }
+
+            if (!PlayerFound)
+                line.Add(Players[PlayerIndex].PlayerName + "-1-" + (Players[PlayerIndex].PlayerHand.Count < Players[AiIndex].PlayerHand.Count ? "1-0" : "0-1"));
+            else
+            {
+                line.Remove(foundUser);
+                line.Add(Players[PlayerIndex].PlayerName + "-" + games.ToString() + "-" + wins.ToString() + "-" + loses.ToString());
+
+            }
+
+        
+
+
+            using (StreamWriter sw = new StreamWriter("../../../stats/stats.txt"))
+            {
+                sw.WriteLine("Name-G-W-L");
+                foreach (string row in line)
+                {
+                    sw.WriteLine(row);
+
+                }
             }
 
         }
