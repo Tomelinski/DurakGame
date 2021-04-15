@@ -1,11 +1,12 @@
-﻿/* Program.cs - 
+﻿/* Program.cs - Entry Point for the Durak Console App. The Program.cs calls the StartGame
+ *            method of the DurakConsole Class.
  *         
  * Author(s): Aadithkeshev Anushayamunaithuraivan,
  *            Menushan Karunakaran,
  *            Calvin May,
  *            Tom Zielinski
  *            
- * Date: 02/27/2021
+ * Last Modified: 04/15/2021
  */
 
 using System;

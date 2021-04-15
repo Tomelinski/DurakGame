@@ -1,8 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿/* DurakConsole.cs - A Console App version of the Durak Game, currently set to be played by
+ *                 two AIS, this can be changes in the ResetGameVariables Method, by changing 
+ *                 one of the Players to a non-AI one.
+ *                 Mostly Used for debugging for the CLient version of the Durak App
+ *         
+ * Author(s): Aadithkeshev Anushayamunaithuraivan,
+ *            Menushan Karunakaran,
+ *            Calvin May,
+ *            Tom Zielinski
+ *            
+ * Date: 02/27/2021  | Last Modified: 04/15/2021
+ */
+
+// Imports
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CardLibrary;
 using PlayerLibrary;
 
