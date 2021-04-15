@@ -48,7 +48,7 @@ namespace DurakClient
         private static int AttackingPlayer { get; set; }    // The index of the currnetly attacking Player in the Player array
         private static bool RoundOver { get; set; }         // A boolean to let the program know when a round has ended.
         private static bool DefendingPlayerSkip { get; set; }   // A boolean to let the program know that if a skipping player is a defender.
-        private static bool AiTurn { get; set; }
+        private static bool repop { get; set; }
         private static int PlayerIndex
         {
             get
@@ -99,7 +99,7 @@ namespace DurakClient
         #region FORM EVENTS
         void frmDurak_Load(object sender, EventArgs e)
         {
-            ResetGameVariables(pbDeck, pbTrump, pnlOponentHand, pnlPlayerHand, lblPlayerStatus);
+            ResetGameVariables(pbDeck, pbTrump, pnlOpponentHand, pnlPlayerHand, lblPlayerStatus);
             if (Players[AiIndex].PlayerIsAttacking)
                 Ai_AttacksFirst(this, new EventArgs());
                 
@@ -114,10 +114,10 @@ namespace DurakClient
             cardIndex -= 1;
 
             // Write the Event
-            (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+            (pnlOpponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
 
                 // Perform a Click
-            (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+            (pnlOpponentHand.Controls[cardIndex] as CardBox).PerformClick();
           
         }
         #endregion
@@ -214,7 +214,7 @@ namespace DurakClient
 
 
                     // Remove the card from the home panel
-                    pnlOponentHand.Controls.Remove(cardBox);
+                    pnlOpponentHand.Controls.Remove(cardBox);
                 }
 
                 //lblDebug.Text = cardBox.Parent.Name.ToString();
@@ -227,7 +227,7 @@ namespace DurakClient
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
                 RealignCards(pnlPlayArea);
-                RealignCards(pnlOponentHand);
+                RealignCards(pnlOpponentHand);
 
             }
 
@@ -251,33 +251,77 @@ namespace DurakClient
             }
 
             else
-                RealignCards(pnlOponentHand);
+                RealignCards(pnlOpponentHand);
 
         }
         private void PlayerHandPanel_ControlRemoved(object sender, ControlEventArgs e)
         {
-            int cardIndex = 0;
-
-            if (Players[AiIndex].PlayerIsAttacking)
+            if (!repop)
             {
-                cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
-            }
-            else
-            {
-                cardIndex = (Players[AiIndex] as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, AttackCard);
-            }
 
-            // Adjust Card Index
+                int cardIndex = 0;
 
-            if (cardIndex != 0)
-            {
-                cardIndex -= 1;
+                if (Players[AiIndex].PlayerIsAttacking)
+                {
+                    cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
+                }
+                else
+                {
+                    cardIndex = (Players[AiIndex] as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, AttackCard);
+                }
 
-                // Write the Event
-                (pnlOponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+                // Adjust Card Index
 
-                // Perform a Click
-                (pnlOponentHand.Controls[cardIndex] as CardBox).PerformClick();
+                if (cardIndex != 0)
+                {
+                    cardIndex -= 1;
+
+                    // Write the Event
+                    (pnlOpponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
+
+                    // Perform a Click
+                    (pnlOpponentHand.Controls[cardIndex] as CardBox).PerformClick();
+                }
+                else
+                {
+                    //if player skips turn while defending
+                    if (!Players[AiIndex].PlayerIsAttacking)
+                    {
+                        //picks up all previously played cards
+                        foreach (Card card in PlayedCards)
+                        {
+                            Players[AiIndex].DrawCard(card);
+                        }
+
+                    }
+                    //player skips turns while attacking
+                    else
+                    {
+                        //rotate attackers array, to allow AI to play first
+                        RotateAttacker();
+                        ResortPlayers();
+                    }
+
+                    //Disable the AI from playing(calling PlayerHandPanel_ControlRemoved event) during repopulation
+                    repop = true;
+
+                    //Destroy PlayedCards variable
+                    PlayedCards = new Cards();
+                    //Fill all players hands
+                    FillPlayerHands(Players);
+                    //Repopulate and resort all player controlls
+                    PopulateCardBoxControls(pnlOpponentHand, pnlPlayerHand);
+                    //Remove card from play area
+                    pnlPlayArea.Controls.Clear();
+
+                    repop = false;
+
+                    // Realign the cards 
+                    RealignCards(pnlPlayerHand);
+                    RealignCards(pnlOpponentHand);
+
+                    lblPlayerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
+                }
             }
         }
         private void PlayAreaPanel_ControlAdded(object sender, ControlEventArgs e)
@@ -330,7 +374,7 @@ namespace DurakClient
         // TODO: SWITCH THIS TO A METHOD ****************************************************************************
         private void PlayAreaPanel_ControlRemoved(object sender, ControlEventArgs e)
         {
-            foreach (CardBox cardBox in pnlOponentHand.Controls)
+            foreach (CardBox cardBox in pnlOpponentHand.Controls)
             {
                 cardBox.Enabled = true;
             }
@@ -342,7 +386,50 @@ namespace DurakClient
 
         private void btnEndTurn_Click(object sender, EventArgs e)
         {
-            lblDebug.Text = "Player: " + Players[PlayerIndex].PlayerHand.Count().ToString() + "  AI: " + Players[AiIndex].PlayerHand.Count().ToString();
+            //lblDebug.Text = "Player: " + Players[PlayerIndex].PlayerHand.Count().ToString() + "  AI: " + Players[AiIndex].PlayerHand.Count().ToString();
+
+            //if player skips turn while defending
+            if (!Players[PlayerIndex].PlayerIsAttacking)
+            {
+                //picks up all previously played cards
+                foreach (Card card in PlayedCards)
+                {
+                    Players[PlayerIndex].DrawCard(card);
+                }
+                
+            }
+            //player skips turns while attacking
+            else
+            {
+                //rotate attackers array, to allow AI to play first
+                RotateAttacker();
+                ResortPlayers();
+            }
+
+            //Disable the AI from playing(calling PlayerHandPanel_ControlRemoved event) during repopulation
+            repop = true;
+            
+            //Destroy PlayedCards variable
+            PlayedCards = new Cards();
+            //Fill all players hands
+            FillPlayerHands(Players);
+            //Repopulate and resort all player controlls
+            PopulateCardBoxControls(pnlOpponentHand, pnlPlayerHand);
+            //Remove card from play area
+            pnlPlayArea.Controls.Clear();
+
+            repop = false;
+
+            // Realign the cards 
+            RealignCards(pnlPlayerHand);
+            RealignCards(pnlOpponentHand);
+            lblPlayerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
+            
+
+            //check if AI plays need to play first card
+            if (!Players[PlayerIndex].PlayerIsAttacking)
+                Ai_AttacksFirst(this, new EventArgs());
+
         }
 
 
@@ -432,7 +519,7 @@ namespace DurakClient
         {
             // Clear the panels
             pnlPlayerHand.Controls.Clear();
-            pnlOponentHand.Controls.Clear();
+            pnlOpponentHand.Controls.Clear();
             pnlPlayArea.Controls.Clear();
 
         }
@@ -449,7 +536,6 @@ namespace DurakClient
             //Players[1] = new Player("Tom");
             Players[0] = new AI("AI1");
             Players[1] = new Player("AI2");
-            AiTurn = true;
 
 
             // Create and shuffle a deck
@@ -467,7 +553,7 @@ namespace DurakClient
             // Fill the players hand for the start of the match
             FillPlayerHands(Players);
             // Set the Attcking Player
-            AttackingPlayer = 0;// GetInitialAttacker();
+            AttackingPlayer = GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
             PopulateCardBoxControls(opponentHand, playerHand);
             playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
@@ -480,7 +566,7 @@ namespace DurakClient
 
             // Set RoundOver as False
             RoundOver = false;
-
+            repop = false;
         }
 
         public static void FillPlayerHands(Player[] players)
@@ -536,6 +622,7 @@ namespace DurakClient
 
             }
             AttackingPlayer = 0;
+
         }
 
         public static void RotateAttacker()
@@ -558,6 +645,7 @@ namespace DurakClient
 
         public static void PopulateCardBoxControls(Panel opponentHand, Panel playerHand)
         {
+            
             opponentHand.Controls.Clear();
             playerHand.Controls.Clear();
             foreach (Player player in Players)

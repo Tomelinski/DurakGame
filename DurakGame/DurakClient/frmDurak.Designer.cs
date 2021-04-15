@@ -32,7 +32,7 @@ namespace DurakClient
             this.pbDeck = new System.Windows.Forms.PictureBox();
             this.pbTrump = new System.Windows.Forms.PictureBox();
             this.pnlPlayerHand = new System.Windows.Forms.Panel();
-            this.pnlOponentHand = new System.Windows.Forms.Panel();
+            this.pnlOpponentHand = new System.Windows.Forms.Panel();
             this.pnlPlayArea = new System.Windows.Forms.Panel();
             this.btnEndTurn = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
@@ -83,11 +83,11 @@ namespace DurakClient
             // 
             // pnlOponentHand
             // 
-            this.pnlOponentHand.Location = new System.Drawing.Point(140, 11);
-            this.pnlOponentHand.Name = "pnlOponentHand";
-            this.pnlOponentHand.Size = new System.Drawing.Size(498, 125);
-            this.pnlOponentHand.TabIndex = 3;
-            this.pnlOponentHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
+            this.pnlOpponentHand.Location = new System.Drawing.Point(140, 11);
+            this.pnlOpponentHand.Name = "pnlOponentHand";
+            this.pnlOpponentHand.Size = new System.Drawing.Size(498, 125);
+            this.pnlOpponentHand.TabIndex = 3;
+            this.pnlOpponentHand.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.HandPanel_ControlAdded);
             // 
             // pnlPlayArea
             // 
@@ -149,7 +149,7 @@ namespace DurakClient
             this.Controls.Add(this.btnQuit);
             this.Controls.Add(this.btnEndTurn);
             this.Controls.Add(this.pnlPlayArea);
-            this.Controls.Add(this.pnlOponentHand);
+            this.Controls.Add(this.pnlOpponentHand);
             this.Controls.Add(this.pnlPlayerHand);
             this.Controls.Add(this.pbDeck);
             this.Controls.Add(this.pbTrump);
@@ -170,7 +170,7 @@ namespace DurakClient
         private System.Windows.Forms.PictureBox pbDeck;
         private System.Windows.Forms.PictureBox pbTrump;
         private System.Windows.Forms.Panel pnlPlayerHand;
-        private System.Windows.Forms.Panel pnlOponentHand;
+        private System.Windows.Forms.Panel pnlOpponentHand;
         private System.Windows.Forms.Panel pnlPlayArea;
         private System.Windows.Forms.Button btnEndTurn;
         private System.Windows.Forms.Button btnQuit;
