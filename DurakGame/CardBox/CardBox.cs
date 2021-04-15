@@ -1,22 +1,18 @@
 ﻿/**
- *  MyCardBox.cs - This is the CardBox class.
+ *  MyCardBox.cs - This is the CardBox class. The CardBox is a custom control, similar to a pictureBox but
+ *               extends functionality by containing a Card Object.
  * 
   * Author(s): Aadithkeshev Anushayamunaithuraivan,
  *             Menushan Karunakaran,
  *             Calvin May,
  *             Tom Zielinski
  * @version     1.0
- * @since       03/13/2021 |Last Edited: 03/17/2021
+ * @since       03/13/2021 |Last Edited: 04/15/2021
  */
 
+// Imports
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CardLibrary;  // Use the CardLibrary Library
 
@@ -112,7 +108,11 @@ namespace MyCardBox
             }
         }
 
+        // A Private data member for handling CardBox Orientation
         private Orientation cardOrientation;
+        /// <summary>
+        /// Card Property: Gets and Sets the Cardbox Orientation, plus updates the Card contained within.
+        /// </summary>
         public Orientation CardOrientation
         {
             set
@@ -286,6 +286,12 @@ namespace MyCardBox
             return playingCard.ToString();
         }
 
+
+        /// <summary>
+        /// PerformClick() - This Method is used to simulate a Click event
+        /// on a CardBox object. Usefull for When Ai players need to "Click"
+        /// on a CardBox.
+        /// </summary>
         public void PerformClick()
         {
             // Check if there is a handler for clicknig the control in the client program
