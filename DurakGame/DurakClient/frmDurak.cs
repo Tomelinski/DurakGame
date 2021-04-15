@@ -158,7 +158,7 @@ namespace DurakClient
                 cardBox.Enabled = false;
 
                 // Remove Click Event and disable the cardBox
-                AttackCard = cardBox.PlayingCard;
+                //AttackCard = cardBox.PlayingCard;
                 PlayedCards.Add(cardBox.PlayingCard);
                 
 
@@ -171,20 +171,31 @@ namespace DurakClient
                     //cardBox.MouseEnter -= CardBox_MouseEnter;
                     //cardBox.MouseLeave -= CardBox_MouseLeave;
 
-                    // Remove the card from the home panel
-                    pnlPlayerHand.Controls.Remove(cardBox);
+                    
 
                     // Draw the Card from the Hand
-                    Players[PlayerIndex].PlayCard(cardBox.PlayingCard);
+                    if (Players[PlayerIndex].PlayerIsAttacking)
+                        AttackCard = Players[PlayerIndex].PlayCard(cardBox.PlayingCard);
+                    else
+                        DefendCard = Players[PlayerIndex].PlayCard(cardBox.PlayingCard);
+
+                    // Remove the card from the home panel
+                    pnlPlayerHand.Controls.Remove(cardBox);
 
                 }
                 else if (cardBox.Parent.Name.ToString() == "pnlOponentHand")
                 {
-                    // Remove the card from the home panel
-                    pnlOponentHand.Controls.Remove(cardBox);
+                    
 
                     // Draw the Card from the Hand
-                    Players[AiIndex].PlayCard(cardBox.PlayingCard);
+                    if (Players[AiIndex].PlayerIsAttacking)
+                        AttackCard = Players[AiIndex].PlayCard(cardBox.PlayingCard);
+                    else
+                        DefendCard = Players[AiIndex].PlayCard(cardBox.PlayingCard);
+
+
+                    // Remove the card from the home panel
+                    pnlOponentHand.Controls.Remove(cardBox);
                 }
 
                 //lblDebug.Text = cardBox.Parent.Name.ToString();
@@ -438,7 +449,7 @@ namespace DurakClient
             // Fill the players hand for the start of the match
             FillPlayerHands(Players);
             // Set the Attcking Player
-            AttackingPlayer = 1;//GetInitialAttacker();
+            AttackingPlayer = 1;// GetInitialAttacker();
             Players[AttackingPlayer].PlayerIsAttacking = true;
             PopulateCardBoxControls(opponentHand, playerHand);
             playerStatus.Text = Players[1].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
@@ -446,6 +457,8 @@ namespace DurakClient
 
             // Reset the PlayedCards List
             PlayedCards = new Cards();
+
+            
 
             // Set RoundOver as False
             RoundOver = false;
