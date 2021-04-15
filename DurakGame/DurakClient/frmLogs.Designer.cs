@@ -55,7 +55,7 @@ namespace DurakClient
             this.Name = "frmGameLogs";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Logs and Statistics";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmWriteLog_Closing);
+            //this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmWriteLog_Closing);
             this.ResumeLayout(false);
 
         }

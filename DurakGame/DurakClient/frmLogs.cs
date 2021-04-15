@@ -17,20 +17,20 @@ namespace DurakClient
             InitializeComponent();
         }
 
-        private void frmWriteLog_Closing(object sender, FormClosingEventArgs e)
-        {
-            Logs.WriteGameStat(txtLogs.Text);
-            if (e.CloseReason == CloseReason.UserClosing)
-            {
-                e.Cancel = true;
-                Hide();
-            }
-        }
+        //private void frmWriteLog_Closing(object sender, FormClosingEventArgs e)
+        //{
+        //    Logs.WriteGameStat(txtLogs.Text);
+        //    if (e.CloseReason == CloseReason.UserClosing)
+        //    {
+        //        e.Cancel = true;
+        //        Hide();
+        //    }
+        //}
 
-        public void WriteLog(string gameLog)
-        {
-            if (!txtLogs.IsDisposed)
-                txtLogs.AppendText(gameLog + "\n");
-        }
+        //public void WriteLog(string gameLog)
+        //{
+        //    if (!txtLogs.IsDisposed)
+        //        txtLogs.AppendText(gameLog + "\n");
+        //}
     }
 }

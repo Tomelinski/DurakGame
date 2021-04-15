@@ -570,6 +570,10 @@ namespace DurakClient
 
         #endregion
 
+        private void btnQuit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
 
