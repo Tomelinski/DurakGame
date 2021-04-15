@@ -60,7 +60,11 @@ namespace CardLibrary
             this.Rank = newRank;
         }
 
-        // A Comparison Method used to sort Card Instances
+        /// <summary>
+        ///  A Comparison Method used to sort Card Instances
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public virtual int CompareTo(Object obj)
         {
             // Check if the Argument is null
@@ -84,6 +88,7 @@ namespace CardLibrary
                 int compareRank = (int)compareCard.Rank;
                 int compareSuit = (int)compareCard.Suit;
 
+                //check if Ace is high, and adjust ace strength to ensure ace is sorted last
                 if (IsAceHigh)
                 {
                     if (this.Rank == Rank.Ace)
@@ -93,6 +98,7 @@ namespace CardLibrary
                         compareRank = ACE_MODIFIER;
                 }
 
+                //check if trump is used, to ensure trump card is sorted first
                 if (UseTrumps)
                 {
                     if (this.Suit == TrumpSuit)
@@ -119,6 +125,11 @@ namespace CardLibrary
             }
         }
 
+        /// <summary>
+        /// Check if card has a stronger rank(including Ace) when comparison operatiors dont function the way we need
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns>true if card that called method is stronger</returns>
         public bool isStronger(Object obj)
         {
             // Check if the Argument is null
@@ -135,13 +146,13 @@ namespace CardLibrary
             if (compareCard.GetType() != null)
             {
                 const int ACE_MODIFIER = 20;
-                //const int TRUMP_MODIFIER = -500;
 
                 int thisRank = (int)this.Rank;
                 int thisSuit = (int)this.Suit;
                 int compareRank = (int)compareCard.Rank;
                 int compareSuit = (int)compareCard.Suit;
 
+                //check if Ace is high, and adjust ace strength to ensure ace is sorted last
                 if (IsAceHigh)
                 {
                     if (this.Rank == Rank.Ace)
@@ -150,15 +161,6 @@ namespace CardLibrary
                     if (compareCard.Rank == Rank.Ace)
                         compareRank = ACE_MODIFIER;
                 }
-
-                //if (UseTrumps)
-                //{
-                //    if (this.Suit == TrumpSuit)
-                //        thisSuit *= TRUMP_MODIFIER;
-
-                //    if (compareCard.Suit == TrumpSuit)
-                //        compareSuit *= TRUMP_MODIFIER;
-                //}
 
 
 

@@ -122,11 +122,17 @@ namespace PlayerLibrary
             return chosenCard;
         }
 
+
+        /// <summary>
+        /// Find and play the card in the player hand. Used in Durak Client
+        /// </summary>
+        /// <param name="cardToPlay"></param>
+        /// <returns>the card, that has been played and removed from hand</returns>
         public Card PlayCard(Card cardToPlay)
         {
             int index = 0;
             
-
+            //check every card in hand to see if its the card being played
             for (int i =0; i < PlayerHand.Count; i++)
             {
                 

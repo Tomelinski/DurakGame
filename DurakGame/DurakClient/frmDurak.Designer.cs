@@ -54,7 +54,6 @@ namespace DurakClient
             this.pbDeck.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbDeck.TabIndex = 0;
             this.pbDeck.TabStop = false;
-            this.pbDeck.Click += new System.EventHandler(this.pbDeck_Click);
             // 
             // pbTrump
             // 
@@ -99,7 +98,6 @@ namespace DurakClient
             this.pnlPlayArea.Size = new System.Drawing.Size(760, 172);
             this.pnlPlayArea.TabIndex = 4;
             this.pnlPlayArea.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlAdded);
-            this.pnlPlayArea.ControlRemoved += new System.Windows.Forms.ControlEventHandler(this.PlayAreaPanel_ControlRemoved);
             // 
             // btnEndTurn
             // 

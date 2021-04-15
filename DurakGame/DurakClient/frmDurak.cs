@@ -83,7 +83,7 @@ namespace DurakClient
         Cards addCard = new Cards();
 
 
-
+        //initialize the form when called from another form
         public frmDurak( int deckSize, int playerNum, string playerName)
         {
             InitializeComponent();
@@ -97,12 +97,13 @@ namespace DurakClient
 
         }
 
-        private void pbDeck_Click(object sender, EventArgs e)
-        {
-
-        }
 
         #region FORM EVENTS
+        /// <summary>
+        /// when the form loads reset game variables and check if ai is attacking, to play card
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void frmDurak_Load(object sender, EventArgs e)
         {
             ResetGameVariables(pbDeck, pbTrump, pnlOpponentHand, pnlPlayerHand, lblPlayerStatus);
@@ -113,14 +114,20 @@ namespace DurakClient
                 
         }
 
+        /// <summary>
+        /// if the AI is the first to attack this round, play their card.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Ai_AttacksFirst(object sender, EventArgs e)
         {
             int cardIndex = 0;
-
+            //get the index of the best possible attack card
             cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
 
             cardIndex -= 1;
 
+            //wire click to cardbox and perform a click event on it.
             // Write the Event
             (pnlOpponentHand.Controls[cardIndex] as CardBox).Click += CardBox_Click;
 
@@ -216,6 +223,7 @@ namespace DurakClient
                     pnlPlayerHand.Controls.Remove(cardBox);
 
                 }
+                //if the card is in the Opponent panel
                 else if (cardBox.Parent.Name.ToString() == "pnlOpponentHand")
                 {
                     //Players[AiIndex].PlayerHandOutOfCards += wesdfsdfsdf
@@ -246,6 +254,11 @@ namespace DurakClient
 
         }
 
+        /// <summary>
+        /// realign play and /or opponent cards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void HandPanel_ControlAdded(object sender, ControlEventArgs e)
         {
             if (sender == pnlPlayerHand)     
@@ -253,17 +266,23 @@ namespace DurakClient
             else
                 RealignCards(pnlOpponentHand);
             
-
- 
-
         }
+
+
+        /// <summary>
+        /// when a card is removed from the player panel do event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlayerHandPanel_ControlRemoved(object sender, ControlEventArgs e)
         {
+            //do not do event if sorting and repopulating player hand
             if (!repop)
             {
 
                 int cardIndex = 0;
 
+                //Choose AI card after player has played a card
                 if (Players[AiIndex].PlayerIsAttacking)
                 {
                     cardIndex = (Players[AiIndex] as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
@@ -273,8 +292,7 @@ namespace DurakClient
                     cardIndex = (Players[AiIndex] as AI).GetDefendingCardIndex(GameDeck, TrumpCard, PlayedCards, AttackCard);
                 }
 
-                // Adjust Card Index
-
+                // AI has chosen a vaid card, Adjust Card Index for AI skip turn
                 if (cardIndex != 0)
                 {
                     cardIndex -= 1;
@@ -285,6 +303,7 @@ namespace DurakClient
                     // Perform a Click
                     (pnlOpponentHand.Controls[cardIndex] as CardBox).PerformClick();
                 }
+                //AI has skipped their turn
                 else
                 {
                     //if player skips turn while defending
@@ -322,15 +341,19 @@ namespace DurakClient
                     // Realign the cards 
                     RealignCards(pnlPlayerHand);
                     RealignCards(pnlOpponentHand);
-
-                   /* //check if AI plays need to play first card
-                    if (!Players[PlayerIndex].PlayerIsAttacking)
-                        Ai_AttacksFirst(this, new EventArgs());*/
-
+                    
+                    //if AI causes attackers to rotate, change Player attacking label
                     lblPlayerStatus.Text = Players[PlayerIndex].PlayerIsAttacking ? "You are Attacking!" : "You Are Defending!";
                 }
             }
         }
+
+
+        /// <summary>
+        /// Disable cards that user cannot play when a cards enters the Playing area
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PlayAreaPanel_ControlAdded(object sender, ControlEventArgs e)
         {
             // Store the Information
@@ -338,7 +361,6 @@ namespace DurakClient
             Card addedCard = addedCardBox.PlayingCard;
 
             // Loop through each Cardbox in Play
-
             foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
             {
                 playerCardBox.Enabled = false;
@@ -351,6 +373,7 @@ namespace DurakClient
                 {
                     foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
                     {
+                        //check if card is a playable attack card(ranks must be equal)
                         if (card.Rank == (playerCardBox.PlayingCard as Card).Rank)
                         {
                             playerCardBox.Enabled = true;
@@ -365,6 +388,7 @@ namespace DurakClient
             {
                 foreach (CardBox playerCardBox in pnlPlayerHand.Controls)
                 {
+                    //player can only play cards of the same suit, that are stronger, or trump suits
                     if ((addedCard.Suit == playerCardBox.PlayingCard.Suit || TrumpCard.Suit == playerCardBox.PlayingCard.Suit) &&
                          addedCard < playerCardBox.PlayingCard)
                     {
@@ -377,19 +401,6 @@ namespace DurakClient
 
         }
 
-
-        // TODO: SWITCH THIS TO A METHOD ****************************************************************************
-        private void PlayAreaPanel_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            foreach (CardBox cardBox in pnlOpponentHand.Controls)
-            {
-                cardBox.Enabled = true;
-            }
-            foreach (CardBox cardBox in pnlPlayerHand.Controls)
-            {
-                cardBox.Enabled = true;
-            }
-        }
 
         private void btnEndTurn_Click(object sender, EventArgs e)
         {
@@ -444,7 +455,11 @@ namespace DurakClient
 
         }
 
-
+        /// <summary>
+        /// event that checks if the deck is out of cards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GameDeck_OutOfCards(object sender, EventArgs e)
         {
             pbDeck.Visible = false;
@@ -452,17 +467,27 @@ namespace DurakClient
             Players[AiIndex].PlayerHandOutOfCards += Player_OutOfCards;
         }
 
+        /// <summary>
+        /// once deck is out of cards, check if either player is out of cards
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Player_OutOfCards(object sender, EventArgs e)
         {
+            //the game has ended, check who is the durak
             DetermineDurak();
+            //log data into stats and logs
             Save_LogFile();
             Save_Stats();
             Close();
         }
 
-
+        /// <summary>
+        /// log the played round info into a log file, the date the game was played
+        /// </summary>
         private void Save_LogFile()
         {
+            //append who the winner is of the game to the log string
             if (Players[PlayerIndex].PlayerHand.Count > Players[AiIndex].PlayerHand.Count)
                 GameLog += "\nPlayer " + Players[PlayerIndex].PlayerName + ": is the Durak!";
             else
@@ -470,6 +495,7 @@ namespace DurakClient
 
             GameLog += "\n\n=========================================================================================================\n\n";
 
+            //Append the log string to the file
             using (StreamWriter sw = File.AppendText("../../../logs/" + DateTime.Now.ToString("M") + ".txt"))
             {
                 sw.WriteLine(GameLog);
@@ -477,10 +503,12 @@ namespace DurakClient
 
         }
 
+        //determine if the player has statistics already, if so add to them or create a new user.
         private void Save_Stats()
         {
             List<string> line = new List<string>();
 
+            //store txt file data into a list
             using (StreamReader sr = new StreamReader("../../../stats/stats.txt"))
             {
                 while (sr.Peek() > -1)
@@ -498,11 +526,13 @@ namespace DurakClient
             int wins = 0;
             int loses = 0;
 
+            //search for player in the list and calculate new data for that player
             foreach (String user in line)
             {
                 if (user != null)
                 {
 
+                    //compare player name to txt file row name
                     if (Players[PlayerIndex].PlayerName == user.Split('-')[0])
                     {
                         foundUser = user;
@@ -529,10 +559,12 @@ namespace DurakClient
 
             }
 
+            //add a new player to the player list
             if (!PlayerFound)
                 line.Add(Players[PlayerIndex].PlayerName + "-1-" + (Players[PlayerIndex].PlayerHand.Count < Players[AiIndex].PlayerHand.Count ? "1-0" : "0-1"));
             else
             {
+                //update player information
                 line.Remove(foundUser);
                 line.Add(Players[PlayerIndex].PlayerName + "-" + games.ToString() + "-" + wins.ToString() + "-" + loses.ToString());
 
@@ -540,7 +572,7 @@ namespace DurakClient
 
         
 
-
+            //write new player list into stats file
             using (StreamWriter sw = new StreamWriter("../../../stats/stats.txt"))
             {
                 sw.WriteLine("Name-G-W-L");
@@ -559,6 +591,7 @@ namespace DurakClient
 
         #region HELPER METHODS
 
+        //determine the winner and losers of the durak game
         static public void DetermineDurak()
         {
 
@@ -630,6 +663,7 @@ namespace DurakClient
         }
 
 
+        //Realigns cards in player and opponent hand
         private void RealignPlayArea(Panel panelHand)
         {
             // Determine the number of cards/controls in the panel.
@@ -700,7 +734,14 @@ namespace DurakClient
 
         }
 
-
+        /// <summary>
+        /// reset all game variables and get logs information
+        /// </summary>
+        /// <param name="pbDeck"></param>
+        /// <param name="pbTrump"></param>
+        /// <param name="opponentHand"></param>
+        /// <param name="playerHand"></param>
+        /// <param name="playerStatus"></param>
         public static void ResetGameVariables(PictureBox pbDeck, PictureBox pbTrump, Panel opponentHand, Panel playerHand, Label playerStatus)
         {
             
@@ -758,6 +799,10 @@ namespace DurakClient
 
         }
 
+        /// <summary>
+        /// fill all players hands
+        /// </summary>
+        /// <param name="players"></param>
         public static void FillPlayerHands(Player[] players)
         {
             foreach (Player player in players)

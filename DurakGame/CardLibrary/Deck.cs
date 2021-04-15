@@ -58,7 +58,11 @@ namespace CardLibrary
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Check if deck has more then 1 card 
+        /// </summary>
+        /// <returns>true if deck.count > 0</returns>
         public bool HasCards()
         {
             if (this.cards.Count() > 0)
@@ -68,12 +72,16 @@ namespace CardLibrary
 
         }
 
-
+        /// <summary>
+        /// returns the amount of cards remaining in the deck
+        /// </summary>
+        /// <returns></returns>
         public int CardsRemaining()
         {
             return this.cards.Count();
         }
 
+        //get the card baced off the card index from the players hand
         public Card GetCard(int cardNum)
         {
             
@@ -93,11 +101,16 @@ namespace CardLibrary
                 // Throw a CardOutOfRangeException Exception
                 throw new CardOutOfRangeException((Cards)cards.Clone());
         }
+        /// <summary>
+        /// Shuffle the deck of cards with 
+        /// </summary>
         public void Shuffle()
         {
+            //create a new deck object to store when shuffling deck
             Cards newDeck = new Cards();
             bool[] assigned = new bool[cards.Count];
             Random sourceGen = new Random();
+            //loop through to every card in the deck
             for (int i = 0; i < cards.Count; i++)
             {
                 int sourceCard = 0;
@@ -114,6 +127,10 @@ namespace CardLibrary
             newDeck.CopyTo(cards);
         }
 
+        /// <summary>
+        /// return the card remove the card at index from players hand
+        /// </summary>
+        /// <returns>the card that has been removed</returns>
         public Card DrawNextCard()
         {
             Card drawnCard;
