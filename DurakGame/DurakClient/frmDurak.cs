@@ -1,4 +1,18 @@
-﻿using System;
+﻿/* frmDurak.cs - A Client App version of the Durak Game, currently set to be played by
+ *                 a Player and an AI. This is the Final App, it features a GUI interface that
+ *                 utilizes Custom Events to handle most game logic. Developed in addition to
+ *                 the Console version of Durak.
+ *         
+ * Author(s): Aadithkeshev Anushayamunaithuraivan,
+ *            Menushan Karunakaran,
+ *            Calvin May,
+ *            Tom Zielinski
+ *            
+ * Last Modified: 04/15/2021
+ */
+
+// Imports
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -17,6 +31,7 @@ namespace DurakClient
     public partial class frmDurak : Form
     {
 
+        // Game Trump Card
         private static Card trumpCard;
         public static Card TrumpCard
         {
@@ -52,8 +67,8 @@ namespace DurakClient
         public static Deck GameDeck { get; set; }       // The Deck object being used in this instance
         public static Player[] Players { get; set; }    // An array of Players that are apart of this instance
         private static int AttackingPlayer { get; set; }    // The index of the currnetly attacking Player in the Player array
-        private static bool repop { get; set; }
-        private static int PlayerIndex
+        private static bool repop { get; set; }         // Boolean to let the program know that we are repopulating controls, without wanting to use the AI
+        private static int PlayerIndex                  // Stores the Player Character Index in the Player array
         {
             get
             {
@@ -64,7 +79,7 @@ namespace DurakClient
 
             }
         }
-        private static int AiIndex
+        private static int AiIndex                      // Stores the AI Character Index in the Player array
         {
             get
             {
@@ -77,11 +92,12 @@ namespace DurakClient
         }
 
 
-        //initialize the form when called from another form
+        // Initialize the form when called from another form
         public frmDurak( int deckSize, int playerNum, string playerName)
         {
             InitializeComponent();
 
+            // Set Game Variables
             DeckSize = deckSize;
             PlayerNum = playerNum;
             if (playerName == "")
@@ -100,9 +116,13 @@ namespace DurakClient
         /// <param name="e"></param>
         void frmDurak_Load(object sender, EventArgs e)
         {
+
             ResetGameVariables(pbDeck, pbTrump, pnlOpponentHand, pnlPlayerHand, lblPlayerStatus);
+
             GameDeck.LastCardDrawn += GameDeck_OutOfCards;
+
             PopulateCardBoxControls(pnlOpponentHand, pnlPlayerHand);
+
             if (Players[AiIndex].PlayerIsAttacking)
                 Ai_AttacksFirst(this, new EventArgs());
                 
@@ -196,8 +216,6 @@ namespace DurakClient
                 // Add the control to the play panel
                 pnlPlayArea.Controls.Add(newBox);
 
-
-
                 // Player Specific
                 // if the card is in the home panel...
                 if (cardBox.Parent.Name.ToString() == "pnlPlayerHand")
@@ -230,14 +248,7 @@ namespace DurakClient
                     // Remove the card from the home panel
                     pnlOpponentHand.Controls.Remove(cardBox);
                 }
-
-                
-                //lblDebug.Text = cardBox.Parent.Name.ToString();
-
-                
-
-                
-                
+      
                 // Realign the cards 
                 RealignCards(pnlPlayerHand);
                 RealignPlayArea(pnlPlayArea);
@@ -717,18 +728,6 @@ namespace DurakClient
         }
 
         /// <summary>
-        /// Clears the panels and reloads the deck.
-        /// </summary>
-        void Reset()
-        {
-            // Clear the panels
-            pnlPlayerHand.Controls.Clear();
-            pnlOpponentHand.Controls.Clear();
-            pnlPlayArea.Controls.Clear();
-
-        }
-
-        /// <summary>
         /// reset all game variables and get logs information
         /// </summary>
         /// <param name="pbDeck"></param>
@@ -789,8 +788,6 @@ namespace DurakClient
                     GameLog += card.ToString() + ", ";
                 }
             }
-
-
         }
 
         /// <summary>
@@ -899,12 +896,15 @@ namespace DurakClient
                 }
 
             }
-
-
         }
 
         #endregion
-
+        
+        /// <summary>
+        /// Quit Button. Closes the Form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnQuit_Click(object sender, EventArgs e)
         {
             Close();
