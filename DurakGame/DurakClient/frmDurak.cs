@@ -210,7 +210,7 @@ namespace DurakClient
                     pnlPlayerHand.Controls.Remove(cardBox);
 
                 }
-                else if (cardBox.Parent.Name.ToString() == "pnlOponentHand")
+                else if (cardBox.Parent.Name.ToString() == "pnlOpponentHand")
                 {
                     //Players[AiIndex].PlayerHandOutOfCards += wesdfsdfsdf
                     // Draw the Card from the Hand
@@ -430,7 +430,7 @@ namespace DurakClient
             if (!Players[PlayerIndex].PlayerIsAttacking)
                 Ai_AttacksFirst(this, new EventArgs());
 
-            lblDebug.Text = Players[PlayerIndex].PlayerHand.Count.ToString();
+            //lblDebug.Text = Players[PlayerIndex].PlayerHand.Count.ToString();
 
         }
 
