@@ -104,7 +104,7 @@ namespace DurakGame
                 }
 
 
-                // Game logic function, soon to be converted to a class
+                // Game logic Method
                 gameLogic(player);
 
                 if (RoundOver)
@@ -119,22 +119,26 @@ namespace DurakGame
             if (!RoundOver)
             foreach (Player player in Players)
             {
+                // Check if the Player is an Attacking
                 if (player.PlayerIsAttacking)
                 {
                     Console.WriteLine("{0} attacked with: {1}\n", player.PlayerName, AttackCard);
                 }
+                // If Defending
                 else
                 {
                     Console.WriteLine("{0} defending with: {1}\n", player.PlayerName, DefendCard);
                 }
                 //cardCounter++;
             }
+            // If Round is Over
             else
             {
-
+                // Fill Player Hands, Check if the Attacking Player Skipped
                 FillPlayerHands(Players);
                 if (!DefendingPlayerSkip)
                 {
+                    // If so Rotate Attacker
                     RotateAttacker();
                     ResortPlayers();
                 }
@@ -142,6 +146,10 @@ namespace DurakGame
         }
 
 
+        /// <summary>
+        /// ResetGameVariables() - This Method is used to Reset all variables for a Game of Durak.
+        /// It Sets up a new Game Deck, Players, and Decides on which Player is the Attacker.
+        /// </summary>
         public static void ResetGameVariables()
         {
             // Create the Players
@@ -158,10 +166,7 @@ namespace DurakGame
             GameDeck.Shuffle();
 
             // Set the trump card
-            TrumpCard = GameDeck.DrawNextCard();
-
-            
-            
+            TrumpCard = GameDeck.DrawNextCard();   
 
             // Fill the players hand for the start of the match
             FillPlayerHands(Players);
@@ -176,21 +181,29 @@ namespace DurakGame
 
             // Set RoundOver as False
             RoundOver = false;
-
         }
 
+        /// <summary>
+        /// ResortPlayers() - This Method is used to Resort the Players in the Player Array.
+        /// This Method ensures that the Attacking Player is always Index 0
+        /// </summary>
         public static void ResortPlayers()
         {
+            // Loop untill Players[0] is the Attacker
             while (!Players[0].PlayerIsAttacking)
             {
+                // Create a Temporary player object to take the place of player [0]
                 Player tempPlayer = Players[0];
 
+                // Loop through all the players
                 for (int i = 0; i < Players.Count(); i++)
                 {
+                    // If the Player is not the last, increment
                     if (i != Players.Count() - 1)
                     {
                         Players[i] = Players[i + 1];
                     }
+                    // If the Player is the last, set the temporary Player
                     else
                     {
                         Players[i] = tempPlayer;
@@ -198,26 +211,42 @@ namespace DurakGame
                 }
 
             }
+            // Set the Attacker to Index 0, ending the loop
             AttackingPlayer = 0;
         }
 
+        /// <summary>
+        /// This Method is used to RotateAttackers after each round (When applicable according to Game Logic).
+        /// It is used in tandem with ResortPlayers() to maintain proper Attacking Index position
+        /// </summary>
         public static void RotateAttacker()
         {
+            // Set the current Attacking player to false, no longer attacking
             Players[AttackingPlayer].PlayerIsAttacking = false;
 
+            // If the AttackingPlayer index was the last index in Players array
             if (AttackingPlayer == Players.Count() - 1)
             {
+                // Set the attacker to Index 0 (The start of the array)
                 AttackingPlayer = 0;
             }
+            // If the AttackingPlayer index was NOT the last index in Players array
             else
             {
+                // Just increment the AttackingPlayer Index
                 AttackingPlayer++;
             }
 
+            // Set the new Attacker using the calculated Index
             Players[AttackingPlayer].PlayerIsAttacking = true;
 
         }
 
+        /// <summary>
+        /// FillPlayerHands(Player[]) - This Method is used to aid in Filling Player Hands after each round.
+        /// It simple calls the FillHand Method for all players in the Game
+        /// </summary>
+        /// <param name="players"></param>
         public static void FillPlayerHands(Player[] players)
         {
             foreach (Player player in players)
@@ -227,18 +256,29 @@ namespace DurakGame
             }
         }
 
+        /// <summary>
+        /// GetInitialAttacker() - Aids the Program in determining which Player is the Attacker at the
+        /// start of a Game. It ensures that the Attacker is the Player with either the lowest trump card
+        /// or the lowest general card, if neither players have a trump card.
+        /// </summary>
+        /// <returns></returns>
         public static int GetInitialAttacker()
         {
-            int playerIndex = 0;    // Default to first Player if anything goes wrong
+            // Default to first Player if anything goes wrong
+            int playerIndex = 0;    
+            // Temporary Cards List to Hold ALL lowest cards
             Cards lowestCards = new Cards();
 
+            // Get the Lowest card from each player
             foreach (Player player in Players)
             {
                 lowestCards.Add(player.PlayerHand[0]);
             }
 
+            // Sort the Cards Provided
             lowestCards.Sort();
 
+            // Find out who the card belonged to
             foreach (Player player in Players)
             {
                 if (lowestCards[0] == player.PlayerHand[0])
@@ -246,18 +286,25 @@ namespace DurakGame
 
             }
 
+            // Return that Players Index, so we can set them as the attacker
             return playerIndex;
 
         }
 
+        /// <summary>
+        /// checkInput(Player) - One of the Two Main drivers of the Console Application. 
+        /// checkInput is responsible for getting valid input from Player characters or
+        /// best situational input from Ai characters.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
         static int checkInput(Player player)
         {
             int userInput = 0; // An int for holding user input
 
-            //Console.WriteLine("Type:"+player.GetType().ToString());
+            // If the Player is an actual Player Character
             if (player.GetType().ToString() == "PlayerLibrary.Player")
             {
-
 
                 // If the Player is Attacking.
                 if (player.PlayerIsAttacking)
@@ -274,8 +321,10 @@ namespace DurakGame
                         return checkInput(player);
                     }
 
+                    // If theres at least 2 cards currently in play...
                     if (PlayedCards.Count() >= 2)
                     {
+                        // Check the Validity of the Chosen card against the Played Cards
                         foreach (Card card in PlayedCards)
                         {
                             if (player.GetCard(userInput - 1).Rank != card.Rank)
@@ -302,6 +351,7 @@ namespace DurakGame
                         return checkInput(player);
                     }
 
+                    // As long as the User did not select 0 (AKA skip turn)
                     if (userInput != 0)
                     {
                         // Check to see if the Defending Player is playing an illegal suit
@@ -331,10 +381,13 @@ namespace DurakGame
 
                 }
             }
+            // If the Player is an AI Character
             else if (player.GetType().ToString() == "PlayerLibrary.AI")
             {
                 Console.WriteLine("AI's turn");
                 
+                // Check for Attack/Defense and Using methods found in the AI class, determine the best 
+                //-Card for Play
                 if (player.PlayerIsAttacking)
                 {
                     userInput = (player as AI).GetAttackingCardIndex(GameDeck, TrumpCard, PlayedCards);
@@ -349,36 +402,50 @@ namespace DurakGame
                 return userInput;
         }
 
+        /// <summary>
+        /// gameLogic(Player) - One of the Two Main drivers of the Console Application. 
+        /// checkInput is used to recieve Valid input from Player Characters, and best-case-
+        /// input from Ai characters. 
+        /// Then GameLogic plays the cards against one another and checks if the input indicates
+        /// a skip.
+        /// </summary>
+        /// <param name="player"></param>
         static public void gameLogic(Player player)
         {
             // Get a card from a player, make sure the card played is valid before playing it
             int playedCard = checkInput(player);
 
+            // If the index returned by checkInput IS NOT a skip index(0)
             if (playedCard != 0){
+                // Check if the Player is attacking, add the AttackCard if so
                 if (player.PlayerIsAttacking)
                 {
-                    AttackCard = player.PlayCard(playedCard - 1);
-                    Console.WriteLine("Attacking card: " + AttackCard + "\n");
-                    PlayedCards.Add(AttackCard);
+                    AttackCard = player.PlayCard(playedCard - 1);               // Play the Card
+                    Console.WriteLine("Attacking card: " + AttackCard + "\n");  
+                    PlayedCards.Add(AttackCard);                                // Add it to PlayedCards
                 }
+                // Check if the Player is Defending, add the Defending if so
                 else
                 {
-                    DefendCard = player.PlayCard(playedCard - 1);
-                    PlayedCards.Add(DefendCard);
+                    DefendCard = player.PlayCard(playedCard - 1);               // Play the Card
+                    PlayedCards.Add(DefendCard);                                // Add it to PlayedCards
 
                 }
                 // This card is a valid play (For attack or Defense) so play it.
                 //playedCards[currentPlayer] = DefendCard;
                 Console.WriteLine();
             }
+            // If the Returned Index WAS a skip Index (0)
             else
             {
+                // End the Round, and indicate that the player has skipped their turn
                 RoundOver = true;
                 Console.WriteLine("\n" + player.PlayerName + " has skipped their turn.\n");
 
                 // Check if the skipping player was the defender
                 if (!player.PlayerIsAttacking)
                 {
+                    // If so the Defender must pick up all cards currently in Play
                     DefendingPlayerSkip = true;
                     foreach (Card card in PlayedCards)
                     {
@@ -387,11 +454,17 @@ namespace DurakGame
                     }
                 }
 
+                // Regardless, Reset the PlayedCards, becasue if the skipping player
+                //-was attacking we just discard them anyway
                 PlayedCards = new Cards();
 
             }
         }
 
+        /// <summary>
+        /// DetermineDurak() - This Method Quickly determines the Durak by comparing the size of the Playe hands
+        /// The player with the most number of cards is the Durak!
+        /// </summary>
         static public void DetermineDurak()
         {
             if (Players[0].PlayerHand.Count > Players[1].PlayerHand.Count)
