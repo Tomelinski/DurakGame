@@ -26,11 +26,11 @@ https://youtu.be/hQHW_CuGG2A
 
 ### The first defending round
 
-![First defence](/Assets/Profile.JPG)
+![First defence](/Assets/Defending.JPG)
 
 ### A defending round
 
-![Defending round](/Assets/Profile.JPG)
+![Defending round](/Assets/Defending2.JPG)
 
 ## Install
 
