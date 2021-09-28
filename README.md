@@ -9,7 +9,7 @@ Features an AI bot that will play the best card in hand or react to the card you
 
 ## Demo
 
-###Video Demo
+### Video Demo
 https://youtu.be/hQHW_CuGG2A
 
 ### The main menu of the Durak game
