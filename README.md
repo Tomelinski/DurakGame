@@ -1,6 +1,7 @@
 # Durak - OOP-Final
 
 Collaborative OOP Project
+
 Calvin May - Tom Zielinski
 
 A C# recreate of the card game Durak. This application has a basic user infterface and allows you to play VS an AI.
